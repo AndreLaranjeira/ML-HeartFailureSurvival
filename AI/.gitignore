@@ -1,0 +1,5 @@
+# Compilation folder
+__pycache__
+
+# Jupyter notebook
+.ipynb_checkpoints
