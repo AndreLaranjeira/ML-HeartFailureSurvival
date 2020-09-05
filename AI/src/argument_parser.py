@@ -1,4 +1,4 @@
-# Argument parser module.
+# Heart failure prediction - Argument parser module.
 
 # Package imports.
 import argparse
@@ -16,6 +16,14 @@ class ArgumentParserModule:
 
     def add_default_args(self):
         self.parser.add_argument(
+            '-t',
+            '--train-size',
+            type=open_unit_interval,
+            default=0.7,
+            dest='train_percent',
+            help='unit interval of percentage of data used in training.'
+        )
+        self.parser.add_argument(
             '-v',
             '--version',
             action='version',
@@ -24,3 +32,20 @@ class ArgumentParserModule:
 
     def parse_args(self):
         return self.parser.parse_args()
+
+
+# Auxiliary functions.
+def open_unit_interval(str_arg):
+    unit_interval_type_error = argparse.ArgumentTypeError(
+        'Argument must be a number in the interval (0, 1)!'
+    )
+
+    try:
+        arg = float(str_arg)
+    except ValueError:
+        raise unit_interval_type_error
+
+    if(arg <= 0 or arg >= 1):
+        raise unit_interval_type_error
+
+    return arg
