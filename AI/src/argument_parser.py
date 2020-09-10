@@ -16,6 +16,20 @@ class ArgumentParserModule:
 
     def add_default_args(self):
         self.parser.add_argument(
+            '-b',
+            '--batch-size',
+            default=10,
+            type=int,
+            dest='batch_size',
+            help="batch size used for training the neural network.")
+        self.parser.add_argument(
+            '-e',
+            '--epochs',
+            default=100,
+            type=int,
+            dest='epochs',
+            help="number of training epochs used by the neural network.")
+        self.parser.add_argument(
             '-t',
             '--train-size',
             type=open_unit_interval,
