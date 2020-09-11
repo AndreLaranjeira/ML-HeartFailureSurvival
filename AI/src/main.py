@@ -1,8 +1,8 @@
 # Program to train an AI to predict heart failure.
 
-# Package imports.
+# Classes and methods imports.
 from keras import Input
-from keras.layers.core import Activation, Dense
+from keras.layers.core import Dense
 
 # User module imports.
 from argument_parser import ArgumentParserModule
@@ -34,20 +34,22 @@ data_extractor = DataExtractionModule(
         'smoking'
     ],
     label_columns_list=['DEATH_EVENT'],
-    train_size=args.train_percent
+    train_size=args.train_size,
+    validation_size=args.validation_size
 )
 data_extractor.extract_data()
 train_features, train_labels = data_extractor.get_train_features_and_labels()
 test_features, test_labels = data_extractor.get_test_features_and_labels()
+validation_features, validation_labels = \
+    data_extractor.get_validation_features_and_labels()
 
 # Train the model.
 training_model = KerasSequential(
     layers=[
         Input(shape=train_features.shape[1]),
-        Dense(200),
-        Dense(40),
-        Dense(1),
-        Activation("softmax")
+        Dense(400, activation='relu'),
+        Dense(20, activation='relu'),
+        Dense(1, activation='sigmoid')
     ]
 )
 
@@ -56,5 +58,10 @@ training_model.train(
     train_labels=train_labels,
     batch_size=args.batch_size,
     epochs=args.epochs,
-    validation_data=(test_features, test_labels)
+    validation_data=(validation_features, validation_labels)
+)
+
+training_model.test(
+    test_features=test_features,
+    test_labels=test_labels
 )

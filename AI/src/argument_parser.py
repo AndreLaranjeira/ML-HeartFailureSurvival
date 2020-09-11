@@ -23,6 +23,14 @@ class ArgumentParserModule:
             dest='batch_size',
             help="batch size used for training the neural network.")
         self.parser.add_argument(
+            '-d',
+            '--validation-size',
+            type=open_unit_interval,
+            default=0.2,
+            dest='validation_size',
+            help='open unit interval of percentage of data used in validation.'
+        )
+        self.parser.add_argument(
             '-e',
             '--epochs',
             default=100,
@@ -33,9 +41,9 @@ class ArgumentParserModule:
             '-t',
             '--train-size',
             type=open_unit_interval,
-            default=0.7,
-            dest='train_percent',
-            help='unit interval of percentage of data used in training.'
+            default=0.6,
+            dest='train_size',
+            help='open unit interval of percentage of data used in training.'
         )
         self.parser.add_argument(
             '-v',
