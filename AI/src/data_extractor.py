@@ -51,6 +51,34 @@ class DataExtractionModule:
         dataset_min = dataset.min()
         return (dataset - dataset_mean) / (dataset_max - dataset_min)
 
+    def print_extracted_data(self):
+        print("")
+        print("Extracted data:\n")
+
+        print("Training features:\n")
+        print(self.train_features)
+        print("")
+
+        print("Training labels:\n")
+        print(self.train_labels)
+        print("")
+
+        print("Test features:\n")
+        print(self.test_features)
+        print("")
+
+        print("Test labels:\n")
+        print(self.test_labels)
+        print("")
+
+        print("Validation features:\n")
+        print(self.validation_features)
+        print("")
+
+        print("Validation labels:\n")
+        print(self.validation_labels)
+        print("")
+
     def randomize_dataset(self):
         self.dataset_data = self.dataset_data.sample(
             frac=1,

@@ -6,7 +6,6 @@ import numpy as np
 
 # Classes and methods imports.
 from keras import Sequential
-from sklearn.metrics import confusion_matrix
 
 
 # Keras sequential model.
@@ -22,6 +21,15 @@ class KerasSequential:
             optimizer=keras.optimizers.Adadelta(),
             metrics=['accuracy']
         )
+
+    def predict(self, test_features):
+        return np.round(self.model.predict(test_features))
+
+    def print_summary(self):
+        print("")
+        print("Model summary: \n")
+        print(self.model.summary())
+        print("")
 
     def train(
         self,
@@ -39,13 +47,3 @@ class KerasSequential:
             verbose=1,
             validation_data=validation_data
         )
-
-    def test(
-        self,
-        test_features,
-        test_labels
-    ):
-        test_predictions = self.model.predict(test_features)
-        test_predictions = np.round(test_predictions)
-
-        print(confusion_matrix(test_labels, test_predictions))

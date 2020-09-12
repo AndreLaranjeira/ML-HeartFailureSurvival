@@ -8,10 +8,11 @@ from keras.layers.core import Dense
 from argument_parser import ArgumentParserModule
 from data_extractor import DataExtractionModule
 from keras_sequential_model import KerasSequential
+from result_metrics import ResultMetricsModule
 
 # Program metadata.
 PROGRAM_NAME = 'heart_failure_prediction'
-VERSION_NUM = '0.0.1'
+VERSION_NUM = '0.5.0'
 
 # Argument parser.
 argparser = ArgumentParserModule(PROGRAM_NAME, VERSION_NUM)
@@ -61,7 +62,8 @@ training_model.train(
     validation_data=(validation_features, validation_labels)
 )
 
-training_model.test(
-    test_features=test_features,
-    test_labels=test_labels
-)
+test_predictions = training_model.predict(test_features)
+
+# Analyse results.
+result_metrics = ResultMetricsModule(test_predictions, test_labels)
+result_metrics.print_default_metrics()
