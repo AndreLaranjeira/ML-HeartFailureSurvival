@@ -67,3 +67,7 @@ test_predictions = training_model.predict(test_features)
 # Analyse results.
 result_metrics = ResultMetricsModule(test_predictions, test_labels)
 result_metrics.print_default_metrics()
+
+# Save the training model weights.
+if(input('Should this model be saved? [y/N] ').lower() == 'y'):
+    training_model.save()
