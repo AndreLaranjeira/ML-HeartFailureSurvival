@@ -30,11 +30,12 @@ class DataExtractionModule:
         self.test_labels = None
 
     def extract_data(self):
-        self.read_dataset()
-        self.randomize_dataset()
-        self.split_data_into_features_and_labels()
-        self.treat_feature_data()
-        self.split_features_and_labels_into_train_test_and_validation()
+        self._read_dataset()
+        self._randomize_dataset()
+        self._split_data_into_features_and_labels()
+        self._treat_feature_data()
+        self._treat_label_data()
+        self._split_features_and_labels_into_train_test_and_validation()
 
     def get_test_features_and_labels(self):
         return self.test_features, self.test_labels
@@ -44,12 +45,6 @@ class DataExtractionModule:
 
     def get_validation_features_and_labels(self):
         return self.validation_features, self.validation_labels
-
-    def normalize_dataset(self, dataset):
-        dataset_mean = dataset.mean()
-        dataset_max = dataset.max()
-        dataset_min = dataset.min()
-        return (dataset - dataset_mean) / (dataset_max - dataset_min)
 
     def print_extracted_data(self):
         print("")
@@ -79,30 +74,31 @@ class DataExtractionModule:
         print(self.validation_labels)
         print("")
 
-    def randomize_dataset(self):
+    # Private methods.
+    def _randomize_dataset(self):
         self.dataset_data = self.dataset_data.sample(
             frac=1,
             random_state=self.seed
         )
 
-    def read_dataset(self):
+    def _read_dataset(self):
         self.dataset_data = pd.read_csv(
             filepath_or_buffer=self.dataset_file_name,
             usecols=self.feature_columns_list + self.label_columns_list
         )
 
-    def split_data_into_features_and_labels(self):
+    def _split_data_into_features_and_labels(self):
         self.dataset_features = self.dataset_data.drop(
             self.label_columns_list,
             axis=1
         )
         self.dataset_labels = self.dataset_data[self.label_columns_list]
 
-    def split_features_and_labels_into_train_test_and_validation(self):
-        self.split_features_into_train_test_validation()
-        self.split_labels_into_train_test_validation()
+    def _split_features_and_labels_into_train_test_and_validation(self):
+        self._split_features_into_train_test_validation()
+        self._split_labels_into_train_test_validation()
 
-    def split_features_into_train_test_validation(self):
+    def _split_features_into_train_test_validation(self):
         training_features_index = int(
             self.train_size * len(self.dataset_features)
         )
@@ -119,7 +115,7 @@ class DataExtractionModule:
                 ]
             )
 
-    def split_labels_into_train_test_validation(self):
+    def _split_labels_into_train_test_validation(self):
         training_labels_index = int(
             self.train_size * len(self.dataset_labels)
         )
@@ -136,5 +132,16 @@ class DataExtractionModule:
                 ]
             )
 
-    def treat_feature_data(self):
-        self.dataset_features = self.normalize_dataset(self.dataset_features)
+    def _treat_feature_data(self):
+        self.dataset_features = normalize_dataset(self.dataset_features)
+
+    def _treat_label_data(self):
+        self.dataset_labels = np.ravel(self.dataset_labels)
+
+
+# Auxiliary functions.
+def normalize_dataset(dataset):
+    dataset_mean = dataset.mean()
+    dataset_max = dataset.max()
+    dataset_min = dataset.min()
+    return (dataset - dataset_mean) / (dataset_max - dataset_min)

@@ -7,12 +7,12 @@ from keras.layers.core import Dense
 # User module imports.
 from argument_parser import ArgumentParserModule
 from data_extractor import DataExtractionModule
-from keras_sequential_model import KerasSequential
+from training_models import KerasSequential, RandomForest
 from result_metrics import ResultMetricsModule
 
 # Program metadata.
 PROGRAM_NAME = 'heart_failure_prediction'
-VERSION_NUM = '0.5.0'
+VERSION_NUM = '0.6.0'
 
 # Argument parser.
 argparser = ArgumentParserModule(PROGRAM_NAME, VERSION_NUM)
