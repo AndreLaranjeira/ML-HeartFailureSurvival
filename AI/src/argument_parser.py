@@ -25,7 +25,7 @@ class ArgumentParserModule:
         self.parser.add_argument(
             '-d',
             '--validation-size',
-            type=open_unit_interval,
+            type=unit_interval_open_on_one,
             default=0.2,
             dest='validation_size',
             help='open unit interval of percentage of data used in validation.'
@@ -69,5 +69,21 @@ def open_unit_interval(str_arg):
 
     if(arg <= 0 or arg >= 1):
         raise unit_interval_type_error
+
+    return arg
+
+
+def unit_interval_open_on_one(str_arg):
+    unit_interval_open_on_one_type_error = argparse.ArgumentTypeError(
+        'Argument must be a number in the interval [0, 1)!'
+    )
+
+    try:
+        arg = float(str_arg)
+    except ValueError:
+        raise unit_interval_open_on_one_type_error
+
+    if(arg < 0 or arg >= 1):
+        raise unit_interval_open_on_one_type_error
 
     return arg

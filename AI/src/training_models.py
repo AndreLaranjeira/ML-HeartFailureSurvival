@@ -7,7 +7,7 @@ import pickle
 
 # Classes and methods imports.
 from keras import Sequential
-from sk.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier
 
 # Constants:
 DEFAULT_FILE_NAME = 'default_save'
@@ -59,7 +59,7 @@ class KerasSequential:
             train_labels,
             batch_size=batch_size,
             epochs=epochs,
-            verbose=1,
+            verbose=2,
             validation_data=validation_data
         )
 

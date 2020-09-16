@@ -16,6 +16,7 @@ class DataExtractionModule:
         validation_size=0,
         seed=None
     ):
+        self.dataset_data = None
         self.dataset_file_name = dataset_file_name
         self.feature_columns_list = feature_columns_list
         self.label_columns_list = label_columns_list
@@ -31,11 +32,19 @@ class DataExtractionModule:
 
     def extract_data(self):
         self._read_dataset()
-        self._randomize_dataset()
-        self._split_data_into_features_and_labels()
-        self._treat_feature_data()
-        self._treat_label_data()
-        self._split_features_and_labels_into_train_test_and_validation()
+        self.generate_new_data_split()
+
+    def generate_new_data_split(self):
+        if(self.dataset_data is not None):
+            self._randomize_dataset()
+            self._split_data_into_features_and_labels()
+            self._treat_feature_and_label_data()
+            self._split_features_and_labels_into_train_test_and_validation()
+        else:
+            raise RuntimeError("No data to split because none was extracted!")
+
+    def get_randomizing_seed(self):
+        return self.seed
 
     def get_test_features_and_labels(self):
         return self.test_features, self.test_labels
@@ -66,13 +75,17 @@ class DataExtractionModule:
         print(self.test_labels)
         print("")
 
-        print("Validation features:\n")
-        print(self.validation_features)
-        print("")
+        if(self.validation_size > 0):
+            print("Validation features:\n")
+            print(self.validation_features)
+            print("")
 
-        print("Validation labels:\n")
-        print(self.validation_labels)
-        print("")
+            print("Validation labels:\n")
+            print(self.validation_labels)
+            print("")
+
+    def set_randomizing_seed(self, new_seed):
+        self.seed = new_seed
 
     # Private methods.
     def _randomize_dataset(self):
@@ -131,6 +144,10 @@ class DataExtractionModule:
                     validation_labels_index
                 ]
             )
+
+    def _treat_feature_and_label_data(self):
+        self._treat_feature_data()
+        self._treat_label_data()
 
     def _treat_feature_data(self):
         self.dataset_features = normalize_dataset(self.dataset_features)
