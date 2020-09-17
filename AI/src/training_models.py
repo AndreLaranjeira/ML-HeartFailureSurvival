@@ -29,6 +29,11 @@ class KerasSequential:
             metrics=['accuracy']
         )
 
+    def get_params(self):
+        return {
+            'layers': self.layers
+        }
+
     def predict(self, test_features):
         return np.round(self.model.predict(test_features))
 
@@ -86,6 +91,18 @@ class RandomForest:
             max_features=max_features,
             max_leaf_nodes=max_leaf_nodes
         )
+
+    def get_params(self):
+        model_params = self.model.get_params()
+        return {
+            'n_estimators': model_params['n_estimators'],
+            'criterion': model_params['criterion'],
+            'max_depth': model_params['max_depth'],
+            'min_samples_split': model_params['min_samples_split'],
+            'min_samples_leaf': model_params['min_samples_leaf'],
+            'max_features': model_params['max_features'],
+            'max_leaf_nodes': model_params['max_leaf_nodes']
+        }
 
     def predict(self, test_features):
         return np.round(self.model.predict(test_features))
