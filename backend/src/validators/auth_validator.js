@@ -3,6 +3,13 @@ const {celebrate, Joi, Segments} = require("celebrate");
 
 // Export module:
 module.exports = {
+  authenticate: celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      email: Joi.string().required(),
+      password: Joi.string().required()
+    })
+  }),
+
   register: celebrate({
     [Segments.BODY]: Joi.object().keys({
       email: Joi.string().required(),
