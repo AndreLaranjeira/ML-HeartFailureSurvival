@@ -1,12 +1,12 @@
-# Heart failure prediction - Data extraction module.
+# Heart failure prediction - Data extractors module.
 
 # Package imports.
 import numpy as np
 import pandas as pd
 
 
-# Data extraction module.
-class DataExtractionModule:
+# Dataset extractior.
+class DatasetExtractor:
     def __init__(
         self,
         dataset_file_name,
@@ -16,7 +16,7 @@ class DataExtractionModule:
         validation_size=0,
         seed=None
     ):
-        self.dataset_data = None
+        self.dataset = None
         self.dataset_file_name = dataset_file_name
         self.feature_columns_list = feature_columns_list
         self.label_columns_list = label_columns_list
@@ -30,12 +30,12 @@ class DataExtractionModule:
         self.test_features = None
         self.test_labels = None
 
-    def extract_data(self):
+    def extract_dataset(self):
         self._read_dataset()
         self.generate_new_data_split()
 
     def generate_new_data_split(self):
-        if(self.dataset_data is not None):
+        if(self.dataset is not None):
             self._randomize_dataset()
             self._split_data_into_features_and_labels()
             self._treat_feature_and_label_data()
@@ -89,23 +89,23 @@ class DataExtractionModule:
 
     # Private methods.
     def _randomize_dataset(self):
-        self.dataset_data = self.dataset_data.sample(
+        self.dataset = self.dataset.sample(
             frac=1,
             random_state=self.seed
         )
 
     def _read_dataset(self):
-        self.dataset_data = pd.read_csv(
+        self.dataset = pd.read_csv(
             filepath_or_buffer=self.dataset_file_name,
             usecols=self.feature_columns_list + self.label_columns_list
         )
 
     def _split_data_into_features_and_labels(self):
-        self.dataset_features = self.dataset_data.drop(
+        self.dataset_features = self.dataset.drop(
             self.label_columns_list,
             axis=1
         )
-        self.dataset_labels = self.dataset_data[self.label_columns_list]
+        self.dataset_labels = self.dataset[self.label_columns_list]
 
     def _split_features_and_labels_into_train_test_and_validation(self):
         self._split_features_into_train_test_validation()
@@ -154,6 +154,27 @@ class DataExtractionModule:
 
     def _treat_label_data(self):
         self.dataset_labels = np.ravel(self.dataset_labels)
+
+
+# Seed extractor module.
+class SeedExtractor:
+    def __init__(
+        self,
+        seeds_file_name,
+        seeds_column_name
+    ):
+        self.seeds = None
+        self.seeds_column_name = seeds_column_name
+        self.seeds_file_name = seeds_file_name
+
+    def extract_seeds(self):
+        seeds_dataframe = pd.read_csv(
+            filepath_or_buffer=self.seeds_file_name
+        )
+        self.seeds = seeds_dataframe[self.seeds_column_name].values.tolist()
+
+    def get_seeds(self):
+        return self.seeds
 
 
 # Auxiliary functions.
