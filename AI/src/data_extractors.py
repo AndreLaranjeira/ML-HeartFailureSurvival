@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 
-# Dataset extractior.
+# Dataset extractor.
 class DatasetExtractor:
     def __init__(
         self,
@@ -156,7 +156,7 @@ class DatasetExtractor:
         self.dataset_labels = np.ravel(self.dataset_labels)
 
 
-# Seed extractor module.
+# Seed extractor.
 class SeedExtractor:
     def __init__(
         self,
