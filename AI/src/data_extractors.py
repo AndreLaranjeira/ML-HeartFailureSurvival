@@ -112,7 +112,7 @@ class DatasetExtractor:
         self._split_labels_into_train_test_validation()
 
     def _split_features_into_train_test_validation(self):
-        training_features_index = int(
+        train_features_index = int(
             self.train_size * len(self.dataset_features)
         )
         validation_features_index = int(
@@ -123,13 +123,13 @@ class DatasetExtractor:
         self.train_features, self.validation_features, self.test_features = \
             np.split(
                 self.dataset_features, [
-                    training_features_index,
+                    train_features_index,
                     validation_features_index
                 ]
             )
 
     def _split_labels_into_train_test_validation(self):
-        training_labels_index = int(
+        train_labels_index = int(
             self.train_size * len(self.dataset_labels)
         )
         validation_labels_index = int(
@@ -140,7 +140,7 @@ class DatasetExtractor:
         self.train_labels, self.validation_labels, self.test_labels = \
             np.split(
                 self.dataset_labels, [
-                    training_labels_index,
+                    train_labels_index,
                     validation_labels_index
                 ]
             )

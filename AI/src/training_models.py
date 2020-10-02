@@ -9,15 +9,55 @@ import pickle
 from keras import Sequential
 from sklearn.ensemble import RandomForestClassifier
 
-# Constants:
-DEFAULT_FILE_NAME = 'default_save'
-FALLBACK_FILE_NAME = 'fallback_save'
+# User module imports.
+from file_operations import FileOperations
+from file_operations import DEFAULT_FILENAME, DEFAULT_FALLBACK_FILENAME
+from result_metrics import ResultMetricsModule
+
+
+# Base training model class:
+class BaseTrainingModel:
+    # Fit the model with any aditional parameters.
+    def fit(self, train_features, train_labels, aditional_params):
+        raise NotImplementedError
+
+    # Return a dictionary with all relevant model parameters.
+    def get_params(self):
+        raise NotImplementedError
+
+    # Predict the features and apply an after treatment to the results.
+    def predict(self, test_features, after_treatment):
+        raise NotImplementedError
+
+    # Save the model. If filename is None, use a defaul file name.
+    def save(self, filename=None):
+        raise NotImplementedError
+
+    # Use training and validation data to determine validation accuracy and
+    # hyperparameters.
+    def validate(
+        self,
+        train_features,
+        train_labels,
+        validation_features,
+        validation_labels,
+        aditional_params
+    ):
+        raise NotImplementedError
 
 
 # Keras sequential model.
-class KerasSequential:
+class KerasSequential(BaseTrainingModel):
     def __init__(self, layers):
+        self.default_fit_params = {
+            'epochs': 20000,
+            'batch_size': 15,
+            'verbose': 0,
+            'validation_data': None
+        }
         self.file_extension = '.h5'
+
+        # Create the model.
         self.model = Sequential()
 
         for layer in layers:
@@ -29,13 +69,31 @@ class KerasSequential:
             metrics=['accuracy']
         )
 
+    def fit(
+        self,
+        train_features,
+        train_labels,
+        aditional_params=None
+    ):
+        if(aditional_params is None):
+            aditional_params = self.default_fit_params
+
+        return self.model.fit(
+            train_features,
+            train_labels,
+            batch_size=aditional_params['batch_size'],
+            epochs=aditional_params['epochs'],
+            verbose=aditional_params['verbose'],
+            validation_data=aditional_params['validation_data']
+        )
+
     def get_params(self):
         return {
             'layers': self.layers
         }
 
-    def predict(self, test_features):
-        return np.round(self.model.predict(test_features))
+    def predict(self, test_features, after_treatment):
+        return after_treatment(self.model.predict(test_features))
 
     def print_summary(self):
         print("")
@@ -43,34 +101,58 @@ class KerasSequential:
         print(self.model.summary())
         print("")
 
-    def save(self):
-        filename = filename_input_reader(file_extension=self.file_extension)
-        save_file_with_fallback(
-            save_method_or_function=self.model.save,
-            filename=filename,
-            fallback_filename=FALLBACK_FILE_NAME+self.file_extension
+    def save(self, filename=DEFAULT_FILENAME):
+        filename_with_extension = FileOperations.apply_extension_to_filename(
+            filename,
+            self.file_extension
         )
 
-    def train(
+        FileOperations.save_file_with_fallback(
+            save_method_or_function=self.model.save,
+            filename=filename_with_extension,
+            fallback_filename=DEFAULT_FALLBACK_FILENAME+self.file_extension
+        )
+
+    def validate(
         self,
         train_features,
         train_labels,
-        batch_size,
-        epochs,
-        validation_data
+        validation_features,
+        validation_labels,
+        aditional_params=None
     ):
-        self.model.fit(
+        if(aditional_params is None):
+            aditional_params = self.default_fit_params
+
+        aditional_params['validation_data'] = \
+            (validation_features, validation_labels)
+
+        training_history = self.fit(
             train_features,
             train_labels,
-            batch_size=batch_size,
-            epochs=epochs,
-            verbose=2,
-            validation_data=validation_data
+            aditional_params=aditional_params
+        ).history
+
+        validation_accuracy_history = training_history['val_accuracy']
+        validation_loss_history = training_history['val_loss']
+
+        best_validation_epoch_index = validation_loss_history.index(
+            min(validation_loss_history)
+        )
+
+        best_num_of_training_epochs = best_validation_epoch_index + 1
+
+        validation_accuracy = \
+            validation_accuracy_history[best_validation_epoch_index]
+
+        return (
+            round(validation_accuracy, 2),
+            {'epochs': best_num_of_training_epochs}
         )
 
 
 # Random forests model.
-class RandomForest:
+class RandomForest(BaseTrainingModel):
     def __init__(
         self,
         n_estimators=10,
@@ -81,6 +163,7 @@ class RandomForest:
         max_features='auto',
         max_leaf_nodes=None
     ):
+        self.default_fit_params = {}
         self.file_extension = '.rf.sav'
         self.model = RandomForestClassifier(
             n_estimators=n_estimators,
@@ -91,6 +174,12 @@ class RandomForest:
             max_features=max_features,
             max_leaf_nodes=max_leaf_nodes
         )
+
+    def fit(self, train_features, train_labels, aditional_params=None):
+        if(aditional_params is None):
+            aditional_params = self.default_fit_params
+
+        return self.model.fit(train_features, train_labels)
 
     def get_params(self):
         model_params = self.model.get_params()
@@ -104,53 +193,38 @@ class RandomForest:
             'max_leaf_nodes': model_params['max_leaf_nodes']
         }
 
-    def predict(self, test_features):
-        return np.round(self.model.predict(test_features))
+    def predict(self, test_features, after_treatment):
+        return after_treatment(self.model.predict(test_features))
 
-    def save(self):
-        filename = filename_input_reader(file_extension=self.file_extension)
-        save_file_with_fallback(
-            save_method_or_function=self._dump_model_to_file_with_pickle,
-            filename=filename,
-            fallback_filename=FALLBACK_FILE_NAME+self.file_extension
+    def save(self, filename=DEFAULT_FILENAME):
+        filename_with_extension = FileOperations.apply_extension_to_filename(
+            filename,
+            self.file_extension
         )
 
-    def train(self, train_features, train_labels):
-        self.model.fit(train_features, train_labels)
+        FileOperations.save_file_with_fallback(
+            save_method_or_function=self._dump_model_to_file_with_pickle,
+            filename=filename_with_extension,
+            fallback_filename=DEFAULT_FALLBACK_FILENAME+self.file_extension
+        )
+
+    def validate(
+        self,
+        train_features,
+        train_labels,
+        validation_features,
+        validation_labels,
+        aditional_params=None
+    ):
+        self.fit(train_features, train_labels, aditional_params)
+        validation_predictions = self.predict(validation_features, np.round)
+        validation_accuracy = ResultMetricsModule(
+            validation_predictions,
+            validation_labels
+        ).accuracy_score()
+
+        return (round(validation_accuracy, 2), {})
 
     # Private methods.
     def _dump_model_to_file_with_pickle(self, filename):
         pickle.dump(self.model, open(filename, 'wb'))
-
-
-# Auxiliary functions.
-def does_filename_end_with_extension(filename_tested, expected_extension):
-    return (expected_extension == filename_tested[-len(expected_extension):])
-
-
-def filename_input_reader(file_extension):
-    filename_input = input(
-        'Insert a filename or press ENTER for the default file name: '
-    )
-    if(filename_input == ''):
-        return DEFAULT_FILE_NAME + file_extension
-    elif(not does_filename_end_with_extension(filename_input, file_extension)):
-        return filename_input + file_extension
-    else:
-        return filename_input
-
-
-def save_file_with_fallback(
-    save_method_or_function,
-    filename,
-    fallback_filename
-):
-    try:
-        save_method_or_function(filename)
-    except OSError as e:
-        print("")
-        print("An error during the save operation! Error:")
-        print(e)
-        print("")
-        print("Starting fallback save with name '" + fallback_filename + "'!")
-        save_method_or_function(fallback_filename)
