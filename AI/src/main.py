@@ -8,12 +8,13 @@ from keras.regularizers import L2
 # User module imports.
 from argument_parser import ArgumentParserModule
 from data_extractors import DatasetExtractor, SeedExtractor
+from model_evaluator import ModelEvaluator
 from training_models import KerasSequential, RandomForest
 from result_metrics import ResultMetricsModule
 
 # Program metadata.
 PROGRAM_NAME = 'heart_failure_prediction'
-VERSION_NUM = '0.8.0'
+VERSION_NUM = '0.9.0'
 
 # Argument parser.
 argparser = ArgumentParserModule(PROGRAM_NAME, VERSION_NUM)
@@ -40,6 +41,7 @@ dataset_extractor = DatasetExtractor(
     validation_size=args.validation_size
 )
 dataset_extractor.extract_dataset()
+features_shape = dataset_extractor.get_features_shape()
 
 # Extract the dataset split seeds.
 dataset_split_seed_extractor = SeedExtractor(
@@ -48,13 +50,6 @@ dataset_split_seed_extractor = SeedExtractor(
 )
 dataset_split_seed_extractor.extract_seeds()
 dataset_split_seeds = dataset_split_seed_extractor.get_seeds()
-
-dataset_extractor.set_randomizing_seed(dataset_split_seeds[0])
-dataset_extractor.generate_new_data_split()
-train_features, train_labels = \
-    dataset_extractor.get_train_features_and_labels()
-validation_features, validation_labels = \
-    dataset_extractor.get_test_features_and_labels()
 
 # model = KerasSequential(
 #     layers=[
@@ -65,18 +60,37 @@ validation_features, validation_labels = \
 #     ]
 # )
 
-model = RandomForest(
-    criterion='entropy',
-    n_estimators=110,
-    max_leaf_nodes=40,
-    min_samples_leaf=8,
-    min_samples_split=6
+# model = RandomForest(
+#     criterion='entropy',
+#     n_estimators=110,
+#     max_leaf_nodes=40,
+#     min_samples_leaf=8,
+#     min_samples_split=6
+# )
+
+# Define the models.
+models = []
+
+for n_estimators in range(100, 501, 100):
+    models.append(RandomForest(
+        criterion='entropy',
+        n_estimators=n_estimators,
+        max_leaf_nodes=40,
+        min_samples_leaf=8,
+        min_samples_split=6
+    ))
+
+# Create model evaluator.
+model_evaluator = ModelEvaluator(
+    dataset_extractor=dataset_extractor,
+    seed_list=dataset_split_seeds,
+    models=models,
+    num_validation_runs=50,
+    num_test_runs=100,
+    percent_of_models_tested=0.25,
+    evaluation_number=1
 )
 
-results = model.fit(
-    train_features=train_features,
-    train_labels=train_labels
-)
-
-print(results)
-
+model_evaluator.evaluate_models()
+model_evaluator.print_results()
+model_evaluator.save_results_as_csv()

@@ -7,22 +7,24 @@ DEFAULT_FALLBACK_FILENAME = 'fallback_save'
 
 # File operatorions module definition.
 class FileOperations:
-    def apply_extension_to_filename(self, original_filename, file_extension):
-        if(not self.filename_ends_with_extension(
+    def apply_extension_to_filename(original_filename, file_extension):
+        if(not FileOperations._filename_ends_with_extension(
                     original_filename, file_extension
                 )):
             return original_filename + file_extension
         else:
             return original_filename
 
-    def filename_input_reader(self, file_extension):
+    def filename_input_reader(file_extension):
         filename_input = input(
             'Insert a filename or press ENTER for the default file name: '
         )
-        return self.apply_extension_to_filename(filename_input, file_extension)
+        return FileOperations.apply_extension_to_filename(
+            filename_input,
+            file_extension
+        )
 
     def save_file_with_fallback(
-        self,
         save_method_or_function,
         filename,
         fallback_filename
@@ -40,7 +42,6 @@ class FileOperations:
 
     # Private methods.
     def _filename_ends_with_extension(
-        self,
         filename_tested,
         expected_extension
     ):

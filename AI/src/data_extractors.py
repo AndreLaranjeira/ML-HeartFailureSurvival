@@ -43,6 +43,9 @@ class DatasetExtractor:
         else:
             raise RuntimeError("No data to split because none was extracted!")
 
+    def get_features_shape(self):
+        return self.dataset_features_shape
+
     def get_randomizing_seed(self):
         return self.seed
 
@@ -105,6 +108,7 @@ class DatasetExtractor:
             self.label_columns_list,
             axis=1
         )
+        self.dataset_features_shape = self.dataset_features.shape[1]
         self.dataset_labels = self.dataset[self.label_columns_list]
 
     def _split_features_and_labels_into_train_test_and_validation(self):
