@@ -58,7 +58,7 @@ class BaseTrainingModel:
 class KerasSequential(BaseTrainingModel):
     def __init__(self, layers):
         self.default_fit_params = {
-            'epochs': 20000,
+            'epochs': 15000,
             'batch_size': 15,
             'verbose': 0,
             'validation_data': None

@@ -3,14 +3,12 @@
 # Classes and methods imports.
 from keras import Input
 from keras.layers.core import Dense
-from keras.regularizers import L2
 
 # User module imports.
 from argument_parser import ArgumentParserModule
 from data_extractors import DatasetExtractor, SeedExtractor
 from model_evaluator import ModelEvaluator
 from training_models import KerasSequential, RandomForest
-from result_metrics import ResultMetricsModule
 
 # Program metadata.
 PROGRAM_NAME = 'heart_failure_prediction'
@@ -53,7 +51,7 @@ dataset_split_seeds = dataset_split_seed_extractor.get_seeds()
 
 # model = KerasSequential(
 #     layers=[
-#         Input(shape=train_features.shape[1]),
+#         Input(shape=features_shape),
 #         Dense(400, activation='relu'),
 #         Dense(20, activation='relu'),
 #         Dense(1, activation='sigmoid')
@@ -61,23 +59,36 @@ dataset_split_seeds = dataset_split_seed_extractor.get_seeds()
 # )
 
 # model = RandomForest(
-#     criterion='entropy',
-#     n_estimators=110,
-#     max_leaf_nodes=40,
-#     min_samples_leaf=8,
-#     min_samples_split=6
+#     criterion='gini',
+#     max_depth=None,
+#     max_features='sqrt',
+#     max_leaf_nodes=None,
+#     min_samples_leaf=1,
+#     min_samples_split=2,
+#     n_estimators=10
 # )
 
 # Define the models.
 models = []
 
+# for first_layer in range(100, 501, 100):
+#     models.append(KerasSequential(
+#         layers=[
+#             Input(shape=features_shape),
+#             Dense(first_layer, activation='relu'),
+#             Dense(1, activation='sigmoid')
+#         ]
+#     ))
+
 for n_estimators in range(100, 501, 100):
     models.append(RandomForest(
-        criterion='entropy',
-        n_estimators=n_estimators,
-        max_leaf_nodes=40,
-        min_samples_leaf=8,
-        min_samples_split=6
+        criterion='gini',
+        max_depth=None,
+        max_features='sqrt',
+        max_leaf_nodes=None,
+        min_samples_leaf=1,
+        min_samples_split=2,
+        n_estimators=10
     ))
 
 # Create model evaluator.
@@ -85,9 +96,9 @@ model_evaluator = ModelEvaluator(
     dataset_extractor=dataset_extractor,
     seed_list=dataset_split_seeds,
     models=models,
-    num_validation_runs=50,
+    num_validation_runs=20,
     num_test_runs=100,
-    percent_of_models_tested=0.25,
+    percent_of_models_tested=0.2,
     evaluation_number=1
 )
 

@@ -52,9 +52,11 @@ class ModelEvaluator:
         for index, model in enumerate(self.models):
             results.append({
                 'index': index,
+                'all_test_scores': model.get_all_test_scores(),
+                'all_validation_scores': model.get_all_validation_scores(),
                 'description': model.get_params(),
-                'mean_test_score': model.mean_test_score(),
-                'mean_validation_score': model.mean_validation_score(),
+                'mean_test_score': model.get_mean_test_score(),
+                'mean_validation_score': model.get_mean_validation_score(),
                 'model_type': model.get_type()
             })
         return results
@@ -69,10 +71,22 @@ class ModelEvaluator:
             print(result['model_type'])
             print("Model description:")
             print(result['description'])
-            print("Mean validation score: %f" %
+            print("All validation scores:",
+                  list(map(
+                      lambda result: round(result, 3),
+                      result['all_validation_scores']
+                  )))
+            print("Mean validation score: %.3f" %
                   result['mean_validation_score'])
+            print("All test scores:",
+                  list(map(
+                      lambda result: round(result, 3),
+                      result['all_test_scores']
+                  )))
+
             if result['mean_test_score'] is not None:
-                print("Mean test score: %f" % result['mean_test_score'])
+                print("Mean test score: %.3f" %
+                      result['mean_test_score'])
             else:
                 print("No mean test score because model was NOT tested!")
             print("")
@@ -97,9 +111,19 @@ class ModelEvaluator:
             csv_format_results += str(result['index']) + ','
             csv_format_results += str(result['model_type']) + ','
             csv_format_results += '"' + str(result['description']) + '",'
+            csv_format_results += '"' + \
+                str(list(map(
+                    lambda result: round(result, 3),
+                    result['all_validation_scores']
+                ))) + '",'
             csv_format_results += str(
                 round(result['mean_validation_score'], 3)
             ) + ','
+            csv_format_results += '"' + \
+                str(list(map(
+                    lambda result: round(result, 3),
+                    result['all_test_scores']
+                ))) + '",'
             csv_format_results += '-' if result['mean_test_score'] is None \
                 else str(round(result['mean_test_score'], 3))
             csv_format_results += '\n'
@@ -143,7 +167,7 @@ class ModelEvaluator:
     def _sort_models_by_mean_validation_score(self):
         self.models.sort(
             reverse=True,
-            key=lambda model: model.mean_validation_score()
+            key=lambda model: model.get_mean_validation_score()
         )
 
     def _test_models(self):
@@ -196,7 +220,8 @@ class ModelEvaluator:
 
     def _write_results_to_csv_file(self, filename):
         header_columns = 'model_number,model_type,model_params,' + \
-            'model_validation_score,model_test_score\n'
+            'all_validation_scores,mean_validation_score,' + \
+            'all_test_scores,mean_test_score\n'
         data_columns = self._convert_results_to_csv_format(
             self.get_results()
         )
@@ -213,28 +238,34 @@ class EvaluatingWrapper:
         model
     ):
         self.model = model
-        self.test_results = []
+        self.test_scores = []
         self.test_runs = 0
-        self.validation_results = []
+        self.validation_scores = []
         self.validation_runs = 0
+
+    def get_all_test_scores(self):
+        return self.test_scores
+
+    def get_all_validation_scores(self):
+        return self.validation_scores
+
+    def get_mean_test_score(self):
+        if(self.test_runs == 0):
+            return None
+
+        return sum(self.test_scores)/self.test_runs
+
+    def get_mean_validation_score(self):
+        if(self.validation_runs == 0):
+            return None
+
+        return sum(self.validation_scores)/self.validation_runs
 
     def get_params(self):
         return self.model.get_params()
 
     def get_type(self):
         return self.model.get_type()
-
-    def mean_test_score(self):
-        if(self.test_runs == 0):
-            return None
-
-        return sum(self.test_results)/self.test_runs
-
-    def mean_validation_score(self):
-        if(self.validation_runs == 0):
-            return None
-
-        return sum(self.validation_results)/self.validation_runs
 
     def run_test(
             self,
@@ -266,7 +297,7 @@ class EvaluatingWrapper:
             test_predictions=self.model.predict(test_features, np.round),
             test_labels=test_labels
         )
-        self.test_results.append(test_results.accuracy_score())
+        self.test_scores.append(test_results.accuracy_score())
         self.test_runs += 1
 
     def run_validation(
@@ -283,7 +314,7 @@ class EvaluatingWrapper:
             validation_features=validation_features,
             validation_labels=validation_labels
         )
-        self.validation_results.append(validation_accuracy)
+        self.validation_scores.append(validation_accuracy)
         self.validation_runs += 1
 
     # Private methods.
