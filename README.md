@@ -47,3 +47,7 @@ Em segundo lugar, a otimização de hiper-parâmetros não pôde ser feita da me
 A medida utilizada para medir o desempenho de um modelo \(nos resultados de validação e teste\) foi a média da acurácia \(*accuracy*\) obtida em cada divisão do conjunto de dados, em oposição ao uso do coeficientes de correlação de Matthews \(MCC\) utilizado no artigo científico.
 
 Portanto, podemos resumir o procedimento adotado neste trabalho como sendo, para um dado conjunto de modelos com diferentes hiper-parâmetros, a obtenção dos resultados de validação para o primeiro quinto das sementes disponíveis e o cálculo subsequente dos resultados de teste com todas as sementes disponíveis para os modelos entre os melhores 20% no quesito melhores médias de acurácia para os dados de validação. Os resultados de validação influenciariam na escolha de quais modelos seriam utilizados para o cálculo de resultados de teste e também, no caso de modelos do tipo perceptron multicamada, na escolha do número de épocas de treinamento \(early stopping\) para a obtenção de resultados de teste.
+
+### Hiper-parâmetros avaliados e seus resultados
+
+Os hiper-parâmetros avaliados em cada execução foram detalhados no arquivo `results/index.txt`. Os resultados obtidos em cada execução \(salvos no formato `.csv`\) podem ser encontrados no pasta `results`.
