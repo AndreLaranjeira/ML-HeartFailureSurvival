@@ -12,7 +12,7 @@ from training_models import KerasSequential, RandomForest
 
 # Program metadata.
 PROGRAM_NAME = 'heart_failure_prediction'
-VERSION_NUM = '0.9.0'
+VERSION_NUM = '1.0.0'
 
 # Argument parser.
 argparser = ArgumentParserModule(PROGRAM_NAME, VERSION_NUM)
