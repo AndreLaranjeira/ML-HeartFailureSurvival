@@ -20,9 +20,10 @@ class DatasetExtractor:
         self.dataset_file_name = dataset_file_name
         self.feature_columns_list = feature_columns_list
         self.label_columns_list = label_columns_list
+        self.seed = seed        
         self.train_size = train_size
         self.validation_size = validation_size
-        self.seed = seed
+        self.dataset_features_shape = None
         self.train_features = None
         self.train_labels = None
         self.validation_features = None
@@ -70,14 +71,6 @@ class DatasetExtractor:
         print(self.train_labels)
         print("")
 
-        print("Test features:\n")
-        print(self.test_features)
-        print("")
-
-        print("Test labels:\n")
-        print(self.test_labels)
-        print("")
-
         if(self.validation_size > 0):
             print("Validation features:\n")
             print(self.validation_features)
@@ -87,6 +80,14 @@ class DatasetExtractor:
             print(self.validation_labels)
             print("")
 
+        print("Test features:\n")
+        print(self.test_features)
+        print("")
+
+        print("Test labels:\n")
+        print(self.test_labels)
+        print("")     
+            
     def set_randomizing_seed(self, new_seed):
         self.seed = new_seed
 
