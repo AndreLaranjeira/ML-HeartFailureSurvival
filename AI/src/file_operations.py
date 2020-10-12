@@ -17,7 +17,7 @@ class FileOperations:
 
     def filename_input_reader(file_extension):
         filename_input = input(
-            'Insert a filename or press ENTER for the default file name: '
+            'Insert a filename: '
         )
         return FileOperations.apply_extension_to_filename(
             filename_input,
