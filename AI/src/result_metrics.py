@@ -10,27 +10,27 @@ from sklearn.metrics import accuracy_score, confusion_matrix, f1_score, \
 
 # Result metrics module definition.
 class ResultMetricsModule:
-    def __init__(self, test_predictions, test_labels):
-        self.test_labels = test_labels
-        self.test_predictions = test_predictions
+    def __init__(self, predictions, labels):
+        self.labels = labels
+        self.predictions = predictions
 
     def accuracy_score(self):
-        return accuracy_score(self.test_labels, self.test_predictions)
+        return accuracy_score(self.labels, self.predictions)
 
     def confusion_matrix(self):
-        return confusion_matrix(self.test_labels, self.test_predictions)
+        return confusion_matrix(self.labels, self.predictions)
 
     def f1_score(self):
-        return f1_score(self.test_labels, self.test_predictions)
+        return f1_score(self.labels, self.predictions)
 
     def matthews_corrcoef(self):
         return matthews_corrcoef(
-            change_zeros_to_minus_one(self.test_labels),
-            change_zeros_to_minus_one(self.test_predictions)
+            change_zeros_to_minus_one(self.labels),
+            change_zeros_to_minus_one(self.predictions)
         )
 
     def precision_score(self):
-        return precision_score(self.test_labels, self.test_predictions)
+        return precision_score(self.labels, self.predictions)
 
     def print_default_metrics(self):
         self.print_metrics([
@@ -65,12 +65,12 @@ class ResultMetricsModule:
                 print("ROC AUC score: ", round(self.roc_auc_score(), 2), "\n")
 
     def recall_score(self):
-        return recall_score(self.test_labels, self.test_predictions)
+        return recall_score(self.labels, self.predictions)
 
     def roc_auc_score(self):
-        return roc_auc_score(self.test_labels, self.test_predictions)
+        return roc_auc_score(self.labels, self.predictions)
 
 
 # Auxiliary functions.
-def change_zeros_to_minus_one(labels):
-    return np.vectorize(lambda num: -1 if num == 0 else num)(labels)
+def change_zeros_to_minus_one(values):
+    return np.vectorize(lambda value: -1 if value == 0 else value)(values)

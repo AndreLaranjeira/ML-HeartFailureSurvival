@@ -294,8 +294,8 @@ class EvaluatingWrapper:
         )
 
         test_results = ResultMetricsModule(
-            test_predictions=self.model.predict(test_features, np.round),
-            test_labels=test_labels
+            predictions=self.model.predict(test_features, np.round),
+            labels=test_labels
         )
         self.test_scores.append(test_results.accuracy_score())
         self.test_runs += 1

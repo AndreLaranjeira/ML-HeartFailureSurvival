@@ -280,8 +280,8 @@ class RandomForest(BaseTrainingModel):
         self.fit(train_features, train_labels, aditional_params)
         validation_predictions = self.predict(validation_features, np.round)
         validation_accuracy = ResultMetricsModule(
-            validation_predictions,
-            validation_labels
+            predictions=validation_predictions,
+            labels=validation_labels
         ).accuracy_score()
 
         return (round(validation_accuracy, 2), {})
