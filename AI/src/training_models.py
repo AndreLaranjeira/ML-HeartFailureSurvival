@@ -42,7 +42,7 @@ class BaseTrainingModel:
         raise NotImplementedError
 
     # Use training and validation data to determine validation accuracy and
-    # hyperparameters.
+    # best hyperparameters.
     def validate(
         self,
         train_features,
@@ -112,8 +112,8 @@ class KerasSequential(BaseTrainingModel):
 
     def save(self, filename=DEFAULT_FILENAME):
         filename_with_extension = FileOperations.apply_extension_to_filename(
-            filename,
-            self.file_extension
+            original_filename=filename,
+            file_extension=self.file_extension
         )
 
         FileOperations.save_file_with_fallback(
@@ -256,8 +256,8 @@ class RandomForest(BaseTrainingModel):
 
     def save(self, filename=DEFAULT_FILENAME):
         filename_with_extension = FileOperations.apply_extension_to_filename(
-            filename,
-            self.file_extension
+            original_filename=filename,
+            file_extension=self.file_extension
         )
 
         FileOperations.save_file_with_fallback(
