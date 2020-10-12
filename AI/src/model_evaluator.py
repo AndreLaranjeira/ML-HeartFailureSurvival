@@ -73,14 +73,14 @@ class ModelEvaluator:
             print(result['description'])
             print("All validation scores:",
                   list(map(
-                      lambda result: round(result, 3),
+                      lambda score: round(score, 3),
                       result['all_validation_scores']
                   )))
             print("Mean validation score: %.3f" %
                   result['mean_validation_score'])
             print("All test scores:",
                   list(map(
-                      lambda result: round(result, 3),
+                      lambda score: round(score, 3),
                       result['all_test_scores']
                   )))
 
@@ -113,7 +113,7 @@ class ModelEvaluator:
             csv_format_results += '"' + str(result['description']) + '",'
             csv_format_results += '"' + \
                 str(list(map(
-                    lambda result: round(result, 3),
+                    lambda score: round(score, 3),
                     result['all_validation_scores']
                 ))) + '",'
             csv_format_results += str(
@@ -121,7 +121,7 @@ class ModelEvaluator:
             ) + ','
             csv_format_results += '"' + \
                 str(list(map(
-                    lambda result: round(result, 3),
+                    lambda score: round(score, 3),
                     result['all_test_scores']
                 ))) + '",'
             csv_format_results += '-' if result['mean_test_score'] is None \
@@ -141,12 +141,12 @@ class ModelEvaluator:
     ):
         for model in self.models[:self.index_for_test_cutoff]:
             model.run_test(
-                train_features,
-                train_labels,
-                validation_features,
-                validation_labels,
-                test_features,
-                test_labels
+                train_features=train_features,
+                train_labels=train_labels,
+                validation_features=validation_features,
+                validation_labels=validation_labels,
+                test_features=test_features,
+                test_labels=test_labels
             )
 
     def _run_validation_on_all_models(
@@ -158,10 +158,10 @@ class ModelEvaluator:
     ):
         for model in self.models:
             model.run_validation(
-                train_features,
-                train_labels,
-                validation_features,
-                validation_labels
+                train_features=train_features,
+                train_labels=train_labels,
+                validation_features=validation_features,
+                validation_labels=validation_labels
             )
 
     def _sort_models_by_mean_validation_score(self):
