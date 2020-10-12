@@ -9,7 +9,7 @@ class ArgumentParserModule:
     def __init__(self, program_name, version_num):
         self.parser = argparse.ArgumentParser(
             prog=f'{program_name}',
-            description='Musical genre classifier.'
+            description='Heart failure prediction program.'
         )
         self.program_name = program_name
         self.version_num = version_num
@@ -21,7 +21,7 @@ class ArgumentParserModule:
             type=unit_interval_open_on_one,
             default=0.2,
             dest='validation_size',
-            help='open unit interval of percentage of data used in validation.'
+            help='unit interval open on 1 of percentage of data used in validation.'
         )
         self.parser.add_argument(
             '-t',
