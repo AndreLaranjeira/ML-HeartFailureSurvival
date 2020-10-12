@@ -152,7 +152,7 @@ Evaluation 013:
     1. max_depth: range(3, 8, 1)
     2. min_samples_leaf: range(1, 11, 1)
     3. min_samples_split: range(2, 7, 2)
-  * Number of models: 100
+  * Number of models: 150
 
 Evaluation 014:
   * Type of model: Random forests.
@@ -178,4 +178,4 @@ Evaluation 015:
     1. max_leaf_nodes: range(4, 21, 4)
     2. min_samples_leaf: range(1, 11, 1)
     3. min_samples_split: range(2, 7, 2)
-  * Number of models: 100
+  * Number of models: 150
