@@ -21,8 +21,8 @@ Evaluation 002:
   * Hyperparameter variations:
     1. criterion: 'entropy', 'gini'
     2. max_features: 'sqrt', 'log2', None
-    3. n_estimators: range([best_result_E001] - 20, [best_result_E001] + 21, 10)
-  * Number of models: 30
+    3. n_estimators: range(190, 231, 5)
+  * Number of models: 60
 
 Evaluation 003:
   * Type of model: Keras sequential
@@ -63,39 +63,26 @@ Evaluation 006:
     2. max_depth: None
     3. max_features: 'sqrt'
     4. max_leaf_nodes: None
-    5. n_estimators: [best_result_E001]
+    5. n_estimators: 210
   * Hyperparameter variations:
     1. min_samples_leaf: range(1, 11, 1)
-    2. min_samples_split: range(2, 7, 2)
-  * Number of models: 30
+    2. min_samples_split: range(2, 11, 1)
+  * Number of models: 90
 
 Evaluation 007:
   * Type of model: Random forests.
   * Hyperparameter constants:
     1. max_depth: None
     2. max_leaf_nodes: None
-    3. min_samples_split: 2
-    4. n_estimators: [best_result_E001]
   * Hyperparameter variations:
-    1. min_samples_leaf: range([best_result_E006]-2, [best_result_E006]+3, 1)
-    2. criterion: 'entropy', 'gini'
-    3. max_features: 'sqrt', 'log2', None
-  * Number of models: 30
+    1. min_samples_leaf: range(1, 4, 1)
+    2. min_samples_split: range(5, 10, 1)
+    3. criterion: 'entropy', 'gini'
+    4. max_features: 'sqrt', 'log2', None
+    5. n_estimators: range(200, 221, 5)
+  * Number of models: 450
 
 Evaluation 008:
-  * Type of model: Random forests.
-  * Hyperparameter constants:
-    1. max_depth: None
-    2. max_leaf_nodes: None
-    3. min_samples_leaf: 1
-    4. n_estimators: [best_result_E001]
-  * Hyperparameter variations:
-    1. min_samples_split: range([best_result_E006]-2, [best_result_E006]+3, 1)
-    2. criterion: 'entropy', 'gini'
-    3. max_features: 'sqrt', 'log2', None
-  * Number of models: 30
-
-Evaluation 009:
   * Type of model: Keras sequential
   * Model size: Input layer, 2 dense layers, output layer
   * Hyperparameter constants:
@@ -106,7 +93,7 @@ Evaluation 009:
     1. 2nd dense layer size: range(20, 101, 20)
   * Number of models: 5
 
-Evaluation 010:
+Evaluation 009:
   * Type of model: Keras sequential
   * Model size: Input layer, 2 dense layers, output layer
   * Hyperparameter constants:
@@ -117,7 +104,7 @@ Evaluation 010:
     1. 2nd dense layer size: range(20, 101, 20)
   * Number of models: 5
 
-Evaluation 011:
+Evaluation 010:
   * Type of model: Keras sequential
   * Model size: Input layer, 2 dense layers, output layer
   * Hyperparameter constants:
@@ -128,54 +115,106 @@ Evaluation 011:
     1. 2nd dense layer size: range(20, 101, 20)
   * Number of models: 5
 
-Evaluation 012:
+Evaluation 011:
   * Type of model: Random forests.
   * Hyperparameter constants:
     1. max_leaf_nodes: None
     2. min_samples_leaf: 1
     3. min_samples_split: 2
-    4. n_estimators: [best_result_E001]
+    4. n_estimators: 210
   * Hyperparameter variations:
-    1. max_depth: range(3, 8, 1)
+    1. max_depth: range(2, 13, 1)
     2. criterion: 'gini', 'entropy'
     3. max_features: 'sqrt', 'log2', None
-  * Number of models: 30
+  * Number of models: 66
+
+Evaluation 012:
+  * Type of model: Random forests.
+  * Hyperparameter constants:
+    1. max_leaf_nodes: None
+    2. max_features: 'sqrt'
+  * Hyperparameter variations:
+    1. max_depth: range(2, 7, 1)
+    2. min_samples_leaf: range(1, 4, 1)
+    3. min_samples_split: range(5, 10, 1)
+    4. criterion: 'entropy', 'gini'
+    5. n_estimators: range(200, 221, 5)
+  * Number of models: 750
 
 Evaluation 013:
   * Type of model: Random forests.
   * Hyperparameter constants:
-    1. criterion: 'gini'
-    2. max_features: 'sqrt'
-    3. max_leaf_nodes: None
-    4. n_estimators: [best_result_E001]
+    1. max_leaf_nodes: None
+    2. max_features: 'log2'
   * Hyperparameter variations:
-    1. max_depth: range(3, 8, 1)
-    2. min_samples_leaf: range(1, 11, 1)
-    3. min_samples_split: range(2, 7, 2)
-  * Number of models: 150
+    1. max_depth: range(2, 7, 1)
+    2. min_samples_leaf: range(1, 4, 1)
+    3. min_samples_split: range(5, 10, 1)
+    4. criterion: 'entropy', 'gini'
+    5. n_estimators: range(200, 221, 5)
+  * Number of models: 750
 
 Evaluation 014:
+  * Type of model: Random forests.
+  * Hyperparameter constants:
+    1. max_leaf_nodes: None
+    2. max_features: None
+  * Hyperparameter variations:
+    1. max_depth: range(2, 7, 1)
+    2. min_samples_leaf: range(1, 4, 1)
+    3. min_samples_split: range(5, 10, 1)
+    4. criterion: 'entropy', 'gini'
+    5. n_estimators: range(200, 221, 5)
+  * Number of models: 750
+
+Evaluation 015:
   * Type of model: Random forests.
   * Hyperparameter constants:
     1. max_depth: None
     2. min_samples_leaf: 1
     3. min_samples_split: 2
-    4. n_estimators: [best_result_E001]
+    4. n_estimators: 210
   * Hyperparameter variations:
-    1. max_leaf_nodes: range(4, 21, 4)
+    1. max_leaf_nodes: range(4, 25, 2)
     2. criterion: 'gini', 'entropy'
     3. max_features: 'sqrt', 'log2', None
-  * Number of models: 30
+  * Number of models: 66
 
-Evaluation 015:
+Evaluation 016:
   * Type of model: Random forests.
   * Hyperparameter constants:
-    1. criterion: 'gini'
-    2. max_depth: None
-    3. max_features: 'sqrt'
-    4. n_estimators: [best_result_E001]
+    1. max_depth: None
+    2. max_features: 'sqrt'
   * Hyperparameter variations:
-    1. max_leaf_nodes: range(4, 21, 4)
-    2. min_samples_leaf: range(1, 11, 1)
-    3. min_samples_split: range(2, 7, 2)
-  * Number of models: 150
+    1. max_leaf_nodes: range(16, 21, 1)
+    2. min_samples_leaf: range(1, 4, 1)
+    3. min_samples_split: range(5, 10, 1)
+    4. criterion: 'entropy', 'gini'
+    5. n_estimators: range(200, 221, 5)
+  * Number of models: 750
+
+Evaluation 017:
+  * Type of model: Random forests.
+  * Hyperparameter constants:
+    1. max_depth: None
+    2. max_features: 'log2'
+  * Hyperparameter variations:
+    1. max_leaf_nodes: range(16, 21, 1)
+    2. min_samples_leaf: range(1, 4, 1)
+    3. min_samples_split: range(5, 10, 1)
+    4. criterion: 'entropy', 'gini'
+    5. n_estimators: range(200, 221, 5)
+  * Number of models: 750
+
+Evaluation 018:
+  * Type of model: Random forests.
+  * Hyperparameter constants:
+    1. max_depth: None
+    2. max_features: None
+  * Hyperparameter variations:
+    1. max_leaf_nodes: range(16, 21, 1)
+    2. min_samples_leaf: range(1, 4, 1)
+    3. min_samples_split: range(5, 10, 1)
+    4. criterion: 'entropy', 'gini'
+    5. n_estimators: range(200, 221, 5)
+  * Number of models: 750
