@@ -2,7 +2,7 @@
 
 # Classes and methods imports.
 from keras import Input
-from keras.layers.core import Dense
+from keras.layers.core import Dense, Dropout
 
 # User module imports.
 from argument_parser import ArgumentParserModule
@@ -71,25 +71,31 @@ dataset_split_seeds = dataset_split_seed_extractor.get_seeds()
 # Define the models.
 models = []
 
-# for first_layer in range(100, 501, 100):
-#     models.append(KerasSequential(
-#         layers=[
-#             Input(shape=features_shape),
-#             Dense(first_layer, activation='relu'),
-#             Dense(1, activation='sigmoid')
-#         ]
-#     ))
+for first_layer in range(100, 501, 100):
+    for dropout_rate in [0.1, 0.2]:
+        models.append(KerasSequential(
+            layers=[
+                Input(shape=features_shape),
+                Dense(first_layer, activation='relu'),
+                Dropout(dropout_rate),
+                Dense(1, activation='sigmoid')
+            ]
+        ))
 
-for n_estimators in range(100, 501, 100):
-    models.append(RandomForest(
-        criterion='gini',
-        max_depth=None,
-        max_features='sqrt',
-        max_leaf_nodes=None,
-        min_samples_leaf=1,
-        min_samples_split=2,
-        n_estimators=10
-    ))
+# for max_leaf_nodes in range(16, 21, 1):
+#     for min_samples_leaf in range(1, 4, 1):
+#         for min_samples_split in range(5, 10, 1):
+#             for criterion in ['entropy', 'gini']:
+#                 for n_estimators in range(200, 221, 5):
+#                     models.append(RandomForest(
+#                         criterion=criterion,
+#                         max_depth=None,
+#                         max_features=None,
+#                         max_leaf_nodes=max_leaf_nodes,
+#                         min_samples_leaf=min_samples_leaf,
+#                         min_samples_split=min_samples_split,
+#                         n_estimators=n_estimators
+#                     ))
 
 # Create model evaluator.
 model_evaluator = ModelEvaluator(
@@ -99,7 +105,7 @@ model_evaluator = ModelEvaluator(
     num_validation_runs=20,
     num_test_runs=100,
     percent_of_models_tested=0.2,
-    evaluation_number=1
+    evaluation_number=19
 )
 
 model_evaluator.evaluate_models()
