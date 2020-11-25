@@ -1,10 +1,10 @@
 // Package imports.
 const jwt = require("jsonwebtoken");
 
-// Module imports:
+// Module imports.
 const authConfig = require("../config/auth");
 
-// Export module:
+// Export module.
 module.exports = function(request, response, next) {
   const authHeader = request.headers.authorization;
 

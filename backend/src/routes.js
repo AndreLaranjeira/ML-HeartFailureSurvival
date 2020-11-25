@@ -5,7 +5,7 @@ const express = require("express");
 const AuthController = require("./controllers/auth_controller");
 
 // Middleware imports.
-const AuthMiddleware = require("./middlewares/auth_middleware");
+// const AuthMiddleware = require("./middlewares/auth_middleware");
 
 // Validator imports.
 const AuthValidator = require("./validators/auth_validator");

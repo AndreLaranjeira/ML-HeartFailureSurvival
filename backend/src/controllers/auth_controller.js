@@ -2,11 +2,11 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Module imports:
+// Module imports.
 const authConfig = require("../config/auth");
 const connection = require("../../db/connection");
 
-// Auxiliary functions:
+// Auxiliary functions.
 function generateToken(params = {}) {
   return jwt.sign(
     params,
@@ -15,7 +15,7 @@ function generateToken(params = {}) {
   );
 }
 
-// Export module:
+// Export module.
 module.exports = {
   async authenticate(request, response) {
     const {email, password} = request.body;

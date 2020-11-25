@@ -1,7 +1,7 @@
-// Package imports:
+// Package imports.
 const {celebrate, Joi, Segments} = require("celebrate");
 
-// Export module:
+// Export module.
 module.exports = {
   authenticate: celebrate({
     [Segments.BODY]: Joi.object().keys({
