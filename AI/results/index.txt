@@ -232,10 +232,10 @@ Evaluation 019:
     1. Dense layer activation: 'relu'
     2. Output layer activation: 'sigmoid'
     3. Maximum training epochs: 20000
+    4. Dropout rate: 0.2
   * Hyperparameter variations:
     1. 1st dense layer size: range(100, 501, 100)
-    2. Dropout layers rate: 0.1, 0.2
-  * Number of models: 10
+  * Number of models: 5
 
 Evaluation 020:
   * Type of model: Keras sequential
@@ -245,10 +245,10 @@ Evaluation 020:
     2. Output layer activation: 'sigmoid'
     3. Maximum training epochs: 20000
     4. 1st dense layer size: 100
+    5. Dropout rate: 0.2
   * Hyperparameter variations:
     1. 2nd dense layer size: range(20, 101, 20)
-    2. Dropout layers rate: 0.1, 0.2
-  * Number of models: 10
+  * Number of models: 5
 
 Evaluation 021:
   * Type of model: Keras sequential
@@ -258,10 +258,10 @@ Evaluation 021:
     2. Output layer activation: 'sigmoid'
     3. Maximum training epochs: 20000
     4. 1st dense layer size: 200
+    5. Dropout rate: 0.2
   * Hyperparameter variations:
     1. 2nd dense layer size: range(20, 101, 20)
-    2. Dropout layers rate: 0.1, 0.2
-  * Number of models: 10
+  * Number of models: 5
 
 Evaluation 022:
   * Type of model: Keras sequential
@@ -271,10 +271,10 @@ Evaluation 022:
     2. Output layer activation: 'sigmoid'
     3. Maximum training epochs: 20000
     4. 1st dense layer size: 300
+    5. Dropout rate: 0.2
   * Hyperparameter variations:
     1. 2nd dense layer size: range(20, 101, 20)
-    2. Dropout layers rate: 0.1, 0.2
-  * Number of models: 10
+  * Number of models: 5
 
 Evaluation 023:
   * Type of model: Keras sequential
@@ -284,10 +284,10 @@ Evaluation 023:
     2. Output layer activation: 'sigmoid'
     3. Maximum training epochs: 20000
     4. 1st dense layer size: 400
+    5. Dropout rate: 0.2
   * Hyperparameter variations:
     1. 2nd dense layer size: range(20, 101, 20)
-    2. Dropout layers rate: 0.1, 0.2
-  * Number of models: 10
+  * Number of models: 5
 
 Evaluation 024:
   * Type of model: Keras sequential
@@ -297,10 +297,10 @@ Evaluation 024:
     2. Output layer activation: 'sigmoid'
     3. Maximum training epochs: 20000
     4. 1st dense layer size: 500
+    5. Dropout rate: 0.2
   * Hyperparameter variations:
     1. 2nd dense layer size: range(20, 101, 20)
-    2. Dropout layers rate: 0.1, 0.2
-  * Number of models: 10
+  * Number of models: 5
 
 Evaluation 025:
   * Type of model: Keras sequential
