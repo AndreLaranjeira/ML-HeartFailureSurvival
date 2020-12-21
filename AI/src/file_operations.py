@@ -1,8 +1,18 @@
 # Heart failure prediction - File operations module.
 
-# Constants:
-DEFAULT_FILENAME = 'default_save'
-DEFAULT_FALLBACK_FILENAME = 'fallback_save'
+
+# Default filenames.
+class DefaultFilenames:
+
+    # Constants.
+    FALLBACK_FILENAME = 'fallback_save'
+    RESULTS_DIRECTORY = 'results/'
+    SAVE_FILENAME = 'default_save'
+
+    # Methods.
+    def evaluation_results_filename(evaluation_number):
+        return DefaultFilenames.RESULTS_DIRECTORY + \
+            'E' + str(evaluation_number).zfill(4)
 
 
 # File operatorions module definition.

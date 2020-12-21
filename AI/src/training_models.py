@@ -10,8 +10,7 @@ from keras import Sequential
 from sklearn.ensemble import RandomForestClassifier
 
 # User module imports.
-from file_operations import FileOperations
-from file_operations import DEFAULT_FILENAME, DEFAULT_FALLBACK_FILENAME
+from file_operations import DefaultFilenames, FileOperations
 from result_metrics import ResultMetricsModule
 
 
@@ -110,7 +109,7 @@ class KerasSequential(BaseTrainingModel):
     def reset(self):
         self.model.set_weights(self.initial_weights)
 
-    def save(self, filename=DEFAULT_FILENAME):
+    def save(self, filename=DefaultFilenames.SAVE_FILENAME):
         filename_with_extension = FileOperations.apply_extension_to_filename(
             original_filename=filename,
             file_extension=self.file_extension
@@ -120,7 +119,7 @@ class KerasSequential(BaseTrainingModel):
             save_method_or_function=self.model.save,
             filename=filename_with_extension,
             fallback_filename=FileOperations.apply_extension_to_filename(
-                original_filename=DEFAULT_FALLBACK_FILENAME,
+                original_filename=DefaultFilenames.FALLBACK_FILENAME,
                 file_extension=self.file_extension
             )
         )
@@ -254,7 +253,7 @@ class RandomForest(BaseTrainingModel):
         # But this method needs to exist for consistency with the base class.
         pass
 
-    def save(self, filename=DEFAULT_FILENAME):
+    def save(self, filename=DefaultFilenames.SAVE_FILENAME):
         filename_with_extension = FileOperations.apply_extension_to_filename(
             original_filename=filename,
             file_extension=self.file_extension
@@ -264,7 +263,7 @@ class RandomForest(BaseTrainingModel):
             save_method_or_function=self._dump_model_to_file_with_pickle,
             filename=filename_with_extension,
             fallback_filename=FileOperations.apply_extension_to_filename(
-                original_filename=DEFAULT_FALLBACK_FILENAME,
+                original_filename=DefaultFilenames.FALLBACK_FILENAME,
                 file_extension=self.file_extension
             )
         )

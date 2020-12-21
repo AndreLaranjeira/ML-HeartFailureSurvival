@@ -4,8 +4,7 @@
 import numpy as np
 
 # User module imports.
-from file_operations import FileOperations
-from file_operations import DEFAULT_FILENAME, DEFAULT_FALLBACK_FILENAME
+from file_operations import DefaultFilenames, FileOperations
 from result_metrics import ResultMetricsModule
 
 
@@ -36,9 +35,12 @@ class ModelEvaluator:
         self.seed_list = seed_list
 
         if(save_file_name is None and evaluation_number is not None):
-            self.save_file_name = 'results/E' + str(evaluation_number).zfill(4)
+            self.save_file_name = DefaultFilenames.evaluation_results_filename(
+                evaluation_number=evaluation_number
+            )
         elif(save_file_name is None and evaluation_number is None):
-            self.save_file_name = 'results/E_' + DEFAULT_FILENAME
+            self.save_file_name = DefaultFilenames.RESULTS_DIRECTORY + \
+                DefaultFilenames.SAVE_FILENAME
         else:
             self.save_file_name = save_file_name
 
@@ -99,7 +101,7 @@ class ModelEvaluator:
                 file_extension='.csv'
             ),
             fallback_filename=FileOperations.apply_extension_to_filename(
-                original_filename=DEFAULT_FALLBACK_FILENAME,
+                original_filename=DefaultFilenames.FALLBACK_FILENAME,
                 file_extension='.csv'
             )
         )
