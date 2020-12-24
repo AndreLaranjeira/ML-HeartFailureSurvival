@@ -2,7 +2,8 @@
 
 # Classes and methods imports.
 from keras import Input
-from keras.layers.core import Dense
+from keras.layers.core import Dense, Dropout
+import time
 
 # User module imports.
 from argument_parser import ArgumentParserModule
@@ -102,6 +103,20 @@ model_evaluator = ModelEvaluator(
     evaluation_number=1
 )
 
+# Start timing model evaluation, if requested.
+if(args.show_evaluation_time):
+    start_time = time.time()
+
+# Evaluate models.
 model_evaluator.evaluate_models()
 model_evaluator.print_results()
 model_evaluator.save_results_as_csv()
+
+# Print model evaluation time, if requested.
+if(args.show_evaluation_time):
+    evaluation_time = time.time() - start_time
+    formatted_evaluation_time = time.strftime(
+        '%T', time.gmtime(evaluation_time)
+    )
+    print("Time elapsed evaluating models:", formatted_evaluation_time)
+    print("")

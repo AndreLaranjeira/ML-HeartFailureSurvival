@@ -21,7 +21,14 @@ class ArgumentParserModule:
             type=unit_interval_open_on_one,
             default=0.2,
             dest='validation_size',
-            help='unit interval open on 1 of percentage of data used in validation.'
+            help='percentage of data in [0, 1) to be used in validation.'
+        )
+        self.parser.add_argument(
+            '-e',
+            '--evaluation-time',
+            action='store_true',
+            dest='show_evaluation_time',
+            help='shows the time elapsed evaluating training models.'
         )
         self.parser.add_argument(
             '-t',
@@ -29,7 +36,7 @@ class ArgumentParserModule:
             type=open_unit_interval,
             default=0.6,
             dest='train_size',
-            help='open unit interval of percentage of data used in training.'
+            help='percentage of data in (0, 1) to be used in training.'
         )
         self.parser.add_argument(
             '-v',
