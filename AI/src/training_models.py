@@ -166,7 +166,9 @@ class KerasSequential(BaseTrainingModel):
 
     # Private methods:
     def _add_relevant_layer_config_params(self, layer, relevant_info_dict):
-        relevant_config_keys = ('units', 'activation', 'use_bias')
+        relevant_config_keys = self._get_relevant_config_keys(
+            type(layer).__name__
+        )
         all_layer_config_params = layer.get_config()
 
         for key in relevant_config_keys:
@@ -185,6 +187,12 @@ class KerasSequential(BaseTrainingModel):
             optimizer=keras.optimizers.Adadelta(),
             metrics=['accuracy']
         )
+
+    def _get_relevant_config_keys(self, layer_type_name):
+        if(layer_type_name == 'Dense'):
+            return ('units', 'activation', 'use_bias')
+        elif(layer_type_name == 'Dropout'):
+            return ('rate', 'noise_shape')
 
     def _relevant_layer_info(self, layer):
         if(hasattr(layer, 'get_config') and callable(layer.get_config)):

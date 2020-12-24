@@ -115,8 +115,8 @@ if(args.show_evaluation_time):
 
 # Evaluate models.
 model_evaluator.evaluate_models()
-model_evaluator.print_results()
 model_evaluator.save_results_as_csv()
+model_evaluator.print_results()
 
 # Print model evaluation time, if requested.
 if(args.show_evaluation_time):
