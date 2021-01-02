@@ -16,7 +16,26 @@ O projeto foi dividido em pastas com o intuito de facilitar a navegação. Cada 
 
 ## AI
 
-Programa em Python de aprendizado de máquina com o intuito de prever insuficiência cardíaca.
+Programa de aprendizado de máquina escrito em Python com o intuito de prever insuficiência cardíaca.
+
+### Pacotes utilizados
+
+Para escrever os módulos contidos nessa parte do projeto, alguns pacotes da linguagem de programação Python foram utilizados, os quais foram instalados ou por meio do gerenciador de pacotes Pip ou já vieram na biblioteca padrão da versão de Python utilizada \(**Python 3.8.6**\). Os pacotes, bem as versões exatas utilizadas neste projeto, estão listados abaixo.
+
+#### Pacotes da biblioteca padrão do Python 3.8.6
+
+* `argparse`;
+* `datetime`;
+* `pickle`;
+* `time`;
+
+#### Pacotes instalados com o pip
+
+* `keras`: 2.4.3;
+  * `tensorflow-cpu` (backend do `keras`): 2.4.0;
+* `numpy`: 1.19.4;
+* `pandas`: 1.0.1;
+* `scikit-learn`: 0.23.1;
 
 ### Conjunto de dados \(*dataset*\)
 
