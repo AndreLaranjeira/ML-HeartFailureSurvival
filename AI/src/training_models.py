@@ -199,7 +199,7 @@ class KerasSequential(BaseTrainingModel):
             relevant_info = {'type': type(layer).__name__}
             return self._add_relevant_layer_config_params(layer, relevant_info)
 
-        elif(type(layer).__name__ == 'Tensor'):
+        elif(type(layer).__name__ == 'KerasTensor'):
             return {
                 'type': 'Input',
                 'shape': tuple(layer.shape)

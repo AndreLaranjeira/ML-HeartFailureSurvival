@@ -1,6 +1,7 @@
 # Program to train an AI to predict heart failure.
 
 # Classes and methods imports.
+import datetime
 from keras import Input
 from keras.layers.core import Dense, Dropout
 import time
@@ -120,9 +121,11 @@ model_evaluator.print_results()
 
 # Print model evaluation time, if requested.
 if(args.show_evaluation_time):
-    evaluation_time = time.time() - start_time
-    formatted_evaluation_time = time.strftime(
-        '%T', time.gmtime(evaluation_time)
+    finish_time = time.time()
+    evaluation_timedelta = datetime.timedelta(
+        seconds=finish_time - start_time
     )
+    formatted_evaluation_time = str(evaluation_timedelta.days).zfill(2) + \
+        ':' + time.strftime('%T', time.gmtime(evaluation_timedelta.seconds))
     print("Time elapsed evaluating models:", formatted_evaluation_time)
     print("")
