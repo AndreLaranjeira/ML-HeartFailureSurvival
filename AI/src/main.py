@@ -2,7 +2,7 @@
 
 # Classes and methods imports.
 import datetime
-from keras import Input
+from keras import Input, regularizers
 from keras.layers.core import Dense, Dropout
 import time
 
@@ -73,16 +73,19 @@ dataset_split_seeds = dataset_split_seed_extractor.get_seeds()
 # Define the models.
 models = []
 
+# for second_layer in range(20, 101, 20):
 for first_layer in range(100, 501, 100):
-    for dropout_rate in [0.1, 0.2]:
-        models.append(KerasSequential(
-            layers=[
-                Input(shape=features_shape),
-                Dense(first_layer, activation='relu'),
-                Dropout(dropout_rate),
-                Dense(1, activation='sigmoid')
-            ]
-        ))
+    models.append(KerasSequential(
+        layers=[
+            Input(shape=features_shape),
+            Dense(
+                first_layer,
+                activation='relu',
+                kernel_regularizer=regularizers.l2(0.01)
+            ),
+            Dense(1, activation='sigmoid')
+        ]
+    ))
 
 # for max_leaf_nodes in range(16, 21, 1):
 #     for min_samples_leaf in range(1, 4, 1):
@@ -107,7 +110,7 @@ model_evaluator = ModelEvaluator(
     num_validation_runs=20,
     num_test_runs=100,
     percent_of_models_tested=0.2,
-    evaluation_number=19
+    evaluation_number=25
 )
 
 # Start timing model evaluation, if requested.
