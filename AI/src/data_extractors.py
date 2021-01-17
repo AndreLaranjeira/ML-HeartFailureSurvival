@@ -4,6 +4,9 @@
 import numpy as np
 import pandas as pd
 
+# User module imports.
+from file_operations import DefaultFilenames, FileOperations
+
 
 # Dataset extractor.
 class DatasetExtractor:
@@ -20,7 +23,7 @@ class DatasetExtractor:
         self.dataset_file_name = dataset_file_name
         self.feature_columns_list = feature_columns_list
         self.label_columns_list = label_columns_list
-        self.seed = seed        
+        self.seed = seed
         self.train_size = train_size
         self.validation_size = validation_size
         self.dataset_features_shape = None
@@ -86,8 +89,8 @@ class DatasetExtractor:
 
         print("Test labels:\n")
         print(self.test_labels)
-        print("")     
-            
+        print("")
+
     def set_randomizing_seed(self, new_seed):
         self.seed = new_seed
 
@@ -159,6 +162,66 @@ class DatasetExtractor:
 
     def _treat_label_data(self):
         self.dataset_labels = np.ravel(self.dataset_labels)
+
+
+# Results extractor.
+class ResultsExtractor:
+    def __init__(
+        self,
+        evaluation_number,
+        model_number
+    ):
+        self.evaluation_number = evaluation_number
+        self.model_number = model_number
+        self.results = None
+        self.results_file_name = DefaultFilenames.evaluation_results_filename(
+            evaluation_number=evaluation_number
+        )
+
+    def extract_results(self):
+        results_dataframe = pd.read_csv(
+            filepath_or_buffer=FileOperations.apply_extension_to_filename(
+                self.results_file_name,
+                '.csv'
+            )
+        )
+        results_dataframe_model_number_range = range(
+            int(results_dataframe.head(1)['model_number']),
+            int(results_dataframe.tail(1)['model_number']) + 1
+        )
+
+        if(self.model_number in results_dataframe_model_number_range):
+            self.results = results_dataframe.loc[
+                self.model_number, [
+                    'model_number',
+                    'model_type',
+                    'model_params',
+                    'all_test_scores',
+                    'mean_test_score',
+                    'all_validation_scores',
+                    'mean_validation_score'
+                ]
+            ].to_dict()
+        else:
+            raise RuntimeError("Model number does not exist in results file!")
+
+    def get_all_results(self):
+        if(self.results is not None):
+            return self.results
+        else:
+            raise RuntimeError("No results were extracted!")
+
+    def get_test_scores(self):
+        if(self.results is not None):
+            return self.results['all_test_scores']
+        else:
+            raise RuntimeError("No results were extracted!")
+
+    def get_validation_scores(self):
+        if(self.results is not None):
+            return self.results['all_validation_scores']
+        else:
+            raise RuntimeError("No results were extracted!")
 
 
 # Seed extractor.
