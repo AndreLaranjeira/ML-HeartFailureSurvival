@@ -190,7 +190,7 @@ class KerasSequential(BaseTrainingModel):
 
     def _get_relevant_config_keys(self, layer_type_name):
         if(layer_type_name == 'Dense'):
-            return ('units', 'activation', 'use_bias')
+            return ('units', 'activation', 'use_bias', 'kernel_regularizer')
         elif(layer_type_name == 'Dropout'):
             return ('rate', 'noise_shape')
 

@@ -73,13 +73,17 @@ dataset_split_seeds = dataset_split_seed_extractor.get_seeds()
 # Define the models.
 models = []
 
-# for second_layer in range(20, 101, 20):
-for first_layer in range(100, 501, 100):
+for second_layer in range(20, 101, 20):
     models.append(KerasSequential(
         layers=[
             Input(shape=features_shape),
             Dense(
-                first_layer,
+                100,
+                activation='relu',
+                kernel_regularizer=regularizers.l2(0.01)
+            ),
+            Dense(
+                second_layer,
                 activation='relu',
                 kernel_regularizer=regularizers.l2(0.01)
             ),
@@ -110,7 +114,7 @@ model_evaluator = ModelEvaluator(
     num_validation_runs=20,
     num_test_runs=100,
     percent_of_models_tested=0.2,
-    evaluation_number=25
+    evaluation_number=26
 )
 
 # Start timing model evaluation, if requested.
