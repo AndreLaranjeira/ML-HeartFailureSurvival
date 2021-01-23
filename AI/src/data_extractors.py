@@ -1,6 +1,7 @@
 # Heart failure prediction - Data extractors module.
 
 # Package imports.
+import ast
 import numpy as np
 import pandas as pd
 
@@ -191,7 +192,7 @@ class ResultsExtractor:
         )
 
         if(self.model_number in results_dataframe_model_number_range):
-            self.results = results_dataframe.loc[
+            raw_results = results_dataframe.loc[
                 self.model_number, [
                     'model_number',
                     'model_type',
@@ -202,6 +203,7 @@ class ResultsExtractor:
                     'mean_validation_score'
                 ]
             ].to_dict()
+            self.results = self._treat_raw_results(raw_results)
         else:
             raise RuntimeError("Model number does not exist in results file!")
 
@@ -222,6 +224,72 @@ class ResultsExtractor:
             return self.results['all_validation_scores']
         else:
             raise RuntimeError("No results were extracted!")
+
+    # Private methods.
+    def _copy_keys_applying_literal_evaluation(
+        self,
+        destination_dict,
+        origin_dict,
+        keys
+    ):
+        for key in keys:
+            destination_dict[key] = ast.literal_eval(origin_dict[key])
+
+    def _copy_keys_decoding_mean_score(
+        self,
+        destination_dict,
+        origin_dict,
+        keys
+    ):
+        for key in keys:
+            destination_dict[key] = self._decode_mean_score(origin_dict[key])
+
+    def _copy_keys_with_no_treatment(
+        self,
+        destination_dict,
+        origin_dict,
+        keys
+    ):
+        for key in keys:
+            destination_dict[key] = origin_dict[key]
+
+    def _decode_mean_score(self, mean_score):
+        try:
+            float_value = float(mean_score)
+            return float_value
+        except ValueError:
+            return None
+
+    def _treat_raw_results(self, raw_results):
+        treated_results = dict()
+
+        self._copy_keys_with_no_treatment(
+            destination_dict=treated_results,
+            origin_dict=raw_results,
+            keys=[
+                'model_number',
+                'model_type'
+            ]
+        )
+        self._copy_keys_applying_literal_evaluation(
+            destination_dict=treated_results,
+            origin_dict=raw_results,
+            keys=[
+                'model_params',
+                'all_test_scores',
+                'all_validation_scores'
+            ]
+        )
+        self._copy_keys_decoding_mean_score(
+            destination_dict=treated_results,
+            origin_dict=raw_results,
+            keys=[
+                'mean_test_score',
+                'mean_validation_score'
+            ]
+        )
+
+        return treated_results
 
 
 # Seed extractor.
