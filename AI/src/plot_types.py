@@ -27,6 +27,9 @@ class BasePlotType(ABC):
     def get_data_params(self):
         return self.data_params
 
+    def has_label(self):
+        return ('label' in self.aditional_params)
+
     # Abstract methods.
     # Plots the plot with the given data and additional params.
     @abstractmethod
