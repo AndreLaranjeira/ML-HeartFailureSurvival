@@ -9,24 +9,35 @@ from file_operations import FileOperations
 
 # Plot operations module definition.
 class PlotOperations:
+    figure = None
     queued_plots = []
 
     def clear_queued_plots():
         PlotOperations.queued_plots.clear()
 
+    def initialize_figure():
+        PlotOperations.figure = plt.figure()
+
     def queue_plot(plot):
         PlotOperations.queued_plots.append(plot)
 
-    def save_plots(file_name):
-        file_name_with_extension = FileOperations.apply_extension_to_filename(
-            file_name,
+    def save_plots(filename):
+        if(PlotOperations.figure is None):
+            raise RuntimeError("Figure to save plots was not initialized!")
+
+        filename_with_extension = FileOperations.apply_extension_to_filename(
+            filename,
             '.png'
         )
-        figure = plt.figure()
+
         PlotOperations._plot_queued_plots()
-        plt.savefig(file_name_with_extension, bbox_inches='tight')
-        plt.close(figure)
+        plt.savefig(filename_with_extension, bbox_inches='tight')
+        plt.close(PlotOperations.figure)
+        PlotOperations.figure = None
         PlotOperations.clear_queued_plots()
+
+    def set_title(label, **aditional_params):
+        plt.title(label, **aditional_params)
 
     def set_xlabel(label, **aditional_params):
         plt.xlabel(label, **aditional_params)
