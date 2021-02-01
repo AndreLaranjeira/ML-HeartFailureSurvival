@@ -24,8 +24,11 @@ Para escrever os módulos contidos nessa parte do projeto, alguns pacotes da lin
 
 #### Pacotes da biblioteca padrão do Python 3.8.6
 
+* `abc`;
 * `argparse`;
+* `ast`;
 * `datetime`;
+* `enum`;
 * `pickle`;
 * `time`;
 
@@ -33,6 +36,7 @@ Para escrever os módulos contidos nessa parte do projeto, alguns pacotes da lin
 
 * `keras`: 2.4.3;
   * `tensorflow-cpu` (backend do `keras`): 2.4.0;
+* `matplotlib`: 3.0.3;
 * `numpy`: 1.19.4;
 * `pandas`: 1.0.1;
 * `scikit-learn`: 0.23.1;
