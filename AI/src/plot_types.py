@@ -27,6 +27,7 @@ class BasePlotType(ABC):
     def get_data_params(self):
         return self.data_params
 
+    # Returns wheter the plot has a label parameter.
     def has_label(self):
         return ('label' in self.aditional_params)
 

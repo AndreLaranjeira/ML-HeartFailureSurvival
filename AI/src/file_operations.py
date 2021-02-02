@@ -5,8 +5,8 @@
 class DefaultFilenames:
 
     # Constants.
-    FALLBACK_FILENAME = 'fallback_save'
     RESULTS_DIRECTORY = 'results/'
+    SAVE_FALLBACK = 'fallback_save'
     SAVE_FILENAME = 'default_save'
 
     # Methods.
@@ -46,7 +46,7 @@ class FileOperations:
             print("An error ocurred during the save operation! Error:")
             print(e)
             print("")
-            print("Fallback filename '", fallback_filename, "' used instead!")
+            print(f'Fallback filename "{fallback_filename}" used instead!')
 
             save_method_or_function(fallback_filename)
 

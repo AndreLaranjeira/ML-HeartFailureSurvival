@@ -128,7 +128,7 @@ class KerasSequential(BaseTrainingModel):
             save_method_or_function=self.model.save,
             filename=filename_with_extension,
             fallback_filename=FileOperations.apply_extension_to_filename(
-                original_filename=DefaultFilenames.FALLBACK_FILENAME,
+                original_filename=DefaultFilenames.SAVE_FALLBACK,
                 file_extension=self.file_extension
             )
         )
@@ -272,7 +272,7 @@ class RandomForest(BaseTrainingModel):
             save_method_or_function=self._dump_model_to_file_with_pickle,
             filename=filename_with_extension,
             fallback_filename=FileOperations.apply_extension_to_filename(
-                original_filename=DefaultFilenames.FALLBACK_FILENAME,
+                original_filename=DefaultFilenames.SAVE_FALLBACK,
                 file_extension=self.file_extension
             )
         )

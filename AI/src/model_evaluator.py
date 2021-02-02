@@ -101,7 +101,7 @@ class ModelEvaluator:
                 file_extension='.csv'
             ),
             fallback_filename=FileOperations.apply_extension_to_filename(
-                original_filename=DefaultFilenames.FALLBACK_FILENAME,
+                original_filename=DefaultFilenames.SAVE_FALLBACK,
                 file_extension='.csv'
             )
         )
