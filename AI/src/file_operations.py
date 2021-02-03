@@ -5,6 +5,8 @@
 class DefaultFilenames:
 
     # Constants.
+    PLOT_FALLBACK = 'fallback_plot_output'
+    PLOT_FILENAME = 'plot_output'
     RESULTS_DIRECTORY = 'results/'
     SAVE_FALLBACK = 'fallback_save'
     SAVE_FILENAME = 'default_save'

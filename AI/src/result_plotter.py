@@ -6,14 +6,28 @@ import numpy as np
 # User module imports.
 from data_extractors import ResultsExtractor
 from enum import Enum, auto
+from file_operations import DefaultFilenames, FileOperations
 from plot_operations import PlotOperations
 from plot_types import Barplot, Boxplot, Histogram
 
 
-# Results data type enumeration class.
-class ResultsDataType(Enum):
-    TEST_RESULTS = auto()
-    VALIDATION_RESULTS = auto()
+# Graph type enumeration class.
+class GraphType(Enum):
+    BARPLOT = auto()
+    BOXPLOT = auto()
+    HISTOGRAM = auto()
+
+
+# Plotter action enumeration class.
+class PlotterAction(Enum):
+    PLOT = auto()
+    SAVE = auto()
+
+
+# Results data category enumeration class.
+class ResultsDataCategory(Enum):
+    TEST = auto()
+    VALIDATION = auto()
     COMPARISON = auto()
 
 
@@ -34,75 +48,127 @@ class EvaluationResultsPlotter:
 
     def plot_results_barplot(
         self,
-        results_data_type
+        results_data_category
     ):
         self._add_default_barplot_graph_settings()
-        results_data = self._determine_results_data(results_data_type)
-        labels = self._determine_plot_labels(results_data_type)
+        results_data = self._determine_results_data(results_data_category)
+        labels = self._determine_plot_labels(results_data_category)
 
         self._queue_barplots(results_data, labels)
         PlotOperations.show_plots()
 
     def plot_results_boxplot(
         self,
-        results_data_type
+        results_data_category
     ):
         self._add_default_boxplot_graph_settings()
-        results_data = self._determine_results_data(results_data_type)
-        labels = self._determine_plot_labels(results_data_type)
+        results_data = self._determine_results_data(results_data_category)
+        labels = self._determine_plot_labels(results_data_category)
 
         self._queue_boxplots(results_data, labels)
         PlotOperations.show_plots()
 
     def plot_results_histogram(
         self,
-        results_data_type
+        results_data_category
     ):
         self._add_default_histogram_graph_settings()
-        results_data = self._determine_results_data(results_data_type)
-        labels = self._determine_plot_labels(results_data_type)
+        results_data = self._determine_results_data(results_data_category)
+        labels = self._determine_plot_labels(results_data_category)
 
         self._queue_histogram_plots(results_data, labels)
         PlotOperations.show_plots()
 
+    def request_action(
+        self,
+        plotter_action,
+        graph_type,
+        results_data_category,
+        filename=DefaultFilenames.PLOT_FILENAME
+    ):
+        if(plotter_action == PlotterAction.PLOT):
+            self._request_plot(
+                graph_type,
+                results_data_category
+            )
+        elif(plotter_action == PlotterAction.SAVE):
+            self._request_save(
+                graph_type,
+                results_data_category,
+                filename
+            )
+
     def save_results_barplot(
         self,
-        results_data_type,
+        results_data_category,
         filename
     ):
         PlotOperations.initialize_figure()
         self._add_default_barplot_graph_settings()
-        results_data = self._determine_results_data(results_data_type)
-        labels = self._determine_plot_labels(results_data_type)
+        results_data = self._determine_results_data(results_data_category)
+        labels = self._determine_plot_labels(results_data_category)
+        filename_with_extension = FileOperations.apply_extension_to_filename(
+            original_filename=filename,
+            file_extension='.png'
+        )
 
         self._queue_barplots(results_data, labels)
-        PlotOperations.save_plots(filename)
+        FileOperations.save_file_with_fallback(
+            save_method_or_function=PlotOperations.save_plots,
+            filename=filename_with_extension,
+            fallback_filename=FileOperations.apply_extension_to_filename(
+                original_filename=DefaultFilenames.PLOT_FALLBACK,
+                file_extension='.png'
+            )
+        )
 
     def save_results_boxplot(
         self,
-        results_data_type,
+        results_data_category,
         filename
     ):
         PlotOperations.initialize_figure()
         self._add_default_boxplot_graph_settings()
-        results_data = self._determine_results_data(results_data_type)
-        labels = self._determine_plot_labels(results_data_type)
+        results_data = self._determine_results_data(results_data_category)
+        labels = self._determine_plot_labels(results_data_category)
+        filename_with_extension = FileOperations.apply_extension_to_filename(
+            original_filename=filename,
+            file_extension='.png'
+        )
 
         self._queue_boxplots(results_data, labels)
-        PlotOperations.save_plots(filename)
+        FileOperations.save_file_with_fallback(
+            save_method_or_function=PlotOperations.save_plots,
+            filename=filename_with_extension,
+            fallback_filename=FileOperations.apply_extension_to_filename(
+                original_filename=DefaultFilenames.PLOT_FALLBACK,
+                file_extension='.png'
+            )
+        )
 
     def save_results_histogram(
         self,
-        results_data_type,
+        results_data_category,
         filename
     ):
         PlotOperations.initialize_figure()
         self._add_default_histogram_graph_settings()
-        results_data = self._determine_results_data(results_data_type)
-        labels = self._determine_plot_labels(results_data_type)
+        results_data = self._determine_results_data(results_data_category)
+        labels = self._determine_plot_labels(results_data_category)
+        filename_with_extension = FileOperations.apply_extension_to_filename(
+            original_filename=filename,
+            file_extension='.png'
+        )
 
         self._queue_histogram_plots(results_data, labels)
-        PlotOperations.save_plots(filename)
+        FileOperations.save_file_with_fallback(
+            save_method_or_function=PlotOperations.save_plots,
+            filename=filename_with_extension,
+            fallback_filename=FileOperations.apply_extension_to_filename(
+                original_filename=DefaultFilenames.PLOT_FALLBACK,
+                file_extension='.png'
+            )
+        )
 
     # Private methods.
     def _add_default_barplot_graph_settings(self):
@@ -131,27 +197,52 @@ class EvaluationResultsPlotter:
     def _default_histogram_bins(self):
         return np.arange(0.5, 1.01, step=0.05)
 
-    def _determine_plot_labels(self, results_data_type):
-        if(results_data_type == ResultsDataType.TEST_RESULTS):
+    def _determine_plot_labels(self, results_data_category):
+        if(results_data_category == ResultsDataCategory.TEST):
             return ['Resultados de teste']
-        elif(results_data_type == ResultsDataType.VALIDATION_RESULTS):
+        elif(results_data_category == ResultsDataCategory.VALIDATION):
             return ['Resultados de validação']
-        elif(results_data_type == ResultsDataType.COMPARISON):
+        elif(results_data_category == ResultsDataCategory.COMPARISON):
             return [
                 'Resultados de teste',
                 'Resultados de validação'
             ]
 
-    def _determine_results_data(self, results_data_type):
-        if(results_data_type == ResultsDataType.TEST_RESULTS):
+    def _determine_results_data(self, results_data_category):
+        if(results_data_category == ResultsDataCategory.TEST):
             return [self.results_extractor.get_test_scores()]
-        elif(results_data_type == ResultsDataType.VALIDATION_RESULTS):
+        elif(results_data_category == ResultsDataCategory.VALIDATION):
             return [self.results_extractor.get_validation_scores()]
-        elif(results_data_type == ResultsDataType.COMPARISON):
+        elif(results_data_category == ResultsDataCategory.COMPARISON):
             return np.array([
                 self.results_extractor.get_test_scores(),
                 self.results_extractor.get_validation_scores()
             ], dtype='object')
+
+    def _request_plot(
+        self,
+        graph_type,
+        results_data_category
+    ):
+        if(graph_type == GraphType.BARPLOT):
+            self.plot_results_barplot(results_data_category)
+        elif(graph_type == GraphType.BOXPLOT):
+            self.plot_results_boxplot(results_data_category)
+        elif(graph_type == GraphType.HISTOGRAM):
+            self.plot_results_histogram(results_data_category)
+
+    def _request_save(
+        self,
+        graph_type,
+        results_data_category,
+        filename
+    ):
+        if(graph_type == GraphType.BARPLOT):
+            self.save_results_barplot(results_data_category, filename)
+        elif(graph_type == GraphType.BOXPLOT):
+            self.save_results_boxplot(results_data_category, filename)
+        elif(graph_type == GraphType.HISTOGRAM):
+            self.save_results_histogram(results_data_category, filename)
 
     def _queue_barplots(self, results_data, labels):
         if(len(results_data) > 1):
