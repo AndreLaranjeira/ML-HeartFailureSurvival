@@ -1,4 +1,4 @@
-# Program to train an AI to predict heart failure.
+# Heart failure prediction - Main program (Run evaluation).
 
 # Classes and methods imports.
 from keras import Input
@@ -12,12 +12,18 @@ from model_evaluator import ModelEvaluator
 from training_models import KerasSequential, RandomForest
 
 # Program metadata.
-PROGRAM_NAME = 'heart_failure_prediction'
-VERSION_NUM = '1.0.0'
+PROGRAM_NAME = 'src/main.py'
+PROGRAM_DESCRIPTION = 'Program to evaluate training models on dataset data.'
+VERSION_NUM = '1.0.1'
 
 # Argument parser.
-argparser = ArgumentParserModule(PROGRAM_NAME, VERSION_NUM)
-argparser.add_default_args()
+argparser = ArgumentParserModule(
+    program_name=PROGRAM_NAME,
+    description=PROGRAM_DESCRIPTION,
+    version_num=VERSION_NUM
+)
+argparser.add_version_argument()
+argparser.add_default_run_evaluation_args()
 args = argparser.parse_args()
 
 # Extract the data.

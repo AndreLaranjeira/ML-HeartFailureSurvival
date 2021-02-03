@@ -6,15 +6,15 @@ import argparse
 
 # Argument parser module definition.
 class ArgumentParserModule:
-    def __init__(self, program_name, version_num):
+    def __init__(self, program_name, description, version_num):
         self.parser = argparse.ArgumentParser(
-            prog=f'{program_name}',
-            description='Heart failure prediction program.'
+            prog=program_name,
+            description=description
         )
         self.program_name = program_name
         self.version_num = version_num
 
-    def add_default_args(self):
+    def add_default_run_evaluation_args(self):
         self.parser.add_argument(
             '-d',
             '--validation-size',
@@ -38,6 +38,8 @@ class ArgumentParserModule:
             dest='train_size',
             help='percentage of data in (0, 1) to be used in training.'
         )
+
+    def add_version_argument(self):
         self.parser.add_argument(
             '-v',
             '--version',
