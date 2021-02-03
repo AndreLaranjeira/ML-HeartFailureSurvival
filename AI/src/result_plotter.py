@@ -20,7 +20,7 @@ class GraphType(Enum):
 
 # Plotter action enumeration class.
 class PlotterAction(Enum):
-    PLOT = auto()
+    SHOW = auto()
     SAVE = auto()
 
 
@@ -86,7 +86,7 @@ class EvaluationResultsPlotter:
         results_data_category,
         filename=DefaultFilenames.PLOT_FILENAME
     ):
-        if(plotter_action == PlotterAction.PLOT):
+        if(plotter_action == PlotterAction.SHOW):
             self._request_plot(
                 graph_type,
                 results_data_category

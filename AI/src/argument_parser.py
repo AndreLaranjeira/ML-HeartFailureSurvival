@@ -3,6 +3,10 @@
 # Package imports.
 import argparse
 
+# User module imports.
+from file_operations import DefaultFilenames
+from result_plotter import GraphType, PlotterAction, ResultsDataCategory
+
 
 # Argument parser module definition.
 class ArgumentParserModule:
@@ -13,6 +17,69 @@ class ArgumentParserModule:
         )
         self.program_name = program_name
         self.version_num = version_num
+
+    def add_default_plot_results_args(self):
+        self.parser.add_argument(
+            '-a',
+            '--action',
+            type=str,
+            choices=[
+                name.lower() for name, _ in PlotterAction.__members__.items()
+            ],
+            dest='action',
+            default=PlotterAction.SHOW.name.lower(),
+            help='action to perform with plot.'
+        )
+
+        self.parser.add_argument(
+            '-e',
+            '--evaluation-number',
+            type=int,
+            choices=range(1, 31),
+            dest='evaluation_number',
+            help='evaluation number to analyse.',
+            metavar='EVALUATION_NUMBER'
+        )
+
+        self.parser.add_argument(
+            '-f',
+            '--filename',
+            type=str,
+            dest='filename',
+            default=DefaultFilenames.PLOT_FILENAME,
+            help='filename to save plot results to.'
+        )
+
+        self.parser.add_argument(
+            '-g',
+            '--graph-type',
+            type=str,
+            choices=[
+                name.lower() for name, _ in GraphType.__members__.items()
+            ],
+            dest='graph_type',
+            help='type of graph to plot.'
+        )
+
+        self.parser.add_argument(
+            '-m',
+            '--model-number',
+            type=int,
+            dest='model_number',
+            help='model number to analyse.'
+        )
+
+        self.parser.add_argument(
+            '-r',
+            '--results-data-category',
+            type=str,
+            choices=[
+                name.lower() for name, _
+                in ResultsDataCategory.__members__.items()
+            ],
+            dest='results_data_category',
+            help='category of results data to plot.'
+        )
 
     def add_default_run_evaluation_args(self):
         self.parser.add_argument(
