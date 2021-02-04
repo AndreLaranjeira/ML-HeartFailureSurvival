@@ -3,25 +3,97 @@
 # Package imports.
 import argparse
 
+# User module imports.
+from file_operations import DefaultFilenames
+from result_plotter import GraphType, PlotterAction, ResultsDataCategory
+
 
 # Argument parser module definition.
 class ArgumentParserModule:
-    def __init__(self, program_name, version_num):
+    def __init__(self, program_name, description, version_num):
         self.parser = argparse.ArgumentParser(
-            prog=f'{program_name}',
-            description='Heart failure prediction program.'
+            prog=program_name,
+            description=description
         )
         self.program_name = program_name
         self.version_num = version_num
 
-    def add_default_args(self):
+    def add_default_plot_results_args(self):
+        self.parser.add_argument(
+            '-a',
+            '--action',
+            type=str,
+            choices=[
+                name.lower() for name, _ in PlotterAction.__members__.items()
+            ],
+            dest='action',
+            default=PlotterAction.SHOW.name.lower(),
+            help='action to perform with plot.'
+        )
+
+        self.parser.add_argument(
+            '-e',
+            '--evaluation-number',
+            type=int,
+            dest='evaluation_number',
+            help='evaluation number to analyse.'
+        )
+
+        self.parser.add_argument(
+            '-f',
+            '--filename',
+            type=str,
+            dest='filename',
+            default=DefaultFilenames.PLOT_FILENAME,
+            help='filename to save plot results to.'
+        )
+
+        self.parser.add_argument(
+            '-g',
+            '--graph-type',
+            type=str,
+            choices=[
+                name.lower() for name, _ in GraphType.__members__.items()
+            ],
+            dest='graph_type',
+            help='type of graph to plot.'
+        )
+
+        self.parser.add_argument(
+            '-m',
+            '--model-number',
+            type=int,
+            dest='model_number',
+            help='model number to analyse.'
+        )
+
+        self.parser.add_argument(
+            '-r',
+            '--results-data-category',
+            type=str,
+            choices=[
+                name.lower() for name, _
+                in ResultsDataCategory.__members__.items()
+            ],
+            dest='results_data_category',
+            help='category of results data to plot.'
+        )
+
+    def add_default_run_evaluation_args(self):
         self.parser.add_argument(
             '-d',
             '--validation-size',
             type=unit_interval_open_on_one,
             default=0.2,
             dest='validation_size',
-            help='unit interval open on 1 of percentage of data used in validation.'
+            help='percentage of data in [0, 1) to be used in validation.'
+        )
+        self.parser.add_argument(
+            '-e',
+            '--evaluation-time',
+            action='store_true',
+            dest='show_evaluation_time',
+            help='shows the time elapsed evaluating training models.'
         )
         self.parser.add_argument(
             '-t',
@@ -29,8 +101,10 @@ class ArgumentParserModule:
             type=open_unit_interval,
             default=0.6,
             dest='train_size',
-            help='open unit interval of percentage of data used in training.'
+            help='percentage of data in (0, 1) to be used in training.'
         )
+
+    def add_version_argument(self):
         self.parser.add_argument(
             '-v',
             '--version',

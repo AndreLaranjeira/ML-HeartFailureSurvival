@@ -1,8 +1,12 @@
 # Heart failure prediction - Data extractors module.
 
 # Package imports.
+import ast
 import numpy as np
 import pandas as pd
+
+# User module imports.
+from file_operations import DefaultFilenames, FileOperations
 
 
 # Dataset extractor.
@@ -20,7 +24,7 @@ class DatasetExtractor:
         self.dataset_file_name = dataset_file_name
         self.feature_columns_list = feature_columns_list
         self.label_columns_list = label_columns_list
-        self.seed = seed        
+        self.seed = seed
         self.train_size = train_size
         self.validation_size = validation_size
         self.dataset_features_shape = None
@@ -86,8 +90,8 @@ class DatasetExtractor:
 
         print("Test labels:\n")
         print(self.test_labels)
-        print("")     
-            
+        print("")
+
     def set_randomizing_seed(self, new_seed):
         self.seed = new_seed
 
@@ -159,6 +163,133 @@ class DatasetExtractor:
 
     def _treat_label_data(self):
         self.dataset_labels = np.ravel(self.dataset_labels)
+
+
+# Results extractor.
+class ResultsExtractor:
+    def __init__(
+        self,
+        evaluation_number,
+        model_number
+    ):
+        self.evaluation_number = evaluation_number
+        self.model_number = model_number
+        self.results = None
+        self.results_filename = FileOperations.apply_extension_to_filename(
+            original_filename=DefaultFilenames.evaluation_results_filename(
+                evaluation_number=evaluation_number
+            ),
+            file_extension='.csv'
+        )
+
+    def extract_results(self):
+        results_dataframe = pd.read_csv(
+            filepath_or_buffer=self.results_filename
+        )
+        results_dataframe_model_number_range = range(
+            int(results_dataframe.head(1)['model_number']),
+            int(results_dataframe.tail(1)['model_number']) + 1
+        )
+
+        if(self.model_number in results_dataframe_model_number_range):
+            raw_results = results_dataframe.loc[
+                self.model_number, [
+                    'model_number',
+                    'model_type',
+                    'model_params',
+                    'all_test_scores',
+                    'mean_test_score',
+                    'all_validation_scores',
+                    'mean_validation_score'
+                ]
+            ].to_dict()
+            self.results = self._treat_raw_results(raw_results)
+        else:
+            raise RuntimeError("Model number does not exist in results file!")
+
+    def get_all_results(self):
+        if(self.results is not None):
+            return self.results
+        else:
+            raise RuntimeError("No results were extracted!")
+
+    def get_test_scores(self):
+        if(self.results is not None):
+            return self.results['all_test_scores']
+        else:
+            raise RuntimeError("No results were extracted!")
+
+    def get_validation_scores(self):
+        if(self.results is not None):
+            return self.results['all_validation_scores']
+        else:
+            raise RuntimeError("No results were extracted!")
+
+    # Private methods.
+    def _copy_keys_applying_literal_evaluation(
+        self,
+        destination_dict,
+        origin_dict,
+        keys
+    ):
+        for key in keys:
+            destination_dict[key] = ast.literal_eval(origin_dict[key])
+
+    def _copy_keys_decoding_mean_score(
+        self,
+        destination_dict,
+        origin_dict,
+        keys
+    ):
+        for key in keys:
+            destination_dict[key] = self._decode_mean_score(origin_dict[key])
+
+    def _copy_keys_with_no_treatment(
+        self,
+        destination_dict,
+        origin_dict,
+        keys
+    ):
+        for key in keys:
+            destination_dict[key] = origin_dict[key]
+
+    def _decode_mean_score(self, mean_score):
+        try:
+            float_value = float(mean_score)
+            return float_value
+        except ValueError:
+            return None
+
+    def _treat_raw_results(self, raw_results):
+        treated_results = dict()
+
+        self._copy_keys_with_no_treatment(
+            destination_dict=treated_results,
+            origin_dict=raw_results,
+            keys=[
+                'model_number',
+                'model_type'
+            ]
+        )
+        self._copy_keys_applying_literal_evaluation(
+            destination_dict=treated_results,
+            origin_dict=raw_results,
+            keys=[
+                'model_params',
+                'all_test_scores',
+                'all_validation_scores'
+            ]
+        )
+        self._copy_keys_decoding_mean_score(
+            destination_dict=treated_results,
+            origin_dict=raw_results,
+            keys=[
+                'mean_test_score',
+                'mean_validation_score'
+            ]
+        )
+
+        return treated_results
 
 
 # Seed extractor.

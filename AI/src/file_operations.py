@@ -1,8 +1,20 @@
 # Heart failure prediction - File operations module.
 
-# Constants:
-DEFAULT_FILENAME = 'default_save'
-DEFAULT_FALLBACK_FILENAME = 'fallback_save'
+
+# Default filenames.
+class DefaultFilenames:
+
+    # Constants.
+    PLOT_FALLBACK = 'fallback_plot_output'
+    PLOT_FILENAME = 'plot_output'
+    RESULTS_DIRECTORY = 'results/'
+    SAVE_FALLBACK = 'fallback_results_save'
+    SAVE_FILENAME = 'results_save'
+
+    # Methods.
+    def evaluation_results_filename(evaluation_number):
+        return DefaultFilenames.RESULTS_DIRECTORY + \
+            'E' + str(evaluation_number).zfill(4)
 
 
 # File operatorions module definition.
@@ -36,7 +48,7 @@ class FileOperations:
             print("An error ocurred during the save operation! Error:")
             print(e)
             print("")
-            print("Fallback filename '", fallback_filename, "' used instead!")
+            print(f'Fallback filename "{fallback_filename}" used instead!')
 
             save_method_or_function(fallback_filename)
 

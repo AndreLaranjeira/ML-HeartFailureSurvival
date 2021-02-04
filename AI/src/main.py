@@ -1,8 +1,9 @@
-# Program to train an AI to predict heart failure.
+# Heart failure prediction - Main program (Run evaluation).
 
 # Classes and methods imports.
 from keras import Input
-from keras.layers.core import Dense
+from keras.layers.core import Dense, Dropout
+import time
 
 # User module imports.
 from argument_parser import ArgumentParserModule
@@ -11,12 +12,18 @@ from model_evaluator import ModelEvaluator
 from training_models import KerasSequential, RandomForest
 
 # Program metadata.
-PROGRAM_NAME = 'heart_failure_prediction'
-VERSION_NUM = '1.0.0'
+PROGRAM_NAME = 'src/main.py'
+PROGRAM_DESCRIPTION = 'Program to evaluate training models on dataset data.'
+VERSION_NUM = '1.0.1'
 
 # Argument parser.
-argparser = ArgumentParserModule(PROGRAM_NAME, VERSION_NUM)
-argparser.add_default_args()
+argparser = ArgumentParserModule(
+    program_name=PROGRAM_NAME,
+    description=PROGRAM_DESCRIPTION,
+    version_num=VERSION_NUM
+)
+argparser.add_version_argument()
+argparser.add_default_run_evaluation_args()
 args = argparser.parse_args()
 
 # Extract the data.
@@ -102,6 +109,20 @@ model_evaluator = ModelEvaluator(
     evaluation_number=1
 )
 
+# Start timing model evaluation, if requested.
+if(args.show_evaluation_time):
+    start_time = time.time()
+
+# Evaluate models.
 model_evaluator.evaluate_models()
 model_evaluator.print_results()
 model_evaluator.save_results_as_csv()
+
+# Print model evaluation time, if requested.
+if(args.show_evaluation_time):
+    evaluation_time = time.time() - start_time
+    formatted_evaluation_time = time.strftime(
+        '%T', time.gmtime(evaluation_time)
+    )
+    print("Time elapsed evaluating models:", formatted_evaluation_time)
+    print("")
