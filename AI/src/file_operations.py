@@ -8,8 +8,8 @@ class DefaultFilenames:
     PLOT_FALLBACK = 'fallback_plot_output'
     PLOT_FILENAME = 'plot_output'
     RESULTS_DIRECTORY = 'results/'
-    SAVE_FALLBACK = 'fallback_save'
-    SAVE_FILENAME = 'default_save'
+    SAVE_FALLBACK = 'fallback_results_save'
+    SAVE_FILENAME = 'results_save'
 
     # Methods.
     def evaluation_results_filename(evaluation_number):

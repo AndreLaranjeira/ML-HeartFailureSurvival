@@ -23,16 +23,16 @@ class PlotOperations:
 
     def save_plots(filename):
         if(PlotOperations.figure is None):
-            raise RuntimeError("Figure to save plots was not initialized!")
+            PlotOperations.initialize_figure()
 
         filename_with_extension = FileOperations.apply_extension_to_filename(
-            filename,
-            '.png'
+            original_filename=filename,
+            file_extension='.png'
         )
-
         PlotOperations._plot_queued_plots()
         plt.savefig(filename_with_extension, bbox_inches='tight')
         plt.close(PlotOperations.figure)
+
         PlotOperations.figure = None
         PlotOperations.clear_queued_plots()
 

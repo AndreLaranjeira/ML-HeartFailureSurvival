@@ -35,10 +35,8 @@ class ArgumentParserModule:
             '-e',
             '--evaluation-number',
             type=int,
-            choices=range(1, 31),
             dest='evaluation_number',
-            help='evaluation number to analyse.',
-            metavar='EVALUATION_NUMBER'
+            help='evaluation number to analyse.'
         )
 
         self.parser.add_argument(

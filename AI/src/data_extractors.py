@@ -175,16 +175,16 @@ class ResultsExtractor:
         self.evaluation_number = evaluation_number
         self.model_number = model_number
         self.results = None
-        self.results_file_name = DefaultFilenames.evaluation_results_filename(
-            evaluation_number=evaluation_number
+        self.results_filename = FileOperations.apply_extension_to_filename(
+            original_filename=DefaultFilenames.evaluation_results_filename(
+                evaluation_number=evaluation_number
+            ),
+            file_extension='.csv'
         )
 
     def extract_results(self):
         results_dataframe = pd.read_csv(
-            filepath_or_buffer=FileOperations.apply_extension_to_filename(
-                self.results_file_name,
-                '.csv'
-            )
+            filepath_or_buffer=self.results_filename
         )
         results_dataframe_model_number_range = range(
             int(results_dataframe.head(1)['model_number']),
