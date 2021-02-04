@@ -20,7 +20,7 @@ Programa de aprendizado de máquina escrito em Python com o intuito de prever in
 
 ### Pacotes utilizados
 
-Para escrever os módulos contidos nessa parte do projeto, alguns pacotes da linguagem de programação Python foram utilizados, os quais foram instalados ou por meio do gerenciador de pacotes Pip ou já vieram na biblioteca padrão da versão de Python utilizada \(**Python 3.8.6**\). Os pacotes, bem as versões exatas utilizadas neste projeto, estão listados abaixo.
+Para escrever os módulos contidos nessa parte do projeto, alguns pacotes da linguagem de programação Python foram utilizados, os quais foram instalados ou por meio do gerenciador de pacotes Pip ou já vieram na biblioteca padrão da versão de Python utilizada \(**Python 3.8.6**\). Os pacotes, bem como as versões exatas utilizadas neste projeto, estão listados abaixo.
 
 #### Pacotes da biblioteca padrão do Python 3.8.6
 

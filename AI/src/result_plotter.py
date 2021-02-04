@@ -3,9 +3,11 @@
 # Package imports.
 import numpy as np
 
+# Classes and methods imports.
+from enum import Enum, auto
+
 # User module imports.
 from data_extractors import ResultsExtractor
-from enum import Enum, auto
 from file_operations import DefaultFilenames, FileOperations
 from plot_operations import PlotOperations
 from plot_types import Barplot, Boxplot, Histogram
@@ -20,15 +22,15 @@ class GraphType(Enum):
 
 # Plotter action enumeration class.
 class PlotterAction(Enum):
-    SHOW = auto()
     SAVE = auto()
+    SHOW = auto()
 
 
 # Results data category enumeration class.
 class ResultsDataCategory(Enum):
+    COMPARISON = auto()
     TEST = auto()
     VALIDATION = auto()
-    COMPARISON = auto()
 
 
 # Evaluation results plotter class.
@@ -37,10 +39,10 @@ class EvaluationResultsPlotter:
         self.evaluation_number = evaluation_number
         self.model_number = model_number
         self.results_extractor = ResultsExtractor(
-            evaluation_number,
-            model_number
+            evaluation_number=evaluation_number,
+            model_number=model_number
         )
-        self.title_precursor = f'Avaliação ' + \
+        self.title_prefix = 'Avaliação ' + \
             f'{str(self.evaluation_number).zfill(2)} ' + \
             f'- Modelo {str(self.model_number).zfill(3)}'
 
@@ -173,7 +175,7 @@ class EvaluationResultsPlotter:
     # Private methods.
     def _add_default_barplot_graph_settings(self):
         PlotOperations.set_title(
-            self.title_precursor + ' - Acurácia por particionamento'
+            self.title_prefix + ' - Acurácia por particionamento'
         )
         PlotOperations.set_xlabel('Número do particionamento')
         PlotOperations.set_ylabel('Acurácia')
@@ -181,14 +183,14 @@ class EvaluationResultsPlotter:
 
     def _add_default_boxplot_graph_settings(self):
         PlotOperations.set_title(
-            self.title_precursor + ' - Gráfico de caixa de acurácia'
+            self.title_prefix + ' - Gráfico de caixa de acurácia'
         )
         PlotOperations.set_xlabel('Dados')
         PlotOperations.set_ylabel('Acurácia')
 
     def _add_default_histogram_graph_settings(self):
         PlotOperations.set_title(
-            self.title_precursor + ' - Histograma de acurácia'
+            self.title_prefix + ' - Histograma de acurácia'
         )
         PlotOperations.set_xlabel('Acurácia')
         PlotOperations.set_ylabel('Número de particionamentos')

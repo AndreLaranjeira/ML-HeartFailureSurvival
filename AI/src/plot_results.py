@@ -20,7 +20,7 @@ argparser.add_version_argument()
 argparser.add_default_plot_results_args()
 args = argparser.parse_args()
 
-# Create result plotter.
+# Create results plotter.
 evaluation_results_plotter = EvaluationResultsPlotter(
     evaluation_number=args.evaluation_number,
     model_number=args.model_number
