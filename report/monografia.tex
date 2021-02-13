@@ -1,0 +1,157 @@
+\documentclass[a4paper,12pt,openright,titlepage,oneside]{book}
+
+%\usepackage[english,brazil]{babel}
+%Define regra de gramática para separar síbalas {babel}
+%e altera os títulos (como chapters, sections, references) para português
+\usepackage[brazil]{babel}
+
+% Define uso de caracteres acentuados no PDF gerado
+% e permite copiar corretamente o texto do PDF.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% Adição do pacote do template da UnB
+\usepackage{styles/template-FT-UnB/ft2unb}
+
+\DeclareGraphicsExtensions{.jpg,.pdf,.mps,.png,.gif, .eps}
+\graphicspath{images} %define diretório de imagens
+
+%Arquivo com lista com hifenização correta de algumas palavras.
+%Defina novas palavras no arquivo a medida que verificar que a hifenização automática
+%etá errada para tais palavras.
+\input{styles/hifenizacao}
+
+% ALTERE OS VALORES DENTRO DAS CHAVES DOS COMANDOS NESTA SEÇÃO PARA INCLUIR OS SEUS DADOS E DADOS DA SUA
+% DISSERTAÇÃO DE MESTRADO OU TESE DE DOUTORADO
+% -----------------------------------------------------------------------------------------------------
+
+%\onehalfspacing
+\title{Previsão de insuficiência cardíaca com aprendizado de máquina voltado para aplicações}
+\author{André Filipe Caldas Laranjeira}
+\date{2021-05-21} %data da defesa
+\coverbackgroundimg{images/capa_fundo}
+
+\grau{Bacharel}
+\area{Engenharia da computação} %Nome do curso
+\departamento{Ciência da computação} %Nome do departamento
+\faculdade{INSTITUTO DE CIÊNCIAS EXATAS} %Nome da faculdade/instituto
+\siglafaculdade{IE} %Sigla da faculdade/instituto
+\siglaarea{CIC} %Sigla do departamento
+\tipodemonografia{Monografia} %Dissertação ou Tese
+\programa{Bacharelado} %Mestrado ou Doutorado
+\autorendereco{Área Octogonal Sul 2, Bloco G, Apartamento 601; Brasília} %Endereço do autor da dissertação/tese
+\totalpgs{147} %total de páginas atualmente na sua dissertação
+\dia{21} %dia da defesa
+\mes{Maio} %mês da defesa
+\ano{2021} %ano da defesa
+\numpublicacao{xxx/AAAA} %número da publicação (após a defesa, tal número deve ser obtido na secretaria)
+
+%PPGENE.DM  = Programa de Pós Graduação em ENgenharia Elétrica.Dissertação de Mestrado
+%PPGENE.TD  = Programa de Pós Graduação em ENgenharia Elétrica.Tese de Doutorado
+\siglapublicacao{?}
+
+\titulolinhai{Previsão de insuficiência cardíaca}
+\titulolinhaii{com aprendizado de máquina}
+\titulolinhaiii{voltado para aplicações}
+\titulolinhaiv{}
+
+\autori{André Filipe Caldas Laranjeira}
+%Caso seu nome não caiba em uma única linha, divida ele nos comandos abaixo
+%\autorii{}
+%\autoriii{}
+
+\membrodabancai{Prof. Dr. Alexandre Ricardo Soares Romariz, FT/UnB}
+\membrodabancaifuncao{Orientador}
+\membrodabancaii{Prof. Fulano de Tal 2, ENE/UnB}
+\membrodabancaiifuncao{Examinador interno}
+\membrodabancaiii{Prof. Fulano de Tal 3, ENE/UnB}
+\membrodabancaiiifuncao{Examinador interno}
+\membrodabancaiv{Prof. Fulano de Tal 4, EESC/USP}
+\membrodabancaivfuncao{Examinador externo}
+\membrodabancav{}
+\membrodabancavfuncao{}
+% -----------------------------------------------------------------------------------------------------
+
+%line-numbers, inputencoding=utf8/latin1
+%Define o estilo para listagens de código fonte
+\lstset{
+  numbers=left, %numeração de linhas à esquerda
+  stepnumber=1,
+  firstnumber=1,
+  numberstyle=\tiny,
+  extendedchars=true,
+  frame=none,
+  basicstyle=\footnotesize,
+  stringstyle=\ttfamily,
+  showstringspaces=false,
+  %language=Java, %deve ser definida na inclusão de cada trecho de código, pois podem existir linguagens diferentes em exemplos diferentes
+  breaklines=true,
+  breakautoindent=true,
+  %estilos de comentário de uma e várias linhas
+  morecomment=[l]{--}, morecomment=[s]{/*}{*/}, morecomment=[s]{<!--}{-->}, morecomment=[s]{--[[}{--]]}
+}
+
+% Adição de metadados no PDF (propriedades do documento PDF)
+\makeatletter
+	 \hypersetup{
+		 pdftoolbar=true,        % show Acrobat’s toolbar?
+		 pdfmenubar=true,        % show Acrobat’s menu?
+		 pdffitwindow=false,     % window fit to page when opened
+		 pdfstartview={FitH},    % fits the width of the page to the window
+		 pdftitle={\@title},
+		 pdfauthor={\@author},
+		 pdfsubject={\tipodemonografianome \ de\ \programastr \ em\ \areastr},   % subject of the document
+		 pdfcreationdate={\pdfdate}
+	 }
+\makeatother
+
+
+\makeindex
+\makenomenclature %Necessário para gerar lista de siglas
+
+
+\begin{document}
+
+	\pdfbookmark[0]{Agradecimentos}{agradecimentos}
+	\include{sections/agradecimentos}
+	\include{sections/resumo}
+
+	\pdfbookmark[0]{Sumário}{sumario}
+	\sumario
+
+	\pdfbookmark[0]{Lista de Figuras}{listafiguras}
+	\listadefiguras
+
+	\pdfbookmark[0]{Lista de Tabelas}{listatabelas}
+	\listadetabelas
+
+	\pdfbookmark[0]{Lista de Códigos Fonte}{listacodigosfonte}
+	\listadecodigosfonte
+
+	\renewcommand{\nomname}{LISTA DE TERMOS E SIGLAS} %Define um caption à lista de siglas
+	%Inclui a lista de siglas
+	\pdfbookmark[0]{Lista de Termos e Siglas}{nomenclatura}
+	\printnomenclature[2.5cm]
+
+	\mainmatter %Inicia a numeracao normal cardinal
+	\setcounter{page}{1} \pagenumbering{arabic} \pagestyle{plain}
+
+	\include{sections/chapters/01_introducao_teorica}
+	\include{sections/chapters/02_apresentacao_teorica}
+	\include{sections/chapters/03_procedimento_adotado}
+	\include{sections/chapters/04_resultados}
+	\include{sections/chapters/05_futuras_pesquisas}
+	\include{sections/chapters/06_conclusao}
+
+	%\bibliographystyle{bibliography/abnt-num} % estilo bibliográfico ABNT numérico
+	%\bibliographystyle{bibliography/abnt-alf} % estilo bibliográfico ABNT alfabético
+	\bibliographystyle{bibliography/sbc}  % estilo bibliográfico da Sociedade Brasileira de Computação (SBC)
+
+	%\renewcommand{\bibname}{REFERÊNCIAS BIBLIOGRÁFICAS} %Define o Caption da seção de bibliografia
+	%\addcontentsline{toc}{chapter}{REFERÊNCIAS BIBLIOGRÁFICAS}
+
+	%não pode ter espaço entre os nomes dos arquivos bib
+	\bibliography{bibliography/referencias}
+
+	\include{sections/apendice}
+\end{document}
