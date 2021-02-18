@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Esse projeto constitui meu Trabalho de Conclusão de Curso \(TCC\) do curso de Engenharia de computação da Universidade de Brasília. Ele consiste em um programa de aprendizado de máquina com o objetivo de prever insuficiência cardíaca com base em dados do paciente e de um website para permitir a um profissional médico cadastrar os dados do paciente e utilizar o programa de aprendizado de máquinas.
+Esse projeto constitui meu Trabalho de Conclusão de Curso \(TCC\) do curso de Engenharia de computação da Universidade de Brasília. Ele consiste em um programa de aprendizado de máquina com o objetivo de prever insuficiência cardíaca com base em dados do paciente e em um website para permitir a um profissional médico cadastrar os dados do paciente e utilizar o programa de aprendizado de máquinas.
 
 O projeto foi dividido em pastas com o intuito de facilitar a navegação. Cada pasta contém uma parte lógica do projeto, conforme a descrição abaixo:
   * `AI`: Programa de aprendizado de máquina com o intuito de prever insuficiência cardíaca.
@@ -20,12 +20,15 @@ Programa de aprendizado de máquina escrito em Python com o intuito de prever in
 
 ### Pacotes utilizados
 
-Para escrever os módulos contidos nessa parte do projeto, alguns pacotes da linguagem de programação Python foram utilizados, os quais foram instalados ou por meio do gerenciador de pacotes Pip ou já vieram na biblioteca padrão da versão de Python utilizada \(**Python 3.8.6**\). Os pacotes, bem as versões exatas utilizadas neste projeto, estão listados abaixo.
+Para escrever os módulos contidos nessa parte do projeto, alguns pacotes da linguagem de programação Python foram utilizados, os quais foram instalados ou por meio do gerenciador de pacotes Pip ou já vieram na biblioteca padrão da versão de Python utilizada \(**Python 3.8.6**\). Os pacotes, bem como as versões exatas utilizadas neste projeto, estão listados abaixo.
 
 #### Pacotes da biblioteca padrão do Python 3.8.6
 
+* `abc`;
 * `argparse`;
+* `ast`;
 * `datetime`;
+* `enum`;
 * `pickle`;
 * `time`;
 
@@ -33,6 +36,7 @@ Para escrever os módulos contidos nessa parte do projeto, alguns pacotes da lin
 
 * `keras`: 2.4.3;
   * `tensorflow-cpu` (backend do `keras`): 2.4.0;
+* `matplotlib`: 3.3.4;
 * `numpy`: 1.19.4;
 * `pandas`: 1.0.1;
 * `scikit-learn`: 0.23.1;
@@ -63,7 +67,7 @@ Em primeiro lugar, 100 inteiros de 32 bits sem sinal foram gerados e armazenados
 
 Em segundo lugar, a otimização de hiper-parâmetros não pôde ser feita da mesma forma que o artigo científico, pois a quantidade de combinações de hiper-parâmetros existente não permitiria que todas as variações de hiper-parâmetros fossem testadas para um dado modelo e uma dada partição do conjunto de dados. Dessa forma, decidiu-se que a única otimização de hiper-parâmetros feita seria na quantidade de épocas de treinamento para modelos de perceptron multicamada. O número de épocas escolhido para treinamento na obtenção dos resultados de teste será equivalente à época em que o modelo teve a menor perda nos dados de validação \(*early stopping*\). Para os demais parâmetros, decidiu-se adotar o seguinte procedimento: várias variações de hiper-parâmetros seriam utilizadas para se obter o resultado de predição sobre os subconjuntos de validação do *primeiro quinto* das partições de dados disponíveis \(20\), e as combinações de hiper-parâmetros com os resultados mais promissores \(mais especificamente, os modelos que estiveram entre os melhores 20%\) em relação ao subconjunto de validação seriam testadas sobre *todos* os subconjuntos de teste disponíveis \(100\) com o intuito de se calcular os seus resultados de predição. Isso permitiria que uma gigantesca quantidade de variações de hiper-parâmetros fosse experimentada para cada modelo, com apenas as variações de hiper-parâmetros mais promissoras sendo realmente testadas em todas as 100 possíveis partições do conjunto de dados disponível. Além disso, como o escopo desse trabalho envolve menos a comparação de diferentes modelos e mais a busca por um único conjunto de hiper-parâmetros que forneça bons resultados, acreditamos que esse formato de análise seria mais adequado que aquele utilizado no artigo científico em que diferentes combinações de hiper-parâmetros poderiam ser utilizadas em diferentes partições de dados no cálculo do resultado de teste de um modelo.
 
-A medida utilizada para medir o desempenho de um modelo \(nos resultados de validação e teste\) foi a média da acurácia \(*accuracy*\) obtida em cada divisão do conjunto de dados, em oposição ao uso do coeficientes de correlação de Matthews \(MCC\) utilizado no artigo científico.
+A medida utilizada para medir o desempenho de um modelo \(nos resultados de validação e teste\) foi a média da acurácia \(*accuracy*\) obtida em cada particionamento do conjunto de dados, em oposição ao uso do coeficiente de correlação de Matthews \(MCC\) utilizado no artigo científico.
 
 Portanto, podemos resumir o procedimento adotado neste trabalho como sendo, para um dado conjunto de modelos com diferentes hiper-parâmetros, a obtenção dos resultados de validação para o primeiro quinto das sementes disponíveis e o cálculo subsequente dos resultados de teste com todas as sementes disponíveis para os modelos entre os melhores 20% no quesito melhor média de acurácia para os dados de validação. Os resultados de validação influenciariam na escolha de quais modelos seriam utilizados para o cálculo de resultados de teste e também, no caso de modelos do tipo perceptron multicamada, na escolha do número de épocas de treinamento \(early stopping\) para a obtenção de resultados de teste.
 

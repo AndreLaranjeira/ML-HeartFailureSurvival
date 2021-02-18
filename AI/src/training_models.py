@@ -6,43 +6,51 @@ import numpy as np
 import pickle
 
 # Classes and methods imports.
+from abc import ABC, abstractmethod
 from keras import Sequential
 from sklearn.ensemble import RandomForestClassifier
 
 # User module imports.
-from file_operations import FileOperations
-from file_operations import DEFAULT_FILENAME, DEFAULT_FALLBACK_FILENAME
+from file_operations import DefaultFilenames, FileOperations
 from result_metrics import ResultMetricsModule
 
 
-# Base training model class:
-class BaseTrainingModel:
+# Base training model class.
+class BaseTrainingModel(ABC):
+    # Abstract methods.
     # Fit the model with any aditional parameters.
+    @abstractmethod
     def fit(self, train_features, train_labels, aditional_params):
-        raise NotImplementedError
+        pass
 
     # Return a dictionary with all relevant model parameters.
+    @abstractmethod
     def get_params(self):
-        raise NotImplementedError
+        pass
 
     # Return the type of the model.
+    @abstractmethod
     def get_type(self):
-        raise NotImplementedError
+        pass
 
     # Predict the features and apply an after treatment to the results.
+    @abstractmethod
     def predict(self, test_features, after_treatment):
-        raise NotImplementedError
+        pass
 
     # Reset the model, forgetting all the data it fitted.
+    @abstractmethod
     def reset(self):
-        raise NotImplementedError
+        pass
 
     # Save the model. If filename is None, use a defaul file name.
+    @abstractmethod
     def save(self, filename=None):
-        raise NotImplementedError
+        pass
 
     # Use training and validation data to determine validation accuracy and
     # best hyperparameters.
+    @abstractmethod
     def validate(
         self,
         train_features,
@@ -51,7 +59,7 @@ class BaseTrainingModel:
         validation_labels,
         aditional_params
     ):
-        raise NotImplementedError
+        pass
 
 
 # Keras sequential model.
@@ -110,7 +118,7 @@ class KerasSequential(BaseTrainingModel):
     def reset(self):
         self.model.set_weights(self.initial_weights)
 
-    def save(self, filename=DEFAULT_FILENAME):
+    def save(self, filename=DefaultFilenames.SAVE_FILENAME):
         filename_with_extension = FileOperations.apply_extension_to_filename(
             original_filename=filename,
             file_extension=self.file_extension
@@ -120,7 +128,7 @@ class KerasSequential(BaseTrainingModel):
             save_method_or_function=self.model.save,
             filename=filename_with_extension,
             fallback_filename=FileOperations.apply_extension_to_filename(
-                original_filename=DEFAULT_FALLBACK_FILENAME,
+                original_filename=DefaultFilenames.SAVE_FALLBACK,
                 file_extension=self.file_extension
             )
         )
@@ -164,7 +172,7 @@ class KerasSequential(BaseTrainingModel):
             {'epochs': best_num_of_training_epochs}
         )
 
-    # Private methods:
+    # Private methods.
     def _add_relevant_layer_config_params(self, layer, relevant_info_dict):
         relevant_config_keys = self._get_relevant_config_keys(
             type(layer).__name__
@@ -262,7 +270,7 @@ class RandomForest(BaseTrainingModel):
         # But this method needs to exist for consistency with the base class.
         pass
 
-    def save(self, filename=DEFAULT_FILENAME):
+    def save(self, filename=DefaultFilenames.SAVE_FILENAME):
         filename_with_extension = FileOperations.apply_extension_to_filename(
             original_filename=filename,
             file_extension=self.file_extension
@@ -272,7 +280,7 @@ class RandomForest(BaseTrainingModel):
             save_method_or_function=self._dump_model_to_file_with_pickle,
             filename=filename_with_extension,
             fallback_filename=FileOperations.apply_extension_to_filename(
-                original_filename=DEFAULT_FALLBACK_FILENAME,
+                original_filename=DefaultFilenames.SAVE_FALLBACK,
                 file_extension=self.file_extension
             )
         )
