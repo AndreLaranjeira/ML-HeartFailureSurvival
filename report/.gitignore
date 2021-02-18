@@ -19,8 +19,8 @@
 *.out
 *.snm
 *.soc
-*.toc
 *.thm
+*.toc
 synctex.gz
 
 # Latex output file:
