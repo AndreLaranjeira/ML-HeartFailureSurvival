@@ -1,10 +1,12 @@
 # Heart failure prediction - Main program (Run evaluation).
 
-# Classes and methods imports.
+# Package imports.
 import datetime
+import time
+
+# Classes and methods imports.
 from keras import Input, regularizers
 from keras.layers.core import Dense, Dropout
-import time
 
 # User module imports.
 from argument_parser import ArgumentParserModule
