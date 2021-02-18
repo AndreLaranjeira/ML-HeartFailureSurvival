@@ -78,7 +78,7 @@ for second_layer in range(20, 101, 20):
         layers=[
             Input(shape=features_shape),
             Dense(
-                100,
+                500,
                 activation='relu',
                 kernel_regularizer=regularizers.l2(0.01)
             ),
@@ -114,7 +114,7 @@ model_evaluator = ModelEvaluator(
     num_validation_runs=20,
     num_test_runs=100,
     percent_of_models_tested=0.2,
-    evaluation_number=26
+    evaluation_number=30
 )
 
 # Start timing model evaluation, if requested.
