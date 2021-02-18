@@ -66,7 +66,7 @@ class BaseTrainingModel(ABC):
 class KerasSequential(BaseTrainingModel):
     def __init__(self, layers):
         self.default_fit_params = {
-            'epochs': 15000,
+            'epochs': 20000,
             'batch_size': 15,
             'verbose': 0,
             'validation_data': None
@@ -174,7 +174,9 @@ class KerasSequential(BaseTrainingModel):
 
     # Private methods.
     def _add_relevant_layer_config_params(self, layer, relevant_info_dict):
-        relevant_config_keys = ('units', 'activation', 'use_bias')
+        relevant_config_keys = self._get_relevant_config_keys(
+            type(layer).__name__
+        )
         all_layer_config_params = layer.get_config()
 
         for key in relevant_config_keys:
@@ -194,12 +196,18 @@ class KerasSequential(BaseTrainingModel):
             metrics=['accuracy']
         )
 
+    def _get_relevant_config_keys(self, layer_type_name):
+        if(layer_type_name == 'Dense'):
+            return ('units', 'activation', 'use_bias', 'kernel_regularizer')
+        elif(layer_type_name == 'Dropout'):
+            return ('rate', 'noise_shape')
+
     def _relevant_layer_info(self, layer):
         if(hasattr(layer, 'get_config') and callable(layer.get_config)):
             relevant_info = {'type': type(layer).__name__}
             return self._add_relevant_layer_config_params(layer, relevant_info)
 
-        elif(type(layer).__name__ == 'Tensor'):
+        elif(type(layer).__name__ == 'KerasTensor'):
             return {
                 'type': 'Input',
                 'shape': tuple(layer.shape)

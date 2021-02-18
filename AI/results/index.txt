@@ -30,6 +30,7 @@ Evaluation 003:
   * Hyperparameter constants:
     1. Dense layer activation: 'relu'
     2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 15000
   * Hyperparameter variations:
     1. 1st dense layer size: range(100, 501, 100)
   * Number of models: 5
@@ -40,7 +41,8 @@ Evaluation 004:
   * Hyperparameter constants:
     1. Dense layer activation: 'relu'
     2. Output layer activation: 'sigmoid'
-    3. 1st dense layer size: 100
+    3. Maximum training epochs: 15000
+    4. 1st dense layer size: 100
   * Hyperparameter variations:
     1. 2nd dense layer size: range(20, 101, 20)
   * Number of models: 5
@@ -51,7 +53,8 @@ Evaluation 005:
   * Hyperparameter constants:
     1. Dense layer activation: 'relu'
     2. Output layer activation: 'sigmoid'
-    3. 1st dense layer size: 200
+    3. Maximum training epochs: 15000
+    4. 1st dense layer size: 200
   * Hyperparameter variations:
     1. 2nd dense layer size: range(20, 101, 20)
   * Number of models: 5
@@ -88,7 +91,8 @@ Evaluation 008:
   * Hyperparameter constants:
     1. Dense layer activation: 'relu'
     2. Output layer activation: 'sigmoid'
-    3. 1st dense layer size: 300
+    3. Maximum training epochs: 15000
+    4. 1st dense layer size: 300
   * Hyperparameter variations:
     1. 2nd dense layer size: range(20, 101, 20)
   * Number of models: 5
@@ -99,7 +103,8 @@ Evaluation 009:
   * Hyperparameter constants:
     1. Dense layer activation: 'relu'
     2. Output layer activation: 'sigmoid'
-    3. 1st dense layer size: 400
+    3. Maximum training epochs: 15000
+    4. 1st dense layer size: 400
   * Hyperparameter variations:
     1. 2nd dense layer size: range(20, 101, 20)
   * Number of models: 5
@@ -110,7 +115,8 @@ Evaluation 010:
   * Hyperparameter constants:
     1. Dense layer activation: 'relu'
     2. Output layer activation: 'sigmoid'
-    3. 1st dense layer size: 500
+    3. Maximum training epochs: 15000
+    4. 1st dense layer size: 500
   * Hyperparameter variations:
     1. 2nd dense layer size: range(20, 101, 20)
   * Number of models: 5
@@ -218,3 +224,157 @@ Evaluation 018:
     4. criterion: 'entropy', 'gini'
     5. n_estimators: range(200, 221, 5)
   * Number of models: 750
+
+Evaluation 019:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 1 dense layer, 1 dropout layer, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. Dropout rate: 0.2
+  * Hyperparameter variations:
+    1. 1st dense layer size: range(100, 501, 100)
+  * Number of models: 5
+
+Evaluation 020:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 2 dense layers, 2 dropout layers, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. 1st dense layer size: 100
+    5. Dropout rate: 0.2
+  * Hyperparameter variations:
+    1. 2nd dense layer size: range(20, 101, 20)
+  * Number of models: 5
+
+Evaluation 021:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 2 dense layers, 2 dropout layers, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. 1st dense layer size: 200
+    5. Dropout rate: 0.2
+  * Hyperparameter variations:
+    1. 2nd dense layer size: range(20, 101, 20)
+  * Number of models: 5
+
+Evaluation 022:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 2 dense layers, 2 dropout layers, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. 1st dense layer size: 300
+    5. Dropout rate: 0.2
+  * Hyperparameter variations:
+    1. 2nd dense layer size: range(20, 101, 20)
+  * Number of models: 5
+
+Evaluation 023:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 2 dense layers, 2 dropout layers, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. 1st dense layer size: 400
+    5. Dropout rate: 0.2
+  * Hyperparameter variations:
+    1. 2nd dense layer size: range(20, 101, 20)
+  * Number of models: 5
+
+Evaluation 024:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 2 dense layers, 2 dropout layers, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. 1st dense layer size: 500
+    5. Dropout rate: 0.2
+  * Hyperparameter variations:
+    1. 2nd dense layer size: range(20, 101, 20)
+  * Number of models: 5
+
+Evaluation 025:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 1 dense layer with L2 kernel regularization, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. L2 kernel regularization factor: 0.01
+  * Hyperparameter variations:
+    1. 1st dense layer size: range(100, 501, 100)
+  * Number of models: 5
+
+Evaluation 026:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 2 dense layers with L2 kernel regularization, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. 1st dense layer size: 100
+    5. L2 kernel regularization factor: 0.01
+  * Hyperparameter variations:
+    1. 2nd dense layer size: range(20, 101, 20)
+  * Number of models: 5
+
+Evaluation 027:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 2 dense layers with L2 kernel regularization, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. 1st dense layer size: 200
+    5. L2 kernel regularization factor: 0.01
+  * Hyperparameter variations:
+    1. 2nd dense layer size: range(20, 101, 20)
+  * Number of models: 5
+
+Evaluation 028:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 2 dense layers with L2 kernel regularization, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. 1st dense layer size: 300
+    5. L2 kernel regularization factor: 0.01
+  * Hyperparameter variations:
+    1. 2nd dense layer size: range(20, 101, 20)
+  * Number of models: 5
+
+Evaluation 029:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 2 dense layers with L2 kernel regularization, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. 1st dense layer size: 400
+    5. L2 kernel regularization factor: 0.01
+  * Hyperparameter variations:
+    1. 2nd dense layer size: range(20, 101, 20)
+  * Number of models: 5
+
+Evaluation 030:
+  * Type of model: Keras sequential
+  * Model size: Input layer, 2 dense layers with L2 kernel regularization, output layer
+  * Hyperparameter constants:
+    1. Dense layer activation: 'relu'
+    2. Output layer activation: 'sigmoid'
+    3. Maximum training epochs: 20000
+    4. 1st dense layer size: 500
+    5. L2 kernel regularization factor: 0.01
+  * Hyperparameter variations:
+    1. 2nd dense layer size: range(20, 101, 20)
+  * Number of models: 5

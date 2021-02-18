@@ -1,9 +1,12 @@
 # Heart failure prediction - Main program (Run evaluation).
 
-# Classes and methods imports.
-from keras import Input
-from keras.layers.core import Dense, Dropout
+# Package imports.
+import datetime
 import time
+
+# Classes and methods imports.
+from keras import Input, regularizers
+from keras.layers.core import Dense, Dropout
 
 # User module imports.
 from argument_parser import ArgumentParserModule
@@ -78,25 +81,38 @@ dataset_split_seeds = dataset_split_seed_extractor.get_seeds()
 # Define the models.
 models = []
 
-# for first_layer in range(100, 501, 100):
-#     models.append(KerasSequential(
-#         layers=[
-#             Input(shape=features_shape),
-#             Dense(first_layer, activation='relu'),
-#             Dense(1, activation='sigmoid')
-#         ]
-#     ))
-
-for n_estimators in range(100, 501, 100):
-    models.append(RandomForest(
-        criterion='gini',
-        max_depth=None,
-        max_features='sqrt',
-        max_leaf_nodes=None,
-        min_samples_leaf=1,
-        min_samples_split=2,
-        n_estimators=10
+for second_layer in range(20, 101, 20):
+    models.append(KerasSequential(
+        layers=[
+            Input(shape=features_shape),
+            Dense(
+                500,
+                activation='relu',
+                kernel_regularizer=regularizers.l2(0.01)
+            ),
+            Dense(
+                second_layer,
+                activation='relu',
+                kernel_regularizer=regularizers.l2(0.01)
+            ),
+            Dense(1, activation='sigmoid')
+        ]
     ))
+
+# for max_leaf_nodes in range(16, 21, 1):
+#     for min_samples_leaf in range(1, 4, 1):
+#         for min_samples_split in range(5, 10, 1):
+#             for criterion in ['entropy', 'gini']:
+#                 for n_estimators in range(200, 221, 5):
+#                     models.append(RandomForest(
+#                         criterion=criterion,
+#                         max_depth=None,
+#                         max_features=None,
+#                         max_leaf_nodes=max_leaf_nodes,
+#                         min_samples_leaf=min_samples_leaf,
+#                         min_samples_split=min_samples_split,
+#                         n_estimators=n_estimators
+#                     ))
 
 # Create model evaluator.
 model_evaluator = ModelEvaluator(
@@ -106,7 +122,7 @@ model_evaluator = ModelEvaluator(
     num_validation_runs=20,
     num_test_runs=100,
     percent_of_models_tested=0.2,
-    evaluation_number=1
+    evaluation_number=30
 )
 
 # Start timing model evaluation, if requested.
@@ -115,14 +131,16 @@ if(args.show_evaluation_time):
 
 # Evaluate models.
 model_evaluator.evaluate_models()
-model_evaluator.print_results()
 model_evaluator.save_results_as_csv()
+model_evaluator.print_results()
 
 # Print model evaluation time, if requested.
 if(args.show_evaluation_time):
-    evaluation_time = time.time() - start_time
-    formatted_evaluation_time = time.strftime(
-        '%T', time.gmtime(evaluation_time)
+    finish_time = time.time()
+    evaluation_timedelta = datetime.timedelta(
+        seconds=finish_time - start_time
     )
+    formatted_evaluation_time = str(evaluation_timedelta.days).zfill(2) + \
+        ':' + time.strftime('%T', time.gmtime(evaluation_timedelta.seconds))
     print("Time elapsed evaluating models:", formatted_evaluation_time)
     print("")
