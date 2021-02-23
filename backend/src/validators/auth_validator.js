@@ -17,5 +17,11 @@ module.exports = {
       full_name: Joi.string().required(),
       role_id: Joi.number().min(1).required()
     })
+  }),
+
+  validate: celebrate({
+    [Segments.HEADERS]: Joi.object({
+      authorization: Joi.string().required()
+    }).unknown()
   })
 };

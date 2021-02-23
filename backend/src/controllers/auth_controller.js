@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 
 // Module imports.
 const authConfig = require("../config/auth");
+const authUtils = require("../utils/auth_utils");
 const connection = require("../../db/connection");
 
 // Auxiliary functions.
@@ -106,5 +107,23 @@ module.exports = {
       token: generateToken({id: created_user["ID"]})
     });
 
+  },
+
+  async validate(request, response) {
+    const authorization = request.headers.authorization;
+    const validation_result = await authUtils.validate(authorization);
+
+    if(validation_result.valid) {
+      return response.status(200).json({
+        user: validation_result.user
+      });
+    }
+    else {
+      return response.status(401).json({
+        statusCode: 401,
+        error: "Unauthorized",
+        message: validation_result.error
+      });
+    }
   }
 };
