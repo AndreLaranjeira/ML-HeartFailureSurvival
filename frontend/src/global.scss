@@ -1,0 +1,25 @@
+// Styles imports.
+@import 'assets/styles/colors';
+
+// Font properties.
+@font-face {
+  font-family: 'Open Sans Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url(assets/fonts/OpenSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Open Sans SemiBold';
+  font-style: bold;
+  font-weight: 600;
+  src: url(assets/fonts/OpenSans-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: 'Open Sans Bold';
+  font-style: bolder;
+  font-weight: 700;
+  src: url(assets/fonts/OpenSans-Bold.ttf);
+}
+
