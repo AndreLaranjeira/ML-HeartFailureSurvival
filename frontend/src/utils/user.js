@@ -4,7 +4,7 @@
 import api from "../services/api";
 
 // Helper functions.
-export function user_logged_in() {
+export function userLoggedIn() {
   const authorization = localStorage.getItem("authorization");
 
   if(authorization != null) {
