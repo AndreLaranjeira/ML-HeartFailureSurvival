@@ -1,5 +1,8 @@
 // Helper functions to identify and handle errors from Celebrate middleware.
 
+// Package imports.
+var lodash = require("lodash");
+
 // Helper functions.
 export function celebrateErrorContent(err) {
   const celebrate_validation = err.response.data.validation;
@@ -7,7 +10,7 @@ export function celebrateErrorContent(err) {
 
   if(celebrate_validation.body != null)
     return {
-      key: celebrate_validation.body.keys[0],
+      key: lodash.camelCase(celebrate_validation.body.keys[0]),
       message: celebrate_validation.body.message
     };
   else
@@ -25,12 +28,29 @@ export function celebrateErrorMessage(err) {
 }
 
 export function formatCelebrateMessage(message) {
-  const messageWithoutQuotesAroundField = message.replace(/"(.*)"/, "$1");
-  const messageCapitalized =
-    messageWithoutQuotesAroundField.charAt(0).toUpperCase() +
-    messageWithoutQuotesAroundField.slice(1) + ".";
+  const fieldNameRegex = /"(.*)"/;
+  const fieldNameMatch = fieldNameRegex.exec(message);
 
-  return messageCapitalized;
+  if(fieldNameMatch != null) {
+    const fieldName = fieldNameMatch[0];
+    const formattedFieldName = fieldName.replace(/"/g, "").replace(/_/, " ");
+
+    const messageWithFormattedField = message.replace(
+      fieldNameRegex,
+      formattedFieldName
+    );
+
+    const messageCapitalizedWithPunctuation = lodash.capitalize(
+      messageWithFormattedField
+    ) + ".";
+
+    return messageCapitalizedWithPunctuation;
+  }
+
+  else {
+    const messageCapitalizedWithPunctuation = lodash.capitalize(message) + ".";
+    return messageCapitalizedWithPunctuation;
+  }
 }
 
 export function isCelebrateError(err) {

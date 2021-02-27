@@ -32,6 +32,7 @@ export default function Login() {
       const response = await api.post("auth/authenticate", {email, password});
 
       localStorage.setItem("authorization", `Bearer ${response.data.token}`);
+      localStorage.setItem("userFullName", response.data.user["FULL_NAME"]);
 
       history.push("/home");
     } catch(err) {
@@ -42,7 +43,7 @@ export default function Login() {
         );
         setFormErrors(responseCelebrateErrors);
       }
-      else if(err.response.status == 400) {
+      else if(err.response.data.message != null) {
         setFormErrors({});
         alert("Invalid credentails! Please try again.");
       }
