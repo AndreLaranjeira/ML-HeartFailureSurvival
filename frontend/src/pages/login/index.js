@@ -45,7 +45,7 @@ export default function Login() {
       }
       else if(err.response.data.message != null) {
         setFormErrors({});
-        alert("Invalid credentails! Please try again.");
+        alert(err.response.data.message);
       }
       else {
         setFormErrors({});
