@@ -15,7 +15,7 @@
   max-width: 1280px;
   width: 100%;
 
-  .login-credentials-container {
+  .login-credentials {
 
     // Display properties.
     display: flex;
@@ -45,28 +45,17 @@
 
       // Size properties.
       height: 250px;
+      padding-bottom: 30px;
 
       button {
         margin-top: 10px;
       }
 
-      .form-input {
-        margin: 10px;
-
-        input {
-          margin-left: 10px;
-        }
-      }
-    }
-
-    .react-icons {
-      height: 14px;
-      width: auto;
     }
 
   }
 
-  .service-info-container {
+  .service-info {
 
     // Display properties.
     display: flex;
@@ -106,7 +95,7 @@
     }
 
     .service-info-title {
-      
+
       // Display properties.
       display: flex;
       align-items: center;

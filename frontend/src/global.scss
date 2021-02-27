@@ -48,6 +48,24 @@ button {
   color: #FFF;
 }
 
+.form-error {
+  color: #ED0800;
+  font-size: 12px;
+}
+
+.form-input-with-item {
+  margin: 10px;
+
+  input {
+    margin-left: 10px;
+  }
+
+  .react-icons {
+    height: 14px;
+    width: auto;
+  }
+}
+
 .success-button {
   background-color: #007420;
   border-color: #007420;
