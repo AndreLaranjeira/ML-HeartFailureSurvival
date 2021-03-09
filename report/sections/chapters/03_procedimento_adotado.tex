@@ -1,4 +1,17 @@
 \chapter{Procedimento adotado} \label{procedimento_adotado}
+
+Neste capítulo, o procedimento adotado ao longo do trabalho é detalhado com o intuito de permitir ao leitor compreender melhor a lógica por trás de algumas escolhas feitas no decorrer do trabalho e de explorar alguns detalhes importantes da implementação dos módulos de programação.
+
+\section{Conjunto de dados}
+
+Como descrito na introdução, o intuito deste trabalho foi elaborar um projeto que utilizasse aprendizado de máquinas e proporcionasse alguma utilidade prática. Para isso, foi necessária a escolha de um conjunto de dados que possibilitasse a criação de uma aplicação completa com base em aprendizado de máquinas em tempo útil para a realização deste trabalho. Tendo isso em mente, a decisão recaiu sobre um conjunto de dados\cite{larxel_dataset} originado de um artigo científico\cite{chicco2020} voltado para o estudo de aprendizado de máquinas para a previsão de ocorrência de insuficiência cardíaca.
+
+O conjunto de dados escolhido\cite{larxel_dataset} contém 299 registros de pacientes, cada um consistindo em 11 parâmetros relacionados à saúde geral e cardíaca de um paciente, 1 parâmetro indicando o tempo de acompanhamento médico do paciente e 1 resultado indicando se o paciente veio à óbito durante o acompanhamento realizado. Dessa forma, trata-se de um conjunto de dados pequeno, de fácil compreensão, que pudesse ser explorado com um certo grau de profundidade em um curto espaço de tempo, e com uma clara utilidade prática de auxiliar a prevenção da ocorrência de insuficiência cardíaca em pacientes com base em uma previsão realizada por meio de aprendizado de máquinas.
+
+Além das características úteis do conjunto de dados em si para a realização deste trabalho, o artigo científico que originou o conjunto de dados\cite{chicco2020} consiste em um ótimo estudo comparativo do desempenho de diferentes tipos de modelos de dados na previsão de insuficiência cardíaca com base no conjunto de dados em si, proporcionando uma referência útil para a realização de escolhas do tipo de modelo de aprendizado de máquinas a ser utilizado no conjunto de dados e para a comparação dos resultados atingidos no treinamento de modelos de aprendizado de máquinas.
+
+Apesar dessas excelentes qualidades, devemos ressaltar que o conjunto de dados escolhido não é sem falhas. A baixa quantidade de registros no conjunto de dados faz com que o treinamento de modelos de aprendizado de máquinas seja extremamente suscetível à \textit{overfitting}, resultando em um modelo que não forneça bons resultados em aplicações práticas. Também podemos citar a baixa quantidade de registros em que o paciente veio à óbito, agravada pelas subdivisões do conjunto de dados em dados de treinamento, de teste e de validação. Essa ausência de robustez do conjunto de dados aumenta a probabilidade de que o modelo de aprendizado de máquinas não se familiarize o suficiente com situações indicativas de insuficiência cardíaca e gere falsos negativos, em que o sistema não prediz a insuficiência cardíaca e o paciente vem à óbito. A forma como essas limitações da base de dados foram tratadas será descrita posteriormente.
+
 %label cria um rótulo para o objeto, para permitir que ele seja referenciado com o comando \ref{nome-do-rotulo}
 
 
