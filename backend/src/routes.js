@@ -16,6 +16,7 @@ const routes = express.Router();
 // Authentication routes.
 routes.post("/auth/authenticate", AuthValidator.authenticate, AuthController.authenticate);
 routes.post("/auth/register", AuthValidator.register, AuthController.register);
+routes.post("/auth/validate", AuthValidator.validate, AuthController.validate);
 
 // Export module.
 module.exports = routes;

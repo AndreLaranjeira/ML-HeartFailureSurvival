@@ -1,0 +1,79 @@
+// Styles imports.
+@import 'assets/styles/colors';
+
+// Font properties.
+@font-face {
+  font-family: 'Open Sans Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url(assets/fonts/OpenSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Open Sans SemiBold';
+  font-style: bold;
+  font-weight: 600;
+  src: url(assets/fonts/OpenSans-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: 'Open Sans Bold';
+  font-style: bolder;
+  font-weight: 700;
+  src: url(assets/fonts/OpenSans-Bold.ttf);
+}
+
+// Style properties.
+body {
+  color: #222;
+  font: 400 16px 'Open Sans', sans-serif;
+}
+
+button {
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px #444;
+  font-weight: 550;
+  height: 30px;
+
+  cursor: pointer;
+  &:hover{
+    filter: opacity(85%);
+  }
+}
+
+// Class definitions.
+.danger-button {
+  background-color: #CA0B00;
+  border-color: #CA0B00;
+  color: #FFF;
+}
+
+.form-error {
+  color: #ED0800;
+  font-size: 12px;
+}
+
+.form-input-with-item {
+  margin: 10px;
+
+  input {
+    margin-left: 10px;
+  }
+
+  .react-icons {
+    height: 14px;
+    width: auto;
+  }
+}
+
+.info-button {
+  background-color: #062080;
+  border-color: #062080;
+  color: #FFF;
+}
+
+.success-button {
+  background-color: #007420;
+  border-color: #007420;
+  color: #FFF;
+}
