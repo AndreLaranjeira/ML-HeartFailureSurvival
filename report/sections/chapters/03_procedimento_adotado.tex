@@ -84,16 +84,49 @@ dataset_extractor = DatasetExtractor(
 
 Após o usuário definir as configurações desejadas no corpo do programa e executar o programa com os argumentos apropriados, o programa iniciará a avaliação dos modelos de treinamento definidos. O tempo médio de avaliação depende da quantidade de modelos avaliados, do tipo dos modelos avaliados e dos hiperparâmetros dos modelos em si. As avaliações realizadas pelo autor que utilizaram modelos do tipo florestas randômicas foram relativamente rápidas, demorando algumas horas para serem executadas quando centenas de modelos haviam sido definidos. Já as avaliações feitas pelo autor com modelos do tipo perceptron multicamada foram consideravelmente lentas, demorando de 36 a 48 horas para serem executadas quando apenas 5 modelos haviam sido definidos. Essa discrepância significativa foi um grande entrave para a realização de mais avaliações com modelos do tipo perceptron multicamada.
 
-Após o programa ter sido iniciado, algumas mensagens serão mostradas na tela para informar o progresso da avaliação. Após a avaliação ter sido finalizada, os resultados obtidos serão também mostrados na tela para conhecimento do usuário e salvos em um arquivo com extensão \textit{csv}. O arquivo de resultados armazena, para cada modelo avaliado, o posicionamento do modelo em um rankeamento iniciado em 0 (porque essa posição é originada a partir de uma lista ordenada, a qual é indexada em 0), o tipo do modelo, os hiperparâmetros do modelo, as acurácias de previsão para os subconjuntos de validação dos particionamentos utilizados para validação e a média dessas acurácias, e, caso o modelo tenha sido utilizado para realizar previsões nos subconjuntos de teste, as acurácias de previsão para os subconjuntos de teste dos particionamentos utilizados para teste e a média dessas acurácias. Podemos visualizar um exemplo de arquivo de resultados aberto no \textit{LibreOffice Calc} e com algumas estilizações aplicadas na figura \ref{example_evaluation_results}.
+Após o programa ter sido iniciado, algumas mensagens serão mostradas na tela para informar o progresso da avaliação. Após a avaliação ter sido finalizada, os resultados obtidos serão também mostrados na tela para conhecimento do usuário e salvos em um arquivo com extensão \textit{csv}. O arquivo de resultados armazena, para cada modelo avaliado, o posicionamento do modelo em um rankeamento iniciado em 0 (porque essa posição é originada a partir de uma lista ordenada, a qual é indexada em 0), o tipo do modelo, os hiperparâmetros do modelo, as acurácias de previsão para os subconjuntos de validação dos particionamentos utilizados para validação e a média dessas acurácias, e, caso o modelo tenha sido utilizado para realizar previsões nos subconjuntos de teste, as acurácias de previsão para os subconjuntos de teste dos particionamentos utilizados para teste e a média dessas acurácias. Podemos visualizar um exemplo de arquivo de resultados aberto no \textit{LibreOffice Calc} e com algumas estilizações aplicadas na figura \ref{fig:example_evaluation_results}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.42]{images/exemplo_resultados_avaliacao.png}
 	\caption{Exemplo de arquivo de resultados de avaliação aberto no programa \textit{LibreOffice Calc} e com algumas estilizações.}
-	\label{example_evaluation_results}
+	\label{fig:example_evaluation_results}
 \end{figure}
 
 Para facilitar a identificação dos resultados de avaliação, o programa tenta gravar os resultados em um arquivo na pasta \textit{results} com o nome \textit{E[Número da avaliação com 4 dígitos].csv} (e.g: \textit{results/E0001.csv}). Caso o número da avaliação não tenha sido fornecido, o programa tenta gravar os dados no arquivo \textit{results/results\_save.csv}. Caso o programa não consiga gravar os resultados em um desses arquivos por algum motivo, como, por exemplo, a inexistência da pasta \textit{results}, o programa ainda tenta realizar uma segunda gravação dos resultados, no diretório de onde o programa foi chamado, em um arquivo de \textit{fallback} de nome \textit{fallback\_results\_save.csv}.
+
+\subsection{Programa para gerar gráficos dos resultados}
+
+O programa para gerar gráficos de resultados foi escrito no arquivo \textit{plot\_results.py} e permite que o usuário selecione um modelo de uma das avaliações realizadas e gere uma representação gráfica dos resultados obtidos para esse modelo. O usuário pode passar como argumentos na chamada do programa o número da avaliação selecionada, o número do modelo selecionado, a ação almejada do programa (apenas mostar o gráfico gerado ou salvar o gráfico gerado em um arquivo), um nome de arquivo para receber o gráfico gerado, o tipo de gráfico a ser gerado (gráfico de barras, gráfico de caixa ou histograma) e a categoria de resultados a ser analisada (validação, teste ou uma comparação entre ambos).
+
+O usuário é livre para combinar esses argumentos de maneira a extrair o maior valor possível dos resultados de avaliação, mas deve-se ressaltar que o argumento de nome de arquivo não será utilizado se a ação escolhida for apenas mostrar o gráfico gerado e que valores inválidos de número de avaliação ou de número de modelo geraram mensagens de erro. Também é importante notar que a execução do programa deve ser feita a partir do diretório \textit{AI}, para que o programa consiga ler adequadamente os arquivos da pasta \textit{results}. Por fim, é importante ressaltar que o programa possui um argumento de ajuda para explicar o uso dos demais argumentos e um argumento de versão.
+
+Diferente do programa de avaliação automática de modelos de treinamento, este programa não possui configurações a serem alteradas no corpo do programa porque todas as opções de configuração são fornecidas por argumentos de chamada e repassadas para o construtor de classe utilizado e para a chamada de método realizada (a lógica do programa em si se resume a exatamente uma construção de classe e uma chamada de método devido a modularização utilizada).
+
+Após o programa ser chamado, a classe construída utiliza um extrator de dados feito pelo autor para ler os dados do arquivo de resultados selecionado e gera, por meio da biblioteca \textit{matplotlib}, o gráfico desejado contendo os resultados lidos. Se necessário, esse gráfico então é salvo em um arquivo cujo nome é fornecido pelo usuário. Se o usuário não especificar o nome de arquivo desejado, o nome de arquivo \textit{plot\_output.png} é utilizado. Caso o programa não consiga salvar o gráfico gerado com o nome de arquivo fornecido, o programa ainda tenta realizar uma segunda gravação, no diretório de onde o programa foi chamado, em um arquivo de \textit{fallback} de nome \textit{fallback\_plot\_output.png}.
+
+Para exemplificar o funcionamento do programa, fornecemos a imagem \ref{fig:example_results_plot}, a qual contém o gráfico de barras \ref{fig:example_results_barplot}, o gráfico de caixa \ref{fig:example_results_boxplot} e o histograma \ref{fig:example_results_histogram} gerados com os resultados de validação e de teste do melhor modelo (rankeamento 0) da avaliação número 1.
+
+\begin{figure}[h]
+	\centering
+  \subfigure[Gráfico de barras]{
+    \centering
+    \includegraphics[scale=0.3]{images/exemplo_grafico_barras_resultados.png}
+    \label{fig:example_results_barplot}
+  }
+  \subfigure[Gráfico de caixa]{
+    \centering
+    \includegraphics[scale=0.3]{images/exemplo_grafico_caixa_resultados.png}
+    \label{fig:example_results_boxplot}
+  }
+  \subfigure[Histograma]{
+    \centering
+    \includegraphics[scale=0.3]{images/exemplo_histograma_resultados.png}
+    \label{fig:example_results_histogram}
+  }
+	\caption{Exemplos de gráficos de resultados gerados pela execução do programa \textit{plot\_results.py}.}
+	\label{fig:example_results_plot}
+\end{figure}
 
 
 %label cria um rótulo para o objeto, para permitir que ele seja referenciado com o comando \ref{nome-do-rotulo}
