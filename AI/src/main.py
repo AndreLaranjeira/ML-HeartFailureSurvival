@@ -59,6 +59,8 @@ dataset_split_seed_extractor = SeedExtractor(
 dataset_split_seed_extractor.extract_seeds()
 dataset_split_seeds = dataset_split_seed_extractor.get_seeds()
 
+# Model declaration example.
+
 # model = KerasSequential(
 #     layers=[
 #         Input(shape=features_shape),
@@ -98,21 +100,6 @@ for second_layer in range(20, 101, 20):
             Dense(1, activation='sigmoid')
         ]
     ))
-
-# for max_leaf_nodes in range(16, 21, 1):
-#     for min_samples_leaf in range(1, 4, 1):
-#         for min_samples_split in range(5, 10, 1):
-#             for criterion in ['entropy', 'gini']:
-#                 for n_estimators in range(200, 221, 5):
-#                     models.append(RandomForest(
-#                         criterion=criterion,
-#                         max_depth=None,
-#                         max_features=None,
-#                         max_leaf_nodes=max_leaf_nodes,
-#                         min_samples_leaf=min_samples_leaf,
-#                         min_samples_split=min_samples_split,
-#                         n_estimators=n_estimators
-#                     ))
 
 # Create model evaluator.
 model_evaluator = ModelEvaluator(
