@@ -24,6 +24,7 @@ O _modelo não oficial de Latex da Faculdade de tecnologia da Universidade de Br
   * Alguns arquivos referentes ao projeto original ou ao repositório no GitHub foram removidos ou substituídos. \(configuração de tema, exemplo de documento, README e licença originais, etc...\).
   * A disposição anterior dos arquivos foi alterada com o intuito de melhorar a organização de projeto.
   * O arquivo `Makefile` foi modificado para atender à nova estrutura do projeto.
+  * Alguns comentários e configurações em arquivos de latex e de bibtex foram modificados ou apagados.
 
 ### Esclarecimentos
 

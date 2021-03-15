@@ -1,6 +1,6 @@
+% Classe de documento.
 \documentclass[a4paper,12pt,openright,titlepage,oneside]{book}
 
-%\usepackage[english,brazil]{babel}
 %Define regra de gramática para separar síbalas {babel}
 %e altera os títulos (como chapters, sections, references) para português
 \usepackage[brazil]{babel}
@@ -10,7 +10,10 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 
-% Adição do pacote do template da UnB
+% Outros pacotes utilizados.
+\usepackage{subfigure}
+
+% Adição do pacote do template da UnB.
 \usepackage{styles/template-FT-UnB/ft2unb}
 
 \DeclareGraphicsExtensions{.jpg,.pdf,.mps,.png,.gif, .eps}
@@ -136,7 +139,7 @@
 	\mainmatter %Inicia a numeracao normal cardinal
 	\setcounter{page}{1} \pagenumbering{arabic} \pagestyle{plain}
 
-	\include{sections/chapters/01_introducao_teorica}
+	\include{sections/chapters/01_introducao}
 	\include{sections/chapters/02_apresentacao_teorica}
 	\include{sections/chapters/03_procedimento_adotado}
 	\include{sections/chapters/04_resultados}
