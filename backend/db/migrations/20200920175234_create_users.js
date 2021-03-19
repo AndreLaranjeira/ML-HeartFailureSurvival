@@ -3,13 +3,13 @@ exports.up = function(knex) {
   return knex.schema.createTable("USERS", function(table) {
     table.increments("ID").primary();
 
-    // Regular fields:
+    // Regular fields.
     table.string("EMAIL").unique().notNullable();
     table.string("HASHED_PASSWORD").notNullable();
     table.string("FULL_NAME").notNullable();
     table.boolean("IS_ACTIVE").notNullable();
 
-    // Foreign keys:
+    // Foreign keys.
     table.integer("ROLE_ID").unsigned().notNullable();
     table.foreign("ROLE_ID").references("ID").on("ROLES");
 
