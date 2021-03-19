@@ -23,9 +23,7 @@ module.exports = {
 
     const user_being_authenticated = await connection("USERS")
       .select("*")
-      .where(
-        {email: email}
-      )
+      .where({email: email})
       .first();
 
     if(user_being_authenticated == null) {
@@ -61,9 +59,7 @@ module.exports = {
 
     const user_with_the_same_email = await connection("USERS")
       .select("ID")
-      .where(
-        {email: email}
-      )
+      .where({email: email})
       .first();
 
     if(user_with_the_same_email != null) {
@@ -102,9 +98,7 @@ module.exports = {
 
     const created_user = await connection("USERS")
       .select("*")
-      .where(
-        {id: created_user_id}
-      )
+      .where({id: created_user_id})
       .first();
 
     // Remove password hash for security purposes.

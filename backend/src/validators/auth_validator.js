@@ -28,7 +28,7 @@ module.exports = {
         .messages({
           "any.only": "\"confirm_password\" must match password"
         }),
-      role_id: Joi.number().min(1).required()
+      role_id: Joi.number().positive().integer().required()
     })
   }),
 
