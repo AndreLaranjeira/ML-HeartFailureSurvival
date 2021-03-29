@@ -1,5 +1,6 @@
 // Styles imports.
 @import 'assets/styles/colors';
+@import 'react-confirm-alert/src/react-confirm-alert.css';
 
 // Font properties.
 @font-face {
@@ -24,6 +25,10 @@
 }
 
 // Style properties.
+#root {
+  width: calc(100vw - 30px);	// Fix for alert windows shifting content.
+}
+
 body {
   color: #222;
   font: 400 16px 'Open Sans', sans-serif;
@@ -37,15 +42,28 @@ button {
 
   cursor: pointer;
   &:hover{
-    filter: opacity(85%);
+    filter: opacity(75%);
+  }
+}
+
+input {
+  height: 24px;
+  font-size: 14px;
+
+  &:focus{
+    outline-color: $selected-color;
   }
 }
 
 // Class definitions.
 .danger-button {
-  background-color: #CA0B00;
-  border-color: #CA0B00;
+  background-color: $danger-color;
+  border-color: $danger-color;
   color: #FFF;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 .form-error {
@@ -67,13 +85,26 @@ button {
 }
 
 .info-button {
-  background-color: #062080;
-  border-color: #062080;
+  background-color: $info-color;
+  border-color: $info-color;
   color: #FFF;
 }
 
+.react-confirm-alert-button-group {
+  justify-content: center;
+
+  button {
+    margin: 30px 20px 0;
+  }
+
+  .confirm-button {
+    @extend .danger-button;
+  }
+
+}
+
 .success-button {
-  background-color: #007420;
-  border-color: #007420;
+  background-color: $success-color;
+  border-color: $success-color;
   color: #FFF;
 }

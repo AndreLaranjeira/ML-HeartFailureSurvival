@@ -80,7 +80,10 @@ module.exports = {
 
     // Patients data.
     const patients = await connection("PATIENTS")
-      .select("*")
+      .leftJoin("PREDICTIONS", {"PREDICTIONS.PATIENT_ID": "PATIENTS.ID"})
+      .select("PATIENTS.*")
+      .count("PREDICTIONS.ID", {as: "PREDICTION_COUNT"})
+      .groupBy("PATIENTS.ID")
       .where({user_id: current_user_id})
       .limit(page_length)
       .offset((page - 1) * page_length);
@@ -94,8 +97,11 @@ module.exports = {
 
     // Find the requested patient.
     const patient = await connection("PATIENTS")
-      .select("*")
-      .where({id: patient_id})
+      .leftJoin("PREDICTIONS", {"PREDICTIONS.PATIENT_ID": "PATIENTS.ID"})
+      .select("PATIENTS.*")
+      .count("PREDICTIONS.ID", {as: "PREDICTION_COUNT"})
+      .groupBy("PATIENTS.ID")
+      .where("PATIENTS.ID", "=", patient_id)
       .first();
 
     // Check if the patient exists and if the user is authorized.
