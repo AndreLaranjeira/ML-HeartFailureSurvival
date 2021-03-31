@@ -4,19 +4,18 @@
 import api from "../services/api";
 
 // Helper functions.
-export function userLoggedIn() {
+export async function userLoggedIn() {
   const authorization = localStorage.getItem("authorization");
-
   if(authorization != null) {
     try {
-      api.post("auth/validate", null, {
+      await api.get("auth/validate", {
         headers: {
           Authorization: authorization
         }
       });
       return true;
     }
-    catch(err) {
+    catch {
       return false;
     }
   }

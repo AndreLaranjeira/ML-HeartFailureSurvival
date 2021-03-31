@@ -16,9 +16,9 @@ const PatientValidator = require("./validators/patient_validator");
 const routes = express.Router();
 
 // Authentication routes.
+routes.get("/auth/validate", AuthValidator.validate, AuthController.validate);
 routes.post("/auth/authenticate", AuthValidator.authenticate, AuthController.authenticate);
 routes.post("/auth/register", AuthValidator.register, AuthController.register);
-routes.post("/auth/validate", AuthValidator.validate, AuthController.validate);
 
 // Patient routes.
 routes.delete("/patients/:id", PatientValidator.delete, AuthMiddleware, PatientController.delete);

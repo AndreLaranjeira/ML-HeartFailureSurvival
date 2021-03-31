@@ -4,6 +4,9 @@ import {IconContext} from "react-icons";
 import {FaArrowLeft, FaEnvelope, FaKey, FaUser} from "react-icons/fa";
 import {Link, useHistory} from "react-router-dom";
 
+// Context imports.
+import {useAuthContext} from "../../contexts/auth";
+
 // Module imports.
 import api from "../../services/api";
 import {celebrateErrorContent} from "../../utils/celebrate";
@@ -16,6 +19,7 @@ import "./styles.scss";
 export default function Register() {
 
   // Variables.
+  const authContext = useAuthContext();
   const defaultRoleId = 2;
   const history = useHistory();
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -40,9 +44,7 @@ export default function Register() {
       };
 
       const response = await api.post("auth/register", data);
-
-      localStorage.setItem("authorization", `Bearer ${response.data.token}`);
-      localStorage.setItem("userFullName", response.data.user["FULL_NAME"]);
+      authContext.login(response);
 
       alert("Registration successfull! Taking you to the home page.");
       history.push("/home");

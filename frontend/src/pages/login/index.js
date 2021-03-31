@@ -5,10 +5,14 @@ import {FaBrain, FaHeartbeat, FaLock, FaRegClipboard} from "react-icons/fa";
 import {FaRegUser, FaUser, FaWallet} from "react-icons/fa";
 import {Link, useHistory} from "react-router-dom";
 
+// Context imports.
+import {useAuthContext} from "../../contexts/auth";
+
 // Module imports.
 import api from "../../services/api";
 import {celebrateErrorContent} from "../../utils/celebrate";
 import {formatCelebrateMessage, isCelebrateError} from "../../utils/celebrate";
+// import {userLoggedIn} from "../../utils/user";
 
 // Style imports.
 import "./styles.scss";
@@ -17,6 +21,7 @@ import "./styles.scss";
 export default function Login() {
 
   // Variables.
+  const authContext = useAuthContext();
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [formErrors, setFormErrors] = useState({});
@@ -30,9 +35,7 @@ export default function Login() {
 
     try {
       const response = await api.post("auth/authenticate", {email, password});
-
-      localStorage.setItem("authorization", `Bearer ${response.data.token}`);
-      localStorage.setItem("userFullName", response.data.user["FULL_NAME"]);
+      authContext.login(response);
 
       history.push("/home");
     } catch(err) {

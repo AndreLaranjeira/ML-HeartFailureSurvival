@@ -7,6 +7,9 @@ import {FaEdit, FaNotesMedical, FaTrashAlt} from "react-icons/fa";
 import {FaUser, FaUserPlus} from "react-icons/fa";
 import {useHistory} from "react-router-dom";
 
+// Context imports.
+import {useAuthContext} from "../../contexts/auth";
+
 // Module imports.
 import api from "../../services/api";
 
@@ -23,6 +26,7 @@ import "./styles.scss";
 export default function Home() {
 
   // Variables.
+  const authContext = useAuthContext();
   const history = useHistory();
   const userAuthorization = localStorage.getItem("authorization");
   const userFullName = localStorage.getItem("userFullName");
@@ -30,14 +34,25 @@ export default function Home() {
 
   // Page effects.
   useEffect(() => {
+    let isMounted = true;
+    
     api.get("patients", {
       headers: {
         Authorization: userAuthorization
       }
     }).then(response => {
-      setUserPatients(response.data);
+      if(isMounted)
+        setUserPatients(response.data);
+    }).catch(err => {
+      alert(
+        "Ocorreu um erro ao carregar os pacientes\n\n" + "Detalhes" + err
+      );
     });
-  }, [userAuthorization]);
+
+    return function cleanUp() {
+      isMounted = false;
+    };
+  }, []);
 
   // Handler functions.
   async function handleDeletePatient(id) {
@@ -55,7 +70,7 @@ export default function Home() {
   }
 
   function handleLogout() {
-    localStorage.clear();
+    authContext.logout();
     history.push("/login");
   }
 
