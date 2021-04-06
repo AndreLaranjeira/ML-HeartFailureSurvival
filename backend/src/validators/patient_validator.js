@@ -8,8 +8,7 @@ module.exports = {
       full_name: Joi.string().required(),
       birth_date: Joi.date().min("1-1-1900").required(),
       sex: Joi.string().valid("MALE", "FEMALE").required(),
-      has_diabetes: Joi.boolean().required(),
-      patient_user_id: Joi.number().positive().integer().required()
+      has_diabetes: Joi.boolean().required()
     })
   }),
 

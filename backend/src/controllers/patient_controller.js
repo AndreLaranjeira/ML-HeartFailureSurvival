@@ -9,30 +9,20 @@ module.exports = {
       birth_date,
       full_name,
       has_diabetes,
-      patient_user_id,
       sex
     } = request.body;
 
-    if(current_user_id !== patient_user_id) {
-      return response.status(401).json({
-        statusCode: 401,
-        error: "Unauthorized",
-        message: "You cannot create a patient for another user!"
-      });
-    }
+    const [id] = await connection("PATIENTS").insert({
+      FULL_NAME: full_name,
+      BIRTH_DATE: birth_date,
+      SEX: sex,
+      HAS_DIABETES: has_diabetes,
+      USER_ID: current_user_id,
+      CREATED_AT: new Date(),
+      UPDATED_AT: new Date()
+    });
 
-    else {
-      const [id] = await connection("PATIENTS").insert({
-        FULL_NAME: full_name,
-        BIRTH_DATE: birth_date,
-        SEX: sex,
-        HAS_DIABETES: has_diabetes,
-        USER_ID: patient_user_id,
-        CREATED_AT: new Date(),
-        UPDATED_AT: new Date()
-      });
-      return response.status(201).json({id});
-    }
+    return response.status(201).json({id});
 
   },
 
