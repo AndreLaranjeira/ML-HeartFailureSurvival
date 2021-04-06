@@ -1,2 +1,21 @@
-\chapter{Futuras pesquisas} \label{futuras_pesquisas}
-% Como explicado no capítulo \ref{capitulo2}
+\chapter{Futuras pesquisas} \label{chap:futuras_pesquisas}
+
+Esse capítulo possui o intuito de abordar ideias para futuras pesquisas relacionadas a esse trabalho, incluindo suas motivações e impactos esperados.
+
+\section{Utilização de dados de pacientes contemporâneos}
+
+Este trabalho utilizou um conjunto de dados \cite{larxel_dataset} para realizar o treinamento dos modelos de aprendizado de máquina, mas não foi possível utilizar dados de pacientes contemporâneos para treinar os modelos de aprendizado ou para testar a acurácia do modelo empregado no website auxiliar. A utilização de dados de pacientes não cadastrados no conjunto de dados seria interessante tanto para mitigar algumas das limitações do conjunto de dados em questão, as quais são abordadas no capítulo \ref{chap:procedimento_adotado}, quanto para verificar a acurácia do modelo em um caso contemporâneo.
+
+A obtenção dos dados em questão de um paciente qualquer não é necessariamente trabalhosa para um profissional médico, mas contém uma gama de implicações legais e éticas que devem ser discutidas com o paciente, o que poderia ser trabalhado em uma pesquisa futura. Espera-se que a utilização de dados de pacientes contemporâneos torne o aprendizado dos modelos mais robusto, aumentado a acurácia obtida para os subconjuntos de teste e tornando mais viável o uso do website em casos cotidianos.
+
+\section{Avaliação de mais tipos de modelos de treinamento e variações de hiperparâmetros}
+
+Este trabalho avaliou modelos de treinamento dos tipos floresta randômica e perceptron multicamada, utilizando 5346 combinações diferentes de hiperparâmetros para a realização de 30 avaliações envolvendo ambos os tipos de modelos conforme o método descrito no capítulo \ref{chap:procedimento_adotado}. Entretanto, ainda existem outros tipos de modelos de treinamento que foram mencionados no artigo científico \cite{chicco2020} que primeiramente estudou o conjunto de dados em questão \cite{larxel_dataset} e outras variações de hiperparâmetros para os tipos de modelos já avaliados neste trabalho.
+
+O artigo em questão aponta os modelos do tipo árvore de decisão, \textit{extreme gradient boosting} e regressão linear como modelos que fornecem boas acurácias de previsão para o conjunto de dados em questão. E, para modelos do tipo floresta randômica e perceptron multicamada, podemos citar, respectivamente, a exploração do hiperparâmetro de valor mínimo de decréscimo de impureza por divisão e redes neuronais com 3 camadas densas ou que utilizem \textit{dropout} e \textit{kernels} de regularação \textit{simultaneamente} como variações interessantes de hiperparâmetros que ainda podem ser exploradas. Com a utilização de um número maior de tipos de modelos de treinamento e de mais variações de hiperparâmetros para estes modelos de treinamento, podemos, possivelmente, melhorar os resultados de acurácia obtidos na previsão de insuficiência cardíaca.
+
+\section{Criação de um frontend de aplicativo \textit{mobile} para o projeto}
+
+Como mencionado no capítulo \ref{chap:procedimento_adotado}, o website auxiliar foi desenvolvido com um \textit{backend} sendo uma \textit{API}, de forma que um novo \textit{frontend} pode ser facilmente desenvolvido para interagir com o banco de dados aproveitando o \textit{backend} existente. Uma sugestão de \textit{frontend} a ser desenvolvido é um aplicativo \textit{mobile} que possa ser utilizado em \textit{smartphones}.
+
+O uso de \textit{smartphones} nos dias atuais é uma alternativa extremamente popular ao uso de computadores e \textit{notebooks} por sua versatilidade, facilidade de uso e maiores opções de quando e onde um serviço pode ser utilizado. Dessa forma, seria benéfico ao usuário do website auxiliar poder utilizar o serviço de previsão de insuficiência cardíaca por meio de um aplicativo em seu \textit{smartphone}.
