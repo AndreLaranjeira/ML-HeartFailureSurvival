@@ -60,13 +60,14 @@ module.exports = {
   async index(request, response) {
     const current_user_id = request.user;
     const {page = 1} = request.query;
-    const page_length = 10;
+    const page_length = 8;
 
     // Pacient count for the user.
     const [pacient_count] = await connection("PATIENTS")
       .where({user_id: current_user_id})
       .count();
     response.header("X-Total-Count", pacient_count["count(*)"]);
+    response.header("X-Total-Pages", Math.ceil(pacient_count["count(*)"]/page_length));
 
     // Patients data.
     const patients = await connection("PATIENTS")

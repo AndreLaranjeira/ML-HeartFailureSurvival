@@ -1,0 +1,91 @@
+// Styles imports.
+@import '../../assets/styles/colors';
+
+// Style properties.
+.create-patient-container {
+
+  // Display properties.
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  // Size properties.
+  height: 100vh;
+  margin: auto;
+  max-width: 1280px;
+  width: 100%;
+
+  .create-patient-form {
+
+    // Size properties.
+    height: 100%;
+    max-height: 480px;
+
+    form {
+
+      // Display properties.
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      // Size properties.
+      height: 100%;
+
+      .submit-button {
+        margin-top: 25px;
+      }
+
+    }
+  }
+
+  .create-patient-title {
+
+    // Display properties.
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+
+    // Size properties.
+    height: 15vh;
+    width: 100%;
+
+    h1 {
+      flex-grow: 1;
+      text-align: center;
+    }
+
+  }
+
+  .return-to-home {
+
+    // Display properties.
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    .button-wrapper {
+
+      // Display properties.
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      flex-shrink: 1;
+      justify-content: flex-start;
+
+      text-decoration: none;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .react-icons {
+          padding-right: 10px;
+        }
+      }
+    }
+  }
+}

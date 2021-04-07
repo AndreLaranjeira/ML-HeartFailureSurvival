@@ -10,9 +10,17 @@ const routes = require("./routes");
 // Local variables.
 dotenv.config();
 
+// Package configurations.
+const corsOptions = {
+  exposedHeaders: [
+    "X-Total-Count",
+    "X-Total-Pages"
+  ],
+};
+
 // Application configuration.
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(routes);
 app.use(errors());

@@ -1,6 +1,7 @@
 // Styles imports.
 @import 'assets/styles/colors';
 @import 'react-confirm-alert/src/react-confirm-alert.css';
+@import 'react-datepicker/dist/react-datepicker.css';
 
 // Font properties.
 @font-face {
@@ -116,6 +117,37 @@ input {
   color: #FFF;
 }
 
+.radio-button-row {
+
+  // Display properties.
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: 4px 0px 4px;
+  width: 240px;
+
+}
+
+.radio-button-with-label {
+
+  // Display properties.
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 10px;
+
+}
+
+.radio-input {
+  height: 24px;
+  margin: 0px 8px 0px;
+  width: 24px;
+}
+
 .react-confirm-alert-button-group {
   justify-content: center;
 
@@ -127,6 +159,75 @@ input {
     @extend .danger-button;
   }
 
+}
+
+.react-datepicker__navigation {
+  border-radius: 0;
+  box-shadow: 0 0;
+}
+
+.react-paginate {
+
+  // Display properties.
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  list-style-type: none;
+  margin-top: 30px;
+  padding-inline-start: 0;
+
+  li {
+
+    background-color: $react-paginate-primary-color;
+    color: $react-paginate-secondary-color;
+    outline-color: $react-paginate-secondary-color;
+    outline-style: solid;
+    outline-width: 1px;
+    height: 24px;
+    padding: 4px;
+
+    a {
+      outline-width: 0;
+    }
+
+    cursor: pointer;
+    &:hover{
+      filter: opacity(75%);
+    }
+  }
+
+  .active {
+    background-color: $react-paginate-secondary-color;
+    color: $react-paginate-primary-color;
+    outline-color: $react-paginate-primary-color;
+  }
+
+  .disabled {
+    background-color: $react-paginate-primary-color;
+    color: $react-paginate-disabled-color;
+    outline-color: $react-paginate-disabled-color;
+  }
+
+  .break, .next, .page, .previous {
+    text-align: center;
+    width: 24px;
+  }
+
+  .break, .page {
+    margin: 0px 5px 0px;
+  }
+
+  .next, .previous {
+    margin: 0px 30px 0px;
+  }
+
+  .next-icon, .previous-icon {
+    padding-top: 2px;
+    height: 20px;
+    width: auto;
+  }
 }
 
 .success-button {
