@@ -84,6 +84,32 @@ input {
   }
 }
 
+.form-input-with-title {
+
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  margin: 0px 0px 10px;
+  max-height: 85px;
+  max-width: 240px;
+
+  .input-title {
+    font: 600 16px 'Open Sans SemiBold', sans-serif;
+    margin: 10px 0px 8px;
+  }
+
+  .form-input {
+    width: 240px;
+  }
+
+  .form-error {
+    margin: 4px 0px 10px;
+  }
+
+}
+
 .info-button {
   background-color: $info-color;
   border-color: $info-color;

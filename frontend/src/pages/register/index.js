@@ -1,8 +1,8 @@
 // Package imports.
 import React, {useState} from "react";
 import {IconContext} from "react-icons";
-import {FaArrowLeft, FaEnvelope, FaKey, FaUser} from "react-icons/fa";
-import {Link, useHistory} from "react-router-dom";
+import {FaArrowLeft} from "react-icons/fa";
+import {useHistory} from "react-router-dom";
 
 // Context imports.
 import {useAuthContext} from "../../contexts/auth";
@@ -67,6 +67,10 @@ export default function Register() {
     }
   }
 
+  function returnToLogin() {
+    history.push("/login");
+  }
+
   // JSX returned.
   return(
     <div className="register-container">
@@ -75,57 +79,61 @@ export default function Register() {
       </div>
       <div className="register-form">
         <form onSubmit={handleRegister}>
-          <div className="form-input-with-item">
-            <FaEnvelope />
+          <div className="form-input-with-title">
+            <p className="input-title">Email</p>
             <input
+              className="form-input"
               placeholder="Email"
               value={email}
               onChange={e => setEmail(e.target.value)}
             />
+            <p className="form-error">{formErrors.email}</p>
           </div>
-          <span className="form-error">{formErrors.email}</span>
-          <div className="form-input-with-item">
-            <FaUser />
+          <div className="form-input-with-title">
+            <p className="input-title">Full name</p>
             <input
+              className="form-input"
               placeholder="Full name"
               value={fullName}
               onChange={e => setFullName(e.target.value)}
             />
+            <p className="form-error">{formErrors.fullName}</p>
           </div>
-          <span className="form-error">{formErrors.fullName}</span>
-          <div className="form-input-with-item">
-            <FaKey />
+          <div className="form-input-with-title">
+            <p className="input-title">Password</p>
             <input
+              className="form-input"
               placeholder="Password"
               value={password}
               onChange={e => setPassword(e.target.value)}
               type="password"
             />
+            <p className="form-error">{formErrors.password}</p>
           </div>
-          <span className="form-error">{formErrors.password}</span>
-          <div className="form-input-with-item">
-            <FaKey />
+          <div className="form-input-with-title">
+            <p className="input-title">Confirm password</p>
             <input
+              className="form-input"
               placeholder="Confirm password"
               value={confirmPassword}
               onChange={e => setConfirmPassword(e.target.value)}
               type="password"
             />
+            <p className="form-error">{formErrors.confirmPassword}</p>
           </div>
-          <span className="form-error">{formErrors.confirmPassword}</span>
-          <button className="success-button" type="submit">
+          <button className="submit-button success-button" type="submit">
             Complete registration
           </button>
         </form>
       </div>
       <div className="return-to-login">
-        <Link className="link" to="/login">
-          <button className="info-button">
+        <div className="button-wrapper">
+          <button className="submit-button info-button" onClick={returnToLogin}>
             <IconContext.Provider value={{ className: "react-icons" }}>
               <FaArrowLeft/> Login page
             </IconContext.Provider>
           </button>
-        </Link>
+        </div>
       </div>
     </div>
   );

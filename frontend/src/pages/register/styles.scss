@@ -32,8 +32,8 @@
       // Size properties.
       height: 100%;
 
-      button {
-        margin-top: 25px;
+      .submit-button {
+        margin-top: 15px;
       }
 
     }
@@ -66,7 +66,9 @@
     flex-direction: row;
     justify-content: flex-start;
 
-    .link {
+    margin-top: 30px;
+
+    .button-wrapper {
 
       // Display properties.
       display: flex;

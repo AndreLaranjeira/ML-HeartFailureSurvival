@@ -21,7 +21,9 @@ module.exports = {
         "string.pattern.base": "\"email\" must be an email address"
       }),
       full_name: Joi.string().required(),
-      password: Joi.string().required().min(8),
+      password: Joi.string().required().min(8).messages({
+        "string.min": "\"password\" must have at least 8 characters"
+      }),
       confirm_password: Joi.any()
         .valid(Joi.ref("password"))
         .required()
