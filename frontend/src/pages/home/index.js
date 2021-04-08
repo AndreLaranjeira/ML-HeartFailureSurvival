@@ -14,12 +14,6 @@ import {useAuthContext} from "../../contexts/auth";
 // Module imports.
 import api from "../../services/api";
 
-/* Task list:
- *  - Tweak patient details page to allow patient to be edited;
- *  - Create link to placeholder page to create a checkup.
- *  - Investigate npm packages for flash messages.
- */
-
 // Style imports.
 import "./styles.scss";
 
@@ -34,11 +28,6 @@ export default function Home() {
   const [userPage, setUserPage] = useState(1);
   const [userPatients, setUserPatients] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
-
-  // Page effects.
-  useEffect(() => {
-    updateUserPatients();
-  }, [userPage]);
 
   // Handler functions.
   async function handleDeletePatient(id) {
@@ -67,9 +56,18 @@ export default function Home() {
       setUserPatients(response.data);
       setTotalPages(response.headers["x-total-pages"]);
     }).catch(err => {
-      alert(
-        "Ocorreu um erro ao carregar os pacientes\n\n" + "Detalhes" + err
-      );
+      if(err.response?.data?.statusCode === 401) {
+        alert("Session timed out! returning to login page!");
+        authContext.logout();
+      }
+
+      else {
+        alert(
+          "There was an error loading the patients' data!\n"
+          + "Please, try again later.\n\n"
+          + "Error details: " + err + "."
+        );
+      }
     });
   }
 
@@ -77,10 +75,19 @@ export default function Home() {
     history.push("/patients/create");
   }
 
+  function goToUpdatePatient(patient_id) {
+    history.push(`/patients/${patient_id}/edit`);
+  }
+
   function handleLogout() {
     authContext.logout();
     history.push("/login");
   }
+
+  // Page effects.
+  useEffect(() => {
+    updateUserPatients();
+  }, [userPage]);
 
   // JSX returned.
   return(
@@ -136,7 +143,7 @@ export default function Home() {
                     </button>
                     <button
                       className="patient-icon-button"
-                      onClick={() => null}
+                      onClick={() => goToUpdatePatient(patient.ID)}
                     >
                       <IconContext.Provider
                         value={{ className: "patient-edit-icon" }}

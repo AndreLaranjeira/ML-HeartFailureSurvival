@@ -57,6 +57,21 @@ module.exports = {
     }
   },
 
+  async identifiers(request, response) {
+    const current_user_id = request.user;
+
+    // Find the ids for the user's patients.
+    const patients = await connection("PATIENTS")
+      .select("ID")
+      .where({user_id: current_user_id});
+
+    const patient_ids = patients.map(
+      (patient) => patient["ID"]
+    );
+
+    return response.status(200).json({patient_ids});
+  },
+
   async index(request, response) {
     const current_user_id = request.user;
     const {page = 1} = request.query;

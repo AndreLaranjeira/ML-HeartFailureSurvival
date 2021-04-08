@@ -25,6 +25,7 @@ routes.post("/auth/register", AuthValidator.register, AuthController.register);
 // Patient routes.
 routes.delete("/patients/:id", PatientValidator.delete, AuthMiddleware, PatientController.delete);
 routes.get("/patients", PatientValidator.index, AuthMiddleware, PatientController.index);
+routes.get("/patients/identifiers", AuthMiddleware, PatientController.identifiers);
 routes.get("/patients/:id", PatientValidator.read, AuthMiddleware, PatientController.read);
 routes.post("/patients", PatientValidator.create, AuthMiddleware, PatientController.create);
 routes.put("/patients/:id", PatientValidator.update, AuthMiddleware, PatientController.update);

@@ -2,7 +2,7 @@
 @import '../../assets/styles/colors';
 
 // Style properties.
-.create-patient-container {
+.patient-details-container {
 
   // Display properties.
   display: flex;
@@ -15,7 +15,7 @@
   max-width: 1280px;
   width: 100%;
 
-  .create-patient-form {
+  .patient-details-form {
 
     // Size properties.
     height: 100%;
@@ -39,7 +39,7 @@
     }
   }
 
-  .create-patient-title {
+  .patient-details-title {
 
     // Display properties.
     display: flex;

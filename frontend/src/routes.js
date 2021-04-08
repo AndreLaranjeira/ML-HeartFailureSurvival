@@ -30,6 +30,13 @@ export default function Routes() {
         <Route path="/patients/create" render=
           {() => authContext.authorized ? <PatientDetais/> : <Redirect to="/login" />}
         />
+        <Route path="/patients/:id/edit" render=
+          {({match}) =>
+            authContext.userPatientsIds.includes(Number(match.params.id)) ?
+              <PatientDetais/> :
+              <Redirect to="/" />
+          }
+        />
         <Route path="/login" render=
           {() => authContext.authorized ? <Redirect to="/home" /> : <Login/>}
         />

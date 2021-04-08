@@ -1,7 +1,10 @@
 // Package imports.
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import DatePicker from "react-datepicker";
-import {useHistory} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
+
+// Context imports.
+import {useAuthContext} from "../../contexts/auth";
 
 // Module imports.
 import api from "../../services/api";
@@ -15,13 +18,17 @@ import "./styles.scss";
 export default function Register() {
 
   // Variables.
+  const authContext = useAuthContext();
   const history = useHistory();
+  const patient_id = useParams().id;
   const userAuthorization = localStorage.getItem("authorization");
   const [birthDate, setBirthDate] = useState(null);
   const [formErrors, setFormErrors] = useState({});
   const [fullName, setFullName] = useState("");
   const [hasDiabetes, setHasDiabetes] = useState(undefined);
+  const [pageTitle, setPageTitle] = useState("");
   const [sex, setSex] = useState(undefined);
+  const [submitButtonText, setSubmitButtonText] = useState("");
 
   // Handler functions.
   async function handleCreatePatient(e) {
@@ -63,18 +70,107 @@ export default function Register() {
     }
   }
 
+  async function handleFormSubmit(e) {
+    if(patient_id != undefined)
+      handleUpdatePatient(e);
+
+    else
+      handleCreatePatient(e);
+  }
+
+  async function handleUpdatePatient(e) {
+    e.preventDefault();     // Prevent default page submit behavior.
+
+    const responseCelebrateErrors = {};
+
+    try {
+      const data = {
+        full_name: fullName,
+        birth_date: birthDate,
+        sex: sex,
+        has_diabetes: hasDiabetes
+      };
+
+      await api.put(`patients/${patient_id}`, data, {
+        headers: {
+          Authorization: userAuthorization
+        }
+      });
+      alert("Patient updated successfull! Taking you to the home page.");
+      history.push("/home");
+    } catch(err) {
+      if(isCelebrateError(err)) {
+        const errorContent = celebrateErrorContent(err);
+        responseCelebrateErrors[errorContent.key] = formatCelebrateMessage(
+          errorContent.message
+        );
+        setFormErrors(responseCelebrateErrors);
+      }
+      else if(err.response.data.message != null) {
+        setFormErrors({});
+        alert(err.response.data.message);
+      }
+      else {
+        setFormErrors({});
+        alert("Internal server error! Please contact an administrator.");
+      }
+    }
+  }
+
   function returnToHome() {
     history.push("/home");
   }
 
+  // Page effects.
+  useEffect(() => {
+    if(patient_id != undefined) {
+      // Configure page.
+      setPageTitle("Update patient");
+      setSubmitButtonText("Update patient");
+
+      // Get the patient's information;
+      api.get(`patients/${patient_id}`, {
+        headers: {
+          Authorization: userAuthorization
+        }
+      }).then(response => {
+        const patient = response.data.patient;
+        setFullName(patient["FULL_NAME"]);
+        setBirthDate(new Date(patient["BIRTH_DATE"]));
+        setSex(patient["SEX"]);
+        setHasDiabetes(patient["HAS_DIABETES"] === 1);
+      }).catch(err => {
+        if(err.response?.data?.statusCode === 401) {
+          alert("Session timed out! returning to login page!");
+          authContext.logout();
+          history.push("/login");
+        }
+
+        else {
+          alert(
+            `There was an error loading the patient #${patient_id}'s data!\n`
+            + "Returning to landing page.\n\n"
+            + "Error details: " + err + "."
+          );
+          history.push("/");
+        }
+      });
+    }
+
+    else {
+      setPageTitle("Create patient");
+      setSubmitButtonText("Create patient");
+    }
+  }, [patient_id]);
+
   // JSX returned.
   return(
-    <div className="create-patient-container">
-      <div className="create-patient-title">
-        <h1>Create patient</h1>
+    <div className="patient-details-container">
+      <div className="patient-details-title">
+        <h1>{pageTitle}</h1>
       </div>
-      <div className="create-patient-form">
-        <form onSubmit={handleCreatePatient}>
+      <div className="patient-details-form">
+        <form onSubmit={handleFormSubmit}>
           <div className="form-input-with-title">
             <p className="input-title">Patient name</p>
             <input
@@ -157,7 +253,7 @@ export default function Register() {
             <p className="form-error">{formErrors.hasDiabetes}</p>
           </div>
           <button className="submit-button success-button" type="submit">
-            Create patient
+            {submitButtonText}
           </button>
         </form>
       </div>

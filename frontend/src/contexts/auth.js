@@ -2,11 +2,11 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
-// Page imports.
-import LoadingPage from "../pages/loading";
+// Component imports.
+import Loading from "../components/loading";
 
 // Module imports.
-import {userLoggedIn} from "../utils/user";
+import {getUserPatientsIds, userLoggedIn} from "../utils/user";
 
 // Variables.
 const AuthContext = createContext({});
@@ -17,11 +17,17 @@ export function AuthProvider({children}) {
   const [reloadContext, setReloadContext] = useState("");
   const [authorized, setAuthorized] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [userPatientsIds, setUserPatientsIds] = useState([]);
 
   useEffect(async() => {
     setLoading(true);
-    let response = await userLoggedIn();
-    setAuthorized(response);
+
+    const authorizedReceived = await userLoggedIn();
+    await setAuthorized(authorizedReceived);
+
+    const userPatientsIdsReceived = await getUserPatientsIds();
+    await setUserPatientsIds(userPatientsIdsReceived);
+
     setLoading(false);
   }, [reloadContext]);
 
@@ -39,10 +45,15 @@ export function AuthProvider({children}) {
   }
 
   return (
-    <AuthContext.Provider value={{authorized: authorized, login, logout}}>
+    <AuthContext.Provider value={{
+      authorized: authorized,
+      userPatientsIds: userPatientsIds,
+      login,
+      logout
+    }}>
       {
         loading ?
-          <LoadingPage /> :
+          <Loading /> :
           children
       }
     </AuthContext.Provider>
