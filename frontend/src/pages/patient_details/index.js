@@ -20,7 +20,7 @@ export default function Register() {
   // Variables.
   const authContext = useAuthContext();
   const history = useHistory();
-  const patient_id = useParams().id;
+  const patientId = useParams().id;
   const userAuthorization = localStorage.getItem("authorization");
   const [birthDate, setBirthDate] = useState(null);
   const [formErrors, setFormErrors] = useState({});
@@ -71,7 +71,7 @@ export default function Register() {
   }
 
   async function handleFormSubmit(e) {
-    if(patient_id != undefined)
+    if(patientId != undefined)
       handleUpdatePatient(e);
 
     else
@@ -91,7 +91,7 @@ export default function Register() {
         has_diabetes: hasDiabetes
       };
 
-      await api.put(`patients/${patient_id}`, data, {
+      await api.put(`patients/${patientId}`, data, {
         headers: {
           Authorization: userAuthorization
         }
@@ -123,13 +123,13 @@ export default function Register() {
 
   // Page effects.
   useEffect(() => {
-    if(patient_id != undefined) {
+    if(patientId != undefined) {
       // Configure page.
       setPageTitle("Update patient");
       setSubmitButtonText("Update patient");
 
-      // Get the patient's information;
-      api.get(`patients/${patient_id}`, {
+      // Get the patient's information.
+      api.get(`patients/${patientId}`, {
         headers: {
           Authorization: userAuthorization
         }
@@ -148,7 +148,7 @@ export default function Register() {
 
         else {
           alert(
-            `There was an error loading the patient #${patient_id}'s data!\n`
+            `There was an error loading the patient #${patientId}'s data!\n`
             + "Returning to landing page.\n\n"
             + "Error details: " + err + "."
           );
@@ -161,7 +161,7 @@ export default function Register() {
       setPageTitle("Create patient");
       setSubmitButtonText("Create patient");
     }
-  }, [patient_id]);
+  }, [patientId]);
 
   // JSX returned.
   return(

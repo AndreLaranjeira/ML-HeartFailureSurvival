@@ -1,5 +1,6 @@
 // Package imports.
 import React, {useEffect, useState} from "react";
+import Lodash from "lodash";
 import Moment from "moment";
 import {confirmAlert} from "react-confirm-alert";
 import {IconContext} from "react-icons";
@@ -25,9 +26,9 @@ export default function Home() {
   const history = useHistory();
   const userAuthorization = localStorage.getItem("authorization");
   const userFullName = localStorage.getItem("userFullName");
-  const [userPage, setUserPage] = useState(1);
-  const [userPatients, setUserPatients] = useState([]);
+  const [patientPage, setPatientPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [userPatients, setUserPatients] = useState([]);
 
   // Handler functions.
   async function handleDeletePatient(id) {
@@ -44,13 +45,30 @@ export default function Home() {
     }
   }
 
+  function goToCreatePatient() {
+    history.push("/patients/create");
+  }
+
+  function goToPatientPredictions(patientId) {
+    history.push(`/patients/${patientId}/predictions`);
+  }
+
+  function goToUpdatePatient(patientId) {
+    history.push(`/patients/${patientId}/edit`);
+  }
+
+  function handleLogout() {
+    authContext.logout();
+    history.push("/login");
+  }
+
   function updateUserPatients() {
     api.get("patients", {
       headers: {
         Authorization: userAuthorization
       },
       params: {
-        page: userPage
+        page: patientPage
       }
     }).then(response => {
       setUserPatients(response.data);
@@ -71,23 +89,10 @@ export default function Home() {
     });
   }
 
-  function goToCreatePatient() {
-    history.push("/patients/create");
-  }
-
-  function goToUpdatePatient(patient_id) {
-    history.push(`/patients/${patient_id}/edit`);
-  }
-
-  function handleLogout() {
-    authContext.logout();
-    history.push("/login");
-  }
-
   // Page effects.
   useEffect(() => {
     updateUserPatients();
-  }, [userPage]);
+  }, [patientPage]);
 
   // JSX returned.
   return(
@@ -119,17 +124,17 @@ export default function Home() {
               patient => (
                 <li key={patient.ID} className="patient">
                   <h3>{patient.FULL_NAME}</h3>
-                  <p>Nascido em: {
-                    Moment(patient.BIRTH_DATE).format("DD/MM/YYYY")
+                  <p>Birth date: {
+                    Moment(patient.BIRTH_DATE).format("MM/DD/YYYY")
                   }
                   </p>
-                  <p>Sexo: {
-                    patient.SEX === "MALE" ? "Masculino" : "Feminino"
+                  <p>Sex: {
+                    Lodash.capitalize(patient.SEX)
                   }</p>
-                  <p>Possui diabetes: {
-                    patient.HAS_DIABETES === 1 ? "Sim" : "Não"
+                  <p>Diabetic: {
+                    patient.HAS_DIABETES === 1 ? "Yes" : "No"
                   }</p>
-                  <p>Número de previsões: {patient.PREDICTION_COUNT}</p>
+                  <p>Number of predictions: {patient.PREDICTION_COUNT}</p>
                   <div className="options-row">
                     <button
                       className="patient-icon-button"
@@ -201,7 +206,7 @@ export default function Home() {
                 <FaArrowRight />
               </IconContext.Provider>
             }
-            onPageChange={data => setUserPage(data.selected + 1)}
+            onPageChange={data => setPatientPage(data.selected + 1)}
             pageCount={totalPages}
             pageRangeDisplayed={5}
             previousLabel={

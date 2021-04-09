@@ -42,7 +42,7 @@
   }
 
   .content-container {
-    margin: 10px 20px 20px;
+    margin: 0px 20px;
     padding-bottom: 20px;
   }
 
@@ -52,14 +52,14 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    margin: 0px 10px;
+
+    margin: 5px 10px;
 
     .header-icon {
       height: 20px;
       padding: 0px 10px;
       width: auto;
     }
-
   }
 
   .options-row {
@@ -72,6 +72,7 @@
   }
 
   .patient {
+
     // Display properties.
     display: flex;
     flex-direction: column;
