@@ -6,9 +6,11 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {useAuthContext} from "./contexts/auth";
 
 // Component imports.
+import CreatePrediction from "./pages/create_prediction";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import PatientDetais from "./pages/patient_details";
+import PatientPredictions from "./pages/patient_predictions";
 import Register from "./pages/register";
 
 // Component.
@@ -34,6 +36,20 @@ export default function Routes() {
           {({match}) =>
             authContext.userPatientsIds.includes(Number(match.params.id)) ?
               <PatientDetais/> :
+              <Redirect to="/" />
+          }
+        />
+        <Route path="/patients/:id/predictions" render=
+          {({match}) =>
+            authContext.userPatientsIds.includes(Number(match.params.id)) ?
+              <PatientPredictions/> :
+              <Redirect to="/" />
+          }
+        />
+        <Route path="/patients/:id/predictions/create" render=
+          {({match}) =>
+            authContext.userPatientsIds.includes(Number(match.params.id)) ?
+              <CreatePrediction/> :
               <Redirect to="/" />
           }
         />

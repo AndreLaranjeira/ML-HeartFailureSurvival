@@ -138,7 +138,7 @@ export default function Home() {
                   <div className="options-row">
                     <button
                       className="patient-icon-button"
-                      onClick={() => null}
+                      onClick={() => goToPatientPredictions(patient.ID)}
                     >
                       <IconContext.Provider
                         value={{ className: "patient-prediction-icon" }}

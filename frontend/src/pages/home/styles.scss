@@ -29,37 +29,9 @@
     }
   }
 
-  .center-container {
-    // Display properties.
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    margin: auto;
-    max-width: 1000px;
-    width: 100%;
-  }
-
   .content-container {
     margin: 0px 20px;
     padding-bottom: 20px;
-  }
-
-  .header-row {
-    // Display properties.
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-
-    margin: 5px 10px;
-
-    .header-icon {
-      height: 20px;
-      padding: 0px 10px;
-      width: auto;
-    }
   }
 
   .options-row {
