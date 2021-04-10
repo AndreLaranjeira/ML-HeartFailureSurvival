@@ -15,7 +15,7 @@
   max-width: 1280px;
   width: 100%;
 
-  .buttom-row {
+  .button-row {
     // Display properties.
     display: flex;
     flex-direction: row;
@@ -84,7 +84,7 @@
     }
 
     .patient-delete-icon {
-      color: $danger-color
+      color: $danger-color;
     }
 
     .patient-edit-icon {
@@ -101,6 +101,7 @@
     margin: 10px 20px;
     padding-left: 20px;
     padding-right: 20px;
+    max-width: 1000px;
     width: 100%;
   }
 

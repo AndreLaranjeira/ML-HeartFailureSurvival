@@ -65,8 +65,6 @@ input {
   justify-content: center;
 
   margin: auto;
-  max-width: 1000px;
-  width: 100%;
 }
 
 .danger-button {
@@ -177,7 +175,7 @@ input {
 }
 
 .react-confirm-alert-button-group {
-  justify-content: center;
+  justify-content: center !important;
 
   button {
     margin: 30px 20px 0;

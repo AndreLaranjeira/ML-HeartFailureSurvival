@@ -45,6 +45,33 @@ export default function Home() {
     }
   }
 
+  function confirmDeletePatientModal(patient) {
+    return confirmAlert({
+      title: "Delete patient?",
+      childrenElement: function patientInfo() {
+        return(
+          <div>
+            <p>Patient name: {patient.FULL_NAME}</p>
+            <p>
+              Number of predictions: {patient.PREDICTION_COUNT}
+            </p>
+          </div>
+        );
+      },
+      buttons: [
+        {
+          label: "Cancel",
+          onClick: () => null
+        },
+        {
+          label: "Confim",
+          onClick: () => handleDeletePatient(patient.ID),
+          className: "confirm-button"
+        }
+      ]
+    });
+  }
+
   function goToCreatePatient() {
     history.push("/patients/create");
   }
@@ -60,6 +87,57 @@ export default function Home() {
   function handleLogout() {
     authContext.logout();
     history.push("/login");
+  }
+
+  function renderPatient(patient) {
+    return (
+      <li key={patient.ID} className="patient">
+        <h3>{patient.FULL_NAME}</h3>
+        <p>Birth date: {
+          Moment(patient.BIRTH_DATE).format("MM/DD/YYYY")
+        }
+        </p>
+        <p>Sex: {
+          Lodash.capitalize(patient.SEX)
+        }</p>
+        <p>Diabetic: {
+          patient.HAS_DIABETES === 1 ? "Yes" : "No"
+        }</p>
+        <p>Number of predictions: {patient.PREDICTION_COUNT}</p>
+        <div className="options-row">
+          <button
+            className="patient-icon-button"
+            onClick={() => goToPatientPredictions(patient.ID)}
+          >
+            <IconContext.Provider
+              value={{ className: "patient-prediction-icon" }}
+            >
+              <FaNotesMedical/>
+            </IconContext.Provider>
+          </button>
+          <button
+            className="patient-icon-button"
+            onClick={() => goToUpdatePatient(patient.ID)}
+          >
+            <IconContext.Provider
+              value={{ className: "patient-edit-icon" }}
+            >
+              <FaEdit/>
+            </IconContext.Provider>
+          </button>
+          <button
+            className="patient-icon-button"
+            onClick={() => confirmDeletePatientModal(patient)}
+          >
+            <IconContext.Provider
+              value={{ className: "patient-delete-icon" }}
+            >
+              <FaTrashAlt/>
+            </IconContext.Provider>
+          </button>
+        </div>
+      </li>
+    );
   }
 
   function updateUserPatients() {
@@ -110,7 +188,7 @@ export default function Home() {
           </IconContext.Provider>
           <h2 className="flex-grow">Patients</h2>
           <button onClick={goToCreatePatient} className="success-button" type="button">
-            <div className="buttom-row">
+            <div className="button-row">
               Add patient
               <IconContext.Provider value={{ className: "button-icon" }}>
                 <FaUserPlus/>
@@ -120,81 +198,7 @@ export default function Home() {
         </div>
         <div className="center-container">
           <ul className="patients-list">
-            {userPatients.map(
-              patient => (
-                <li key={patient.ID} className="patient">
-                  <h3>{patient.FULL_NAME}</h3>
-                  <p>Birth date: {
-                    Moment(patient.BIRTH_DATE).format("MM/DD/YYYY")
-                  }
-                  </p>
-                  <p>Sex: {
-                    Lodash.capitalize(patient.SEX)
-                  }</p>
-                  <p>Diabetic: {
-                    patient.HAS_DIABETES === 1 ? "Yes" : "No"
-                  }</p>
-                  <p>Number of predictions: {patient.PREDICTION_COUNT}</p>
-                  <div className="options-row">
-                    <button
-                      className="patient-icon-button"
-                      onClick={() => goToPatientPredictions(patient.ID)}
-                    >
-                      <IconContext.Provider
-                        value={{ className: "patient-prediction-icon" }}
-                      >
-                        <FaNotesMedical/>
-                      </IconContext.Provider>
-                    </button>
-                    <button
-                      className="patient-icon-button"
-                      onClick={() => goToUpdatePatient(patient.ID)}
-                    >
-                      <IconContext.Provider
-                        value={{ className: "patient-edit-icon" }}
-                      >
-                        <FaEdit/>
-                      </IconContext.Provider>
-                    </button>
-                    <button
-                      className="patient-icon-button"
-                      onClick={() =>
-                        confirmAlert({
-                          title: "Excluir paciente?",
-                          childrenElement: function patientInfo() {
-                            return(
-                              <div>
-                                <p>Nome do paciente: {patient.FULL_NAME}</p>
-                                <p>
-                                  Número de checkups: {patient.PREDICTION_COUNT}
-                                </p>
-                              </div>
-                            );
-                          },
-                          buttons: [
-                            {
-                              label: "Cancelar",
-                              onClick: () => null
-                            },
-                            {
-                              label: "Confimar",
-                              onClick: () => handleDeletePatient(patient.ID),
-                              className: "confirm-button"
-                            }
-                          ]
-                        })
-                      }
-                    >
-                      <IconContext.Provider
-                        value={{ className: "patient-delete-icon" }}
-                      >
-                        <FaTrashAlt/>
-                      </IconContext.Provider>
-                    </button>
-                  </div>
-                </li>
-              )
-            )}
+            {userPatients.map(patient => renderPatient(patient))}
           </ul>
           <ReactPaginate
             breakLabel={"..."}
