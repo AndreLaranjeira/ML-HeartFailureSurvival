@@ -155,7 +155,7 @@ module.exports = {
       response.header("X-Total-Count", prediction_count["count(*)"]);
       response.header(
         "X-Total-Pages",
-        Math.ceil(prediction_count["count(*)"]/page_length)
+        Math.max(Math.ceil(prediction_count["count(*)"]/page_length), 1)
       );
 
       // Predictions data.

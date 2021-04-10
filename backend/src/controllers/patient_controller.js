@@ -82,7 +82,10 @@ module.exports = {
       .where({user_id: current_user_id})
       .count();
     response.header("X-Total-Count", pacient_count["count(*)"]);
-    response.header("X-Total-Pages", Math.ceil(pacient_count["count(*)"]/page_length));
+    response.header(
+      "X-Total-Pages",
+      Math.max(Math.ceil(pacient_count["count(*)"]/page_length), 1)
+    );
 
     // Patients data.
     const patients = await connection("PATIENTS")
