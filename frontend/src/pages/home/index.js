@@ -110,7 +110,7 @@ export default function Home() {
             onClick={() => goToPatientPredictions(patient.ID)}
           >
             <IconContext.Provider
-              value={{ className: "patient-prediction-icon" }}
+              value={{ className: "patient-icon success-color" }}
             >
               <FaNotesMedical/>
             </IconContext.Provider>
@@ -120,7 +120,7 @@ export default function Home() {
             onClick={() => goToUpdatePatient(patient.ID)}
           >
             <IconContext.Provider
-              value={{ className: "patient-edit-icon" }}
+              value={{ className: "patient-icon info-color" }}
             >
               <FaEdit/>
             </IconContext.Provider>
@@ -130,7 +130,7 @@ export default function Home() {
             onClick={() => confirmDeletePatientModal(patient)}
           >
             <IconContext.Provider
-              value={{ className: "patient-delete-icon" }}
+              value={{ className: "patient-icon danger-color" }}
             >
               <FaTrashAlt/>
             </IconContext.Provider>

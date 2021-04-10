@@ -73,6 +73,10 @@ input {
   color: #FFF;
 }
 
+.danger-color {
+  color: $danger-color;
+}
+
 .flex-grow {
   flex-grow: 1;
 }
@@ -143,6 +147,10 @@ input {
   color: #FFF;
 }
 
+.info-color {
+  color: $info-color;
+}
+
 .radio-button-row {
 
   // Display properties.
@@ -206,21 +214,41 @@ input {
 
   li {
 
+    // Display properties.
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     background-color: $react-paginate-primary-color;
     color: $react-paginate-secondary-color;
     outline-color: $react-paginate-secondary-color;
     outline-style: solid;
     outline-width: 1px;
-    height: 24px;
-    padding: 4px;
+    height: 32px;
+    width: 32px;
 
     a {
+
+      // Display properties.
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 100%;
       outline-width: 0;
+      width: 100%;
+      
     }
 
-    cursor: pointer;
-    &:hover{
-      filter: opacity(75%);
+    &:not(.active):not(.disabled) {
+      cursor: pointer;
+      &:hover{
+        filter: opacity(75%);
+      }
+    }
+
+    &.active, &.disabled {
+      cursor: default;
     }
   }
 
@@ -236,11 +264,6 @@ input {
     outline-color: $react-paginate-disabled-color;
   }
 
-  .break, .next, .page, .previous {
-    text-align: center;
-    width: 24px;
-  }
-
   .break, .page {
     margin: 0px 5px 0px;
   }
@@ -250,8 +273,7 @@ input {
   }
 
   .next-icon, .previous-icon {
-    padding-top: 2px;
-    height: 20px;
+    height: 24px;
     width: auto;
   }
 }
@@ -260,4 +282,8 @@ input {
   background-color: $success-color;
   border-color: $success-color;
   color: #FFF;
+}
+
+.success-color {
+  color: $success-color;
 }

@@ -78,11 +78,17 @@ export default function Login() {
           warned that <b>some of the predictions given may be innaccurate!</b>
         </p>
         <ul>
-          <IconContext.Provider value={{ className: "react-icons" }}>
-            <li><FaRegUser color="#0076D4"/> Easy registration process.</li>
-            <li><FaRegClipboard color="#7A4040"/> Quick results.</li>
-            <li><FaBrain color="#FFC0CB"/> Powered by machine learning.</li>
-            <li><FaWallet color="#333"/> Completey free of charge!</li>
+          <IconContext.Provider value={{ className: "li-icon user-icon" }}>
+            <li><FaRegUser/> Easy registration process.</li>
+          </IconContext.Provider>
+          <IconContext.Provider value={{ className: "li-icon clipboard-icon" }}>
+            <li><FaRegClipboard/> Quick results.</li>
+          </IconContext.Provider>
+          <IconContext.Provider value={{ className: "li-icon brain-icon" }}>
+            <li><FaBrain/> Powered by machine learning.</li>
+          </IconContext.Provider>
+          <IconContext.Provider value={{ className: "li-icon wallet-icon" }}>
+            <li><FaWallet/> Completey free of charge!</li>
           </IconContext.Provider>
         </ul>
       </div>
