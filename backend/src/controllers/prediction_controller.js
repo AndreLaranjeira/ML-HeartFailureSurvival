@@ -120,7 +120,7 @@ module.exports = {
   async index(request, response) {
     const current_user_id = request.user;
     const {page = 1} = request.query;
-    const page_length = 10;
+    const page_length = 5;
     const patient_id = request.params["patient_id"];
 
     // Find the requested patient's user id.
@@ -153,13 +153,18 @@ module.exports = {
         .where({patient_id: patient_id})
         .count();
       response.header("X-Total-Count", prediction_count["count(*)"]);
+      response.header(
+        "X-Total-Pages",
+        Math.ceil(prediction_count["count(*)"]/page_length)
+      );
 
       // Predictions data.
       const predictions = await connection("PREDICTIONS")
         .select("*")
         .where({patient_id})
         .limit(page_length)
-        .offset((page - 1) * page_length);
+        .offset((page - 1) * page_length)
+        .orderBy("created_at", "desc");
 
       return response.status(200).json(predictions);
 

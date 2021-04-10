@@ -39,7 +39,15 @@ export default function Home() {
         }
       });
 
-      updateUserPatients();
+      const remainingPatients = userPatients
+        .filter(patient => patient.ID !== id);
+
+      if(remainingPatients.length === 0 && patientPage > 1)
+        setPatientPage(patientPage - 1);
+
+      else
+        updateUserPatients();
+
     } catch (err) {
       alert("Error on patient deletion! Please try again.");
     }
@@ -202,6 +210,7 @@ export default function Home() {
           </ul>
           <ReactPaginate
             breakLabel={"..."}
+            forcePage={patientPage - 1}
             marginPagesDisplayed={1}
             nextLabel={
               <IconContext.Provider

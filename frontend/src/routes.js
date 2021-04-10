@@ -26,37 +26,37 @@ export default function Routes() {
         <Route exact path="/" render=
           {() => authContext.authorized ? <Redirect to="/home" /> : <Redirect to="/login" />}
         />
-        <Route path="/home" render=
+        <Route exact path="/home" render=
           {() => authContext.authorized ? <Home/> : <Redirect to="/login" />}
         />
-        <Route path="/patients/create" render=
+        <Route exact path="/patients/create" render=
           {() => authContext.authorized ? <PatientDetais/> : <Redirect to="/login" />}
         />
-        <Route path="/patients/:id/edit" render=
+        <Route exact path="/patients/:id/edit" render=
           {({match}) =>
             authContext.userPatientsIds.includes(Number(match.params.id)) ?
               <PatientDetais/> :
               <Redirect to="/" />
           }
         />
-        <Route path="/patients/:id/predictions" render=
+        <Route exact path="/patients/:id/predictions" render=
           {({match}) =>
             authContext.userPatientsIds.includes(Number(match.params.id)) ?
               <PatientPredictions/> :
               <Redirect to="/" />
           }
         />
-        <Route path="/patients/:id/predictions/create" render=
+        <Route exact path="/patients/:id/predictions/create" render=
           {({match}) =>
             authContext.userPatientsIds.includes(Number(match.params.id)) ?
               <CreatePrediction/> :
               <Redirect to="/" />
           }
         />
-        <Route path="/login" render=
+        <Route exact path="/login" render=
           {() => authContext.authorized ? <Redirect to="/home" /> : <Login/>}
         />
-        <Route path="/register" render=
+        <Route exact path="/register" render=
           {() => authContext.authorized ? <Redirect to="/home" /> : <Register/>}
         />
       </Switch>
