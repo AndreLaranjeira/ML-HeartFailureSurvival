@@ -1,4 +1,4 @@
-\chapter{Procedimento adotado} \label{procedimento_adotado}
+\chapter{Procedimento adotado} \label{chap:procedimento_adotado}
 
 Neste capítulo, o procedimento adotado ao longo do trabalho é detalhado com o intuito de permitir ao leitor compreender melhor a lógica por trás de algumas escolhas feitas no decorrer do trabalho e de explorar alguns detalhes importantes da implementação dos módulos de programação.
 
@@ -12,7 +12,7 @@ Além das características úteis do conjunto de dados em si para a realização
 
 Apesar dessas excelentes qualidades, devemos ressaltar que o conjunto de dados escolhido não é sem falhas. A baixa quantidade de registros no conjunto de dados faz com que o treinamento de modelos de aprendizado de máquinas seja extremamente suscetível à \textit{overfitting}, resultando em um modelo que não forneça bons resultados em aplicações práticas. Também podemos notar que a baixa quantidade de registros em que o paciente veio à óbito, agravada pelas subdivisões do conjunto de dados em dados de treinamento, de teste e de validação, pode gerar modelos com um viés para previsões positivas, aumentando a probabilidade de que o modelo de aprendizado de máquinas gere falsos negativos, em que o sistema não prediz a insuficiência cardíaca e o paciente vem à óbito. A forma como essas limitações da base de dados foram tratadas será descrita posteriormente.
 
-\section{Modelos de treinamento}
+\section{Modelos de treinamento de aprendizado de máquinas}
 
 Com a escolha do conjunto de dados feita, o próximo passo seria definir quais tipos de modelos de treinamento de aprendizagem de máquinas seriam avaliados para uso na aplicação e estabelecer um método específico de avaliação para permitir a comparação entre os diferentes modelos de treinamento e determinar qual deveria ser utilizado na aplicação.
 
@@ -20,7 +20,7 @@ Com a escolha do conjunto de dados feita, o próximo passo seria definir quais t
 
 Inicialmente, o autor pretendia avaliar o desempenho apenas de modelos do tipo redes neuronais de perceptron multicamada por ter maior familiaridade com esse tipo de modelo. Entretanto, a leitura da análise realizada e dos resultados obtidos no artigo científico\cite{chicco2020} que originou o conjunto de dados utilizado\cite{larxel_dataset}, bem como o tempo necessário para o treinamento de um único modelo de perceptron multicamada, levaram o autor a avaliar também modelos do tipo florestas randômicas, os quais obtiveram a melhor acurácia de previsão de acordo com os resultados do artigo científico mencionado e podem ser treinados em uma fração do tempo de treinamento de modelos do tipo perceptron multicamada.
 
-\subsection{Método de avaliação dos modelos de treinamento de aprendizado de máquinas}
+\subsection{Método de avaliação dos modelos de treinamento}
 
 Com o intuito de comparar diferentes modelos de treinamento de aprendizado de máquinas, um método padrão de avaliação foi adotado com base no método utilizado no artigo científico\cite{chicco2020} mencionado. Esta subseção, com o intuito de justificar algumas das escolhas feitas na montagem do método de avaliação adotado, descreve formalmente tanto o método de avaliação de modelos de treinamento utilizado no artigo científico, como o método de treinamento utilizado neste trabalho.
 
