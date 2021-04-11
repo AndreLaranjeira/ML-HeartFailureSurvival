@@ -6,7 +6,7 @@ import {useParams} from "react-router-dom";
 import "./styles.scss";
 
 // Component.
-export default function Home() {
+export default function CreatePrediction() {
 
   // Variables.
   const patient_id = useParams().id;

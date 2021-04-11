@@ -11,26 +11,16 @@ import {getUserPatientsIds, userLoggedIn} from "../utils/user";
 // Variables.
 const AuthContext = createContext({});
 
-// Context component.
+// Component.
 export function AuthProvider({children}) {
 
-  const [reloadContext, setReloadContext] = useState("");
+  // Variables.
   const [authorized, setAuthorized] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [reloadContext, setReloadContext] = useState("");
   const [userPatientsIds, setUserPatientsIds] = useState([]);
 
-  useEffect(async() => {
-    setLoading(true);
-
-    const authorizedReceived = await userLoggedIn();
-    await setAuthorized(authorizedReceived);
-
-    const userPatientsIdsReceived = await getUserPatientsIds();
-    await setUserPatientsIds(userPatientsIdsReceived);
-
-    setLoading(false);
-  }, [reloadContext]);
-
+  // Functions.
   function login(response) {
     localStorage.setItem("authorization", `Bearer ${response.data.token}`);
     localStorage.setItem("userFullName", response.data.user["FULL_NAME"]);
@@ -44,6 +34,20 @@ export function AuthProvider({children}) {
     setReloadContext("logout");
   }
 
+  // Page effects.
+  useEffect(async() => {
+    setLoading(true);
+
+    const authorizedReceived = await userLoggedIn();
+    await setAuthorized(authorizedReceived);
+
+    const userPatientsIdsReceived = await getUserPatientsIds();
+    await setUserPatientsIds(userPatientsIdsReceived);
+
+    setLoading(false);
+  }, [reloadContext]);
+
+  // JSX returned.
   return (
     <AuthContext.Provider value={{
       authorized: authorized,
@@ -60,13 +64,12 @@ export function AuthProvider({children}) {
   );
 }
 
+// Prop types.
 AuthProvider.propTypes = {
   children: PropTypes.any
 };
 
-// Context use.
+// Context use function.
 export function useAuthContext() {
-  const context = useContext(AuthContext);
-
-  return context;
+  return useContext(AuthContext);
 }

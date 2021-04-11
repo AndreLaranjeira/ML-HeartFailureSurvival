@@ -58,6 +58,7 @@ input {
 
 // Class definitions.
 .center-container {
+
   // Display properties.
   display: flex;
   flex-direction: column;
@@ -65,6 +66,7 @@ input {
   justify-content: center;
 
   margin: auto;
+
 }
 
 .danger-button {
@@ -110,22 +112,23 @@ input {
   height: 100px;
   width: 240px;
 
-  .input-title {
-    font: 600 16px 'Open Sans SemiBold', sans-serif;
-    margin: 10px 0px 8px;
+  .form-error {
+    margin: 4px 0px 10px;
   }
 
   .form-input {
     width: 240px;
   }
 
-  .form-error {
-    margin: 4px 0px 10px;
+  .input-title {
+    font: 600 16px 'Open Sans SemiBold', sans-serif;
+    margin: 10px 0px 8px;
   }
 
 }
 
 .header-row {
+
   // Display properties.
   display: flex;
   flex-direction: row;
@@ -139,6 +142,7 @@ input {
     padding: 0px 10px;
     width: auto;
   }
+
 }
 
 .info-button {
@@ -237,7 +241,7 @@ input {
       height: 100%;
       outline-width: 0;
       width: 100%;
-      
+
     }
 
     &:not(.active):not(.disabled) {

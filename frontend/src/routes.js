@@ -29,6 +29,9 @@ export default function Routes() {
         <Route exact path="/home" render=
           {() => authContext.authorized ? <Home/> : <Redirect to="/login" />}
         />
+        <Route exact path="/login" render=
+          {() => authContext.authorized ? <Redirect to="/home" /> : <Login/>}
+        />
         <Route exact path="/patients/create" render=
           {() => authContext.authorized ? <PatientDetais/> : <Redirect to="/login" />}
         />
@@ -52,9 +55,6 @@ export default function Routes() {
               <CreatePrediction/> :
               <Redirect to="/" />
           }
-        />
-        <Route exact path="/login" render=
-          {() => authContext.authorized ? <Redirect to="/home" /> : <Login/>}
         />
         <Route exact path="/register" render=
           {() => authContext.authorized ? <Redirect to="/home" /> : <Register/>}

@@ -15,7 +15,7 @@ const corsOptions = {
   exposedHeaders: [
     "X-Total-Count",
     "X-Total-Pages"
-  ],
+  ]
 };
 
 // Application configuration.

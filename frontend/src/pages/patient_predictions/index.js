@@ -19,7 +19,7 @@ import api from "../../services/api";
 import "./styles.scss";
 
 // Component.
-export default function Home() {
+export default function PatientPredictions() {
 
   // Variables.
   const authContext = useAuthContext();
@@ -34,7 +34,7 @@ export default function Home() {
   const [predictionPage, setPredictionPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Handler functions.
+  // Functions.
   async function handleDeletePrediction(id) {
     try {
       await api.delete(`patients/${patientId}/predictions/${id}`, {
@@ -245,7 +245,7 @@ export default function Home() {
 
       else {
         alert(
-          "There was an error loading the patients' data!\n"
+          "There was an error loading the patients' predictions!\n"
           + "Please, try again later.\n\n"
           + "Error details: " + err + "."
         );
@@ -302,7 +302,7 @@ export default function Home() {
         </button>
       </div>
       <div className="content-container">
-        <div className="back-button-row">
+        <div className="return-to-home-page-row">
           <button onClick={goToHomePage} className="info-button" type="button">
             <div className="button-row">
               <IconContext.Provider value={{ className: "back-button-icon" }}>

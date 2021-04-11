@@ -28,7 +28,7 @@ export default function Register() {
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
 
-  // Handler functions.
+  // Functions.
   async function handleRegister(e) {
     e.preventDefault();     // Prevent default page submit behavior.
 

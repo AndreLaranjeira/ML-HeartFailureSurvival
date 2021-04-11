@@ -30,7 +30,7 @@ export default function Home() {
   const [totalPages, setTotalPages] = useState(1);
   const [userPatients, setUserPatients] = useState([]);
 
-  // Handler functions.
+  // Functions.
   async function handleDeletePatient(id) {
     try {
       await api.delete(`patients/${id}`, {
@@ -231,7 +231,6 @@ export default function Home() {
             }
             activeClassName={"active"}
             breakClassName={"break"}
-            breakLinkClassName={"break-link"}
             containerClassName={"react-paginate"}
             nextClassName={"next"}
             pageClassName={"page"}

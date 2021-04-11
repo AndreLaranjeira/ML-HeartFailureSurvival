@@ -15,7 +15,7 @@ import {formatCelebrateMessage, isCelebrateError} from "../../utils/celebrate";
 import "./styles.scss";
 
 // Component.
-export default function Register() {
+export default function PatientDetails() {
 
   // Variables.
   const authContext = useAuthContext();
@@ -30,7 +30,7 @@ export default function Register() {
   const [sex, setSex] = useState(undefined);
   const [submitButtonText, setSubmitButtonText] = useState("");
 
-  // Handler functions.
+  // Functions.
   async function handleCreatePatient(e) {
     e.preventDefault();     // Prevent default page submit behavior.
 

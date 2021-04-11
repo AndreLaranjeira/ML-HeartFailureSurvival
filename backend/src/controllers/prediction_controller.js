@@ -40,7 +40,7 @@ module.exports = {
       return response.status(401).json({
         statusCode: 401,
         error: "Unauthorized",
-        message: "You cannot create a prediction for another user's patient!"
+        message: "Operation not permitted!"
       });
     }
 
@@ -170,5 +170,4 @@ module.exports = {
 
     }
   }
-
 };

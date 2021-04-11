@@ -12,7 +12,6 @@ import {useAuthContext} from "../../contexts/auth";
 import api from "../../services/api";
 import {celebrateErrorContent} from "../../utils/celebrate";
 import {formatCelebrateMessage, isCelebrateError} from "../../utils/celebrate";
-// import {userLoggedIn} from "../../utils/user";
 
 // Style imports.
 import "./styles.scss";
@@ -27,7 +26,7 @@ export default function Login() {
   const [formErrors, setFormErrors] = useState({});
   const [password, setPassword] = useState("");
 
-  // Handler functions.
+  // Functions.
   async function handleLogin(e) {
     e.preventDefault();     // Prevent default page submit behavior.
 

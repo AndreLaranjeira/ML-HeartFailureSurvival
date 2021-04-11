@@ -175,6 +175,5 @@ module.exports = {
         {success: "Patient updated successfully."}
       );
     }
-
   }
 };
