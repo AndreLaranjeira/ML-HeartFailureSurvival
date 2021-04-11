@@ -86,10 +86,26 @@
 
         font-size: 18px;
 
-        .react-icons {
+        .brain-icon {
+          color: #FFC0CB;
+        }
+
+        .clipboard-icon {
+          color: #7A4040;
+        }
+
+        .li-icon {
           height: 24px;
           padding: 10px 5px;
           width: auto;
+        }
+
+        .user-icon {
+          color: #0076D4;
+        }
+
+        .wallet-icon {
+          color: #333;
         }
       }
     }

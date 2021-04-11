@@ -4,19 +4,40 @@
 import api from "../services/api";
 
 // Helper functions.
-export function userLoggedIn() {
+export async function getUserPatientsIds() {
   const authorization = localStorage.getItem("authorization");
 
   if(authorization != null) {
     try {
-      api.post("auth/validate", null, {
+      const response = await api.get("/patients/identifiers", {
+        headers: {
+          Authorization: authorization
+        }
+      });
+      return response.data.patient_ids;
+    }
+    catch {
+      return [];
+    }
+  }
+  else {
+    return [];
+  }
+}
+
+export async function userLoggedIn() {
+  const authorization = localStorage.getItem("authorization");
+
+  if(authorization != null) {
+    try {
+      await api.get("auth/validate", {
         headers: {
           Authorization: authorization
         }
       });
       return true;
     }
-    catch(err) {
+    catch {
       return false;
     }
   }

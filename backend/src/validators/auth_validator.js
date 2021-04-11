@@ -21,14 +21,16 @@ module.exports = {
         "string.pattern.base": "\"email\" must be an email address"
       }),
       full_name: Joi.string().required(),
-      password: Joi.string().required().min(8),
+      password: Joi.string().required().min(8).messages({
+        "string.min": "\"password\" must have at least 8 characters"
+      }),
       confirm_password: Joi.any()
         .valid(Joi.ref("password"))
         .required()
         .messages({
           "any.only": "\"confirm_password\" must match password"
         }),
-      role_id: Joi.number().min(1).required()
+      role_id: Joi.number().positive().integer().required()
     })
   }),
 

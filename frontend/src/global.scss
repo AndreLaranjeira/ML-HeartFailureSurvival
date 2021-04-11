@@ -1,5 +1,7 @@
 // Styles imports.
 @import 'assets/styles/colors';
+@import 'react-confirm-alert/src/react-confirm-alert.css';
+@import 'react-datepicker/dist/react-datepicker.css';
 
 // Font properties.
 @font-face {
@@ -24,6 +26,10 @@
 }
 
 // Style properties.
+#root {
+  width: calc(100vw - 30px);	// Fix for alert windows shifting content.
+}
+
 body {
   color: #222;
   font: 400 16px 'Open Sans', sans-serif;
@@ -37,15 +43,44 @@ button {
 
   cursor: pointer;
   &:hover{
-    filter: opacity(85%);
+    filter: opacity(75%);
+  }
+}
+
+input {
+  height: 24px;
+  font-size: 14px;
+
+  &:focus{
+    outline-color: $selected-color;
   }
 }
 
 // Class definitions.
+.center-container {
+
+  // Display properties.
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: auto;
+
+}
+
 .danger-button {
-  background-color: #CA0B00;
-  border-color: #CA0B00;
+  background-color: $danger-color;
+  border-color: $danger-color;
   color: #FFF;
+}
+
+.danger-color {
+  color: $danger-color;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 .form-error {
@@ -66,14 +101,193 @@ button {
   }
 }
 
+.form-input-with-title {
+
+  // Display properties.
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  height: 100px;
+  width: 240px;
+
+  .form-error {
+    margin: 4px 0px 10px;
+  }
+
+  .form-input {
+    width: 240px;
+  }
+
+  .input-title {
+    font: 600 16px 'Open Sans SemiBold', sans-serif;
+    margin: 10px 0px 8px;
+  }
+
+}
+
+.header-row {
+
+  // Display properties.
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  margin: 5px 10px;
+
+  .header-icon {
+    height: 20px;
+    padding: 0px 10px;
+    width: auto;
+  }
+
+}
+
 .info-button {
-  background-color: #062080;
-  border-color: #062080;
+  background-color: $info-color;
+  border-color: $info-color;
   color: #FFF;
 }
 
+.info-color {
+  color: $info-color;
+}
+
+.radio-button-row {
+
+  // Display properties.
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: 4px 0px 4px;
+  width: 240px;
+
+}
+
+.radio-button-with-label {
+
+  // Display properties.
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 10px;
+
+}
+
+.radio-input {
+  height: 24px;
+  margin: 0px 8px 0px;
+  width: 24px;
+}
+
+.react-confirm-alert-button-group {
+  justify-content: center !important;
+
+  button {
+    margin: 30px 20px 0;
+  }
+
+  .confirm-button {
+    @extend .danger-button;
+  }
+
+}
+
+.react-datepicker__navigation {
+  border-radius: 0;
+  box-shadow: 0 0;
+}
+
+.react-paginate {
+
+  // Display properties.
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  list-style-type: none;
+  margin-top: 30px;
+  padding-inline-start: 0;
+
+  li {
+
+    // Display properties.
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: $react-paginate-primary-color;
+    color: $react-paginate-secondary-color;
+    outline-color: $react-paginate-secondary-color;
+    outline-style: solid;
+    outline-width: 1px;
+    height: 32px;
+    width: 32px;
+
+    a {
+
+      // Display properties.
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      height: 100%;
+      outline-width: 0;
+      width: 100%;
+
+    }
+
+    &:not(.active):not(.disabled) {
+      cursor: pointer;
+      &:hover{
+        filter: opacity(75%);
+      }
+    }
+
+    &.active, &.disabled {
+      cursor: default;
+    }
+  }
+
+  .active {
+    background-color: $react-paginate-secondary-color;
+    color: $react-paginate-primary-color;
+    outline-color: $react-paginate-primary-color;
+  }
+
+  .disabled {
+    background-color: $react-paginate-primary-color;
+    color: $react-paginate-disabled-color;
+    outline-color: $react-paginate-disabled-color;
+  }
+
+  .break, .page {
+    margin: 0px 5px 0px;
+  }
+
+  .next, .previous {
+    margin: 0px 30px 0px;
+  }
+
+  .next-icon, .previous-icon {
+    height: 24px;
+    width: auto;
+  }
+}
+
 .success-button {
-  background-color: #007420;
-  border-color: #007420;
+  background-color: $success-color;
+  border-color: $success-color;
   color: #FFF;
+}
+
+.success-color {
+  color: $success-color;
 }

@@ -1,0 +1,96 @@
+// Styles imports.
+@import '../../assets/styles/colors';
+
+// Style properties.
+.home-container {
+
+  // Display properties.
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  // Size properties.
+  height: 100vh;
+  margin: auto;
+  max-width: 1280px;
+  width: 100%;
+
+  .button-row {
+    // Display properties.
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    .button-icon {
+      height: 16px;
+      padding-left: 10px;
+      width: auto;
+    }
+  }
+
+  .content-container {
+    margin: 0px 20px;
+    padding-bottom: 20px;
+  }
+
+  .options-row {
+    // Display properties.
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 20px 10px 0px;
+  }
+
+  .patient {
+
+    // Display properties.
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    background-color: $secondary-color;
+    border-radius: 10px;
+    max-height: 200px;
+    max-width: 500px;
+    padding: 25px;
+
+    h3 {
+      margin-top: 0px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin: 8px 15px 0px;
+    }
+
+    .patient-icon {
+      height: 24px;
+      width: auto;
+    }
+
+    .patient-icon-button {
+      background-color: $secondary-color;
+      border: 0;
+      box-shadow: 0 0 0;
+      outline: 0;
+      padding: 0;
+      margin: 0 12px;
+    }
+
+  }
+
+  .patients-list {
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: repeat(2, 1fr);
+    list-style: none;
+    margin: 10px 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+}

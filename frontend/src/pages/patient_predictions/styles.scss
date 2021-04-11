@@ -1,0 +1,165 @@
+// Styles imports.
+@import '../../assets/styles/colors';
+
+// Style properties.
+.patient-predictions-container {
+
+  // Display properties.
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  // Size properties.
+  height: 100vh;
+  margin: auto;
+  max-width: 1280px;
+  width: 100%;
+
+  .button-row {
+
+    // Display properties.
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    .back-button-icon {
+      height: 16px;
+      padding-right: 5px;
+      width: auto;
+    }
+
+    .medical-file-button-icon {
+      height: 16px;
+      padding-left: 10px;
+      width: auto;
+    }
+
+  }
+
+  .content-container {
+    margin: 0px 20px;
+    padding-bottom: 20px;
+  }
+
+  .patient-info {
+
+    // Display properties.
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    background-color: $secondary-color;
+    border-radius: 10px;
+    padding: 5px 20px;
+
+    p {
+      margin: 10px 0;
+    }
+
+  }
+
+  .patient-info-container {
+    margin: 0 20px;
+    max-height: 400px;
+    max-width: 1150px;
+    width: 100%;
+  }
+
+  .prediction {
+
+    // Display properties.
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    background-color: $secondary-color;
+    border-radius: 10px;
+    padding: 10px;
+
+    h3 {
+      margin: 0;
+    }
+
+    .prediction-delete-icon {
+      height: 24px;
+      width: auto;
+    }
+
+    .prediction-header-row {
+      // Display properties.
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      margin: 10px;
+    }
+
+    .prediction-icon-button {
+      background-color: $secondary-color;
+      border: 0;
+      box-shadow: 0 0 0;
+      outline: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .prediction-info-row {
+      // Display properties.
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+
+      margin: 0px 20px 0px;
+
+      p {
+        margin: 5px;
+        max-width: 400px;
+        width: 100%;
+      }
+
+    }
+
+    .prediction-result-row {
+
+      // Display properties.
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      margin: 10px 10px 5px;
+
+      p {
+        font: 600 18px 'Open Sans SemiBold', sans-serif;
+        margin: 5px;
+      }
+
+      .prediction-result {
+        margin-right: 10px;
+      }
+
+    }
+
+  }
+
+  .predictions-list {
+    display: grid;
+    grid-gap: 25px;
+    grid-template-columns: 1fr;
+    list-style: none;
+    margin: 0 20px;
+    max-width: 1150px;
+    padding: 0;
+    width: 100%;
+  }
+
+  .return-to-home-page-row {
+    // Display properties.
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0px 10px 30px;
+  }
+
+}
