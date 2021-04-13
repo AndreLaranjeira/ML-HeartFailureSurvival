@@ -302,10 +302,10 @@ export default function PatientPredictions() {
         </button>
       </div>
       <div className="content-container">
-        <div className="return-to-home-page-row">
+        <div className="return-to-last-page-row">
           <button onClick={goToHomePage} className="info-button" type="button">
             <div className="button-row">
-              <IconContext.Provider value={{ className: "back-button-icon" }}>
+              <IconContext.Provider value={{ className: "left-button-icon" }}>
                 <FaArrowLeft />
               </IconContext.Provider>
               Home page
@@ -341,7 +341,7 @@ export default function PatientPredictions() {
             <div className="button-row">
               Create prediction
               <IconContext.Provider
-                value={{ className: "medical-file-button-icon" }}
+                value={{ className: "right-button-icon" }}
               >
                 <FaFileMedical/>
               </IconContext.Provider>

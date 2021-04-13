@@ -57,6 +57,41 @@ input {
 }
 
 // Class definitions.
+.button-row {
+
+  // Display properties.
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  .left-button-icon, .right-button-icon {
+    height: 16px;
+    width: auto;
+  }
+
+  .left-button-icon {
+    padding-right: 10px;
+  }
+
+  .right-button-icon {
+    padding-left: 10px;
+  }
+  
+}
+
+.cancel-row {
+
+  // Display properties.
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  padding: 25px 40px;
+
+}
+
 .center-container {
 
   // Display properties.
@@ -67,6 +102,11 @@ input {
 
   margin: auto;
 
+}
+
+.content-container {
+  margin: 0px 20px;
+  padding-bottom: 20px;
 }
 
 .danger-button {
@@ -123,6 +163,26 @@ input {
   .input-title {
     font: 600 16px 'Open Sans SemiBold', sans-serif;
     margin: 10px 0px 8px;
+  }
+
+
+}
+
+.form-title {
+
+  // Display properties.
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+
+  // Size properties.
+  height: 15vh;
+  width: 100%;
+
+  h1 {
+    flex-grow: 1;
+    text-align: center;
   }
 
 }
@@ -280,6 +340,18 @@ input {
     height: 24px;
     width: auto;
   }
+}
+
+.return-to-last-page-row {
+
+  // Display properties.
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  padding: 0 10px 15px;
+
 }
 
 .success-button {

@@ -22,11 +22,11 @@ export default function Register() {
   const authContext = useAuthContext();
   const defaultRoleId = 2;
   const history = useHistory();
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(undefined);
+  const [email, setEmail] = useState(undefined);
   const [formErrors, setFormErrors] = useState({});
-  const [fullName, setFullName] = useState("");
-  const [password, setPassword] = useState("");
+  const [fullName, setFullName] = useState(undefined);
+  const [password, setPassword] = useState(undefined);
 
   // Functions.
   async function handleRegister(e) {
@@ -74,7 +74,7 @@ export default function Register() {
   // JSX returned.
   return(
     <div className="register-container">
-      <div className="register-title">
+      <div className="form-title">
         <h1>Registration page</h1>
       </div>
       <div className="register-form">
@@ -126,14 +126,14 @@ export default function Register() {
           </button>
         </form>
       </div>
-      <div className="return-to-login">
-        <div className="button-wrapper">
-          <button className="submit-button info-button" onClick={returnToLogin}>
-            <IconContext.Provider value={{ className: "react-icons" }}>
+      <div className="cancel-row">
+        <button className="submit-button info-button" onClick={returnToLogin}>
+          <div className="button-row">
+            <IconContext.Provider value={{ className: "left-button-icon" }}>
               <FaArrowLeft/> Login page
             </IconContext.Provider>
-          </button>
-        </div>
+          </div>
+        </button>
       </div>
     </div>
   );

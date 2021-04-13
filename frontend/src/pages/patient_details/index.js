@@ -166,7 +166,7 @@ export default function PatientDetails() {
   // JSX returned.
   return(
     <div className="patient-details-container">
-      <div className="patient-details-title">
+      <div className="form-title">
         <h1>{pageTitle}</h1>
       </div>
       <div className="patient-details-form">
@@ -257,12 +257,12 @@ export default function PatientDetails() {
           </button>
         </form>
       </div>
-      <div className="return-to-home">
-        <div className="button-wrapper">
-          <button className="danger-button" onClick={returnToHome}>
+      <div className="cancel-row">
+        <button className="danger-button" onClick={returnToHome}>
+          <div className="button-row">
             Cancel
-          </button>
-        </div>
+          </div>
+        </button>
       </div>
     </div>
   );

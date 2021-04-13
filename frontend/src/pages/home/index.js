@@ -198,7 +198,7 @@ export default function Home() {
           <button onClick={goToCreatePatient} className="success-button" type="button">
             <div className="button-row">
               Add patient
-              <IconContext.Provider value={{ className: "button-icon" }}>
+              <IconContext.Provider value={{ className: "right-button-icon" }}>
                 <FaUserPlus/>
               </IconContext.Provider>
             </div>
