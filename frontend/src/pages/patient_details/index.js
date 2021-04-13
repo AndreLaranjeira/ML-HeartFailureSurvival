@@ -49,6 +49,10 @@ export default function PatientDetails() {
           Authorization: userAuthorization
         }
       });
+
+      // Update patient ids authorized for user access.
+      authContext.reloadContext();
+
       alert("Patient creation successfull! Taking you to the home page.");
       history.push("/home");
     } catch(err) {
@@ -97,7 +101,7 @@ export default function PatientDetails() {
         }
       });
       alert("Patient updated successfull! Taking you to the home page.");
-      history.push("/home");
+      returnToHome();
     } catch(err) {
       if(isCelebrateError(err)) {
         const errorContent = celebrateErrorContent(err);
@@ -172,7 +176,7 @@ export default function PatientDetails() {
       <div className="patient-details-form">
         <form onSubmit={handleFormSubmit}>
           <div className="form-input-with-title">
-            <p className="input-title">Patient name</p>
+            <p className="input-title">Patient full name</p>
             <input
               className="form-input"
               value={fullName}

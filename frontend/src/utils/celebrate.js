@@ -33,7 +33,7 @@ export function formatCelebrateMessage(message) {
 
   if(fieldNameMatch != null) {
     const fieldName = fieldNameMatch[0];
-    const formattedFieldName = fieldName.replace(/"/g, "").replace(/_/, " ");
+    const formattedFieldName = fieldName.replace(/"/g, "").replace(/_/g, " ");
 
     const messageWithFormattedField = message.replace(
       fieldNameRegex,
