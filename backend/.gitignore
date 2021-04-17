@@ -6,3 +6,6 @@ node_modules
 
 # Authentication secrets:
 auth.json
+
+# Pycache for prediction model:
+prediction_model/__pycache__
