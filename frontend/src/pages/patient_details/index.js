@@ -5,6 +5,7 @@ import {useHistory, useParams} from "react-router-dom";
 
 // Context imports.
 import {useAuthContext} from "../../contexts/auth";
+import {useNotificationsContext} from "../../contexts/notifications";
 
 // Module imports.
 import api from "../../services/api";
@@ -20,6 +21,7 @@ export default function PatientDetails() {
   // Variables.
   const authContext = useAuthContext();
   const history = useHistory();
+  const notificationsContext = useNotificationsContext();
   const patientId = useParams().id;
   const userAuthorization = localStorage.getItem("authorization");
   const [birthDate, setBirthDate] = useState(null);
@@ -52,8 +54,10 @@ export default function PatientDetails() {
 
       // Update patient ids authorized for user access.
       authContext.reloadContext();
-
-      alert("Patient creation successfull! Taking you to the home page.");
+      notificationsContext.createNotification(
+        "success",
+        "Patient created successfully!"
+      );
       history.push("/home");
     } catch(err) {
       if(isCelebrateError(err)) {
@@ -65,11 +69,14 @@ export default function PatientDetails() {
       }
       else if(err.response.data.message != null) {
         setFormErrors({});
-        alert(err.response.data.message);
+        notificationsContext.createNotification(
+          "warning",
+          err.response.data.message
+        );
       }
       else {
         setFormErrors({});
-        alert("Internal server error! Please contact an administrator.");
+        notificationsContext.internalServerErrorNotification();
       }
     }
   }
@@ -100,7 +107,10 @@ export default function PatientDetails() {
           Authorization: userAuthorization
         }
       });
-      alert("Patient updated successfull! Taking you to the home page.");
+      notificationsContext.createNotification(
+        "success",
+        "Patient updated successfully!"
+      );
       returnToHome();
     } catch(err) {
       if(isCelebrateError(err)) {
@@ -112,11 +122,14 @@ export default function PatientDetails() {
       }
       else if(err.response.data.message != null) {
         setFormErrors({});
-        alert(err.response.data.message);
+        notificationsContext.createNotification(
+          "warning",
+          err.response.data.message
+        );
       }
       else {
         setFormErrors({});
-        alert("Internal server error! Please contact an administrator.");
+        notificationsContext.internalServerErrorNotification();
       }
     }
   }
@@ -145,16 +158,15 @@ export default function PatientDetails() {
         setHasDiabetes(patient["HAS_DIABETES"] === 1);
       }).catch(err => {
         if(err.response?.data?.statusCode === 401) {
-          alert("Session timed out! returning to login page!");
           authContext.logout();
+          notificationsContext.sessionTimeoutNotification();
           history.push("/login");
         }
 
         else {
-          alert(
-            `There was an error loading the patient #${patientId}'s data!\n`
-            + "Returning to landing page.\n\n"
-            + "Error details: " + err + "."
+          notificationsContext.createNotification(
+            "error",
+            "Could not load patient data!"
           );
           history.push("/");
         }

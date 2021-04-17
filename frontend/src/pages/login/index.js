@@ -7,6 +7,7 @@ import {Link, useHistory} from "react-router-dom";
 
 // Context imports.
 import {useAuthContext} from "../../contexts/auth";
+import {useNotificationsContext} from "../../contexts/notifications";
 
 // Module imports.
 import api from "../../services/api";
@@ -22,6 +23,7 @@ export default function Login() {
   // Variables.
   const authContext = useAuthContext();
   const history = useHistory();
+  const notificationsContext = useNotificationsContext();
   const [email, setEmail] = useState("");
   const [formErrors, setFormErrors] = useState({});
   const [password, setPassword] = useState("");
@@ -47,11 +49,14 @@ export default function Login() {
       }
       else if(err.response.data.message != null) {
         setFormErrors({});
-        alert(err.response.data.message);
+        notificationsContext.createNotification(
+          "warning",
+          err.response.data.message
+        );
       }
       else {
         setFormErrors({});
-        alert("Internal server error! Please contact an administrator.");
+        notificationsContext.internalServerErrorNotification();
       }
     }
   }

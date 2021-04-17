@@ -5,6 +5,7 @@ import {useHistory, useParams} from "react-router-dom";
 
 // Context imports.
 import {useAuthContext} from "../../contexts/auth";
+import {useNotificationsContext} from "../../contexts/notifications";
 
 // Module imports.
 import api from "../../services/api";
@@ -20,6 +21,7 @@ export default function CreatePrediction() {
   // Variables.
   const authContext = useAuthContext();
   const history = useHistory();
+  const notificationsContext = useNotificationsContext();
   const patientId = useParams().id;
   const userAuthorization = localStorage.getItem("authorization");
   const [age, setAge] = useState(null);
@@ -68,9 +70,9 @@ export default function CreatePrediction() {
         }
       );
 
-      alert(
-        "Prediction creation successfull! " +
-        "Taking you to the patient predictions page."
+      notificationsContext.createNotification(
+        "success",
+        "Prediction created successfully!"
       );
       returnToPatientPredictions();
     } catch(err) {
@@ -83,11 +85,14 @@ export default function CreatePrediction() {
       }
       else if(err.response.data.message != null) {
         setFormErrors({});
-        alert(err.response.data.message);
+        notificationsContext.createNotification(
+          "warning",
+          err.response.data.message
+        );
       }
       else {
         setFormErrors({});
-        alert("Internal server error! Please contact an administrator.");
+        notificationsContext.internalServerErrorNotification();
       }
     }
   }
@@ -115,16 +120,15 @@ export default function CreatePrediction() {
 
     }).catch(err => {
       if(err.response?.data?.statusCode === 401) {
-        alert("Session timed out! returning to login page!");
         authContext.logout();
+        notificationsContext.sessionTimeoutNotification();
         history.push("/login");
       }
 
       else {
-        alert(
-          `There was an error loading patient #${patientId}'s data!\n`
-          + "Returning to landing page.\n\n"
-          + "Error details: " + err + "."
+        notificationsContext.createNotification(
+          "error",
+          "Could not load patient data!"
         );
         history.push("/");
       }

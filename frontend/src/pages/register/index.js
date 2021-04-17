@@ -6,6 +6,7 @@ import {useHistory} from "react-router-dom";
 
 // Context imports.
 import {useAuthContext} from "../../contexts/auth";
+import {useNotificationsContext} from "../../contexts/notifications";
 
 // Module imports.
 import api from "../../services/api";
@@ -22,6 +23,7 @@ export default function Register() {
   const authContext = useAuthContext();
   const defaultRoleId = 2;
   const history = useHistory();
+  const notificationsContext = useNotificationsContext();
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [formErrors, setFormErrors] = useState({});
@@ -45,8 +47,10 @@ export default function Register() {
 
       const response = await api.post("auth/register", data);
       authContext.login(response);
-
-      alert("Registration successfull! Taking you to the home page.");
+      notificationsContext.createNotification(
+        "success",
+        "Registration successfull! You are now logged in."
+      );
       history.push("/home");
     } catch(err) {
       if(isCelebrateError(err)) {
@@ -58,11 +62,14 @@ export default function Register() {
       }
       else if(err.response.data.message != null) {
         setFormErrors({});
-        alert(err.response.data.message);
+        notificationsContext.createNotification(
+          "warning",
+          err.response.data.message
+        );
       }
       else {
         setFormErrors({});
-        alert("Internal server error! Please contact an administrator.");
+        notificationsContext.internalServerErrorNotification();
       }
     }
   }

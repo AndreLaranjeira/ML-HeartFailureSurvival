@@ -2,6 +2,7 @@
 @import 'assets/styles/colors';
 @import 'react-confirm-alert/src/react-confirm-alert.css';
 @import 'react-datepicker/dist/react-datepicker.css';
+@import 'react-notifications/lib/notifications.css';
 
 // Font properties.
 @font-face {
@@ -87,7 +88,7 @@ input[type=number] {
   .right-button-icon {
     padding-left: 10px;
   }
-  
+
 }
 
 .cancel-row {
