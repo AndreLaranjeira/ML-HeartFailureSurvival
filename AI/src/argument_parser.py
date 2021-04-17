@@ -104,6 +104,16 @@ class ArgumentParserModule:
             help='percentage of data in (0, 1) to be used in training.'
         )
 
+    def add_default_train_model_args(self):
+        self.parser.add_argument(
+            '-f',
+            '--filename',
+            type=str,
+            dest='filename',
+            default=DefaultFilenames.MODEL_FILENAME,
+            help='filename to save model to.'
+        )
+
     def add_version_argument(self):
         self.parser.add_argument(
             '-v',

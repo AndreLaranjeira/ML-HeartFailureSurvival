@@ -18,12 +18,14 @@ class DatasetExtractor:
         label_columns_list,
         train_size,
         validation_size=0,
-        seed=None
+        seed=None,
+        normalize_features=True
     ):
         self.dataset = None
         self.dataset_file_name = dataset_file_name
         self.feature_columns_list = feature_columns_list
         self.label_columns_list = label_columns_list
+        self.normalize_features = normalize_features
         self.seed = seed
         self.train_size = train_size
         self.validation_size = validation_size
@@ -159,7 +161,8 @@ class DatasetExtractor:
         self._treat_label_data()
 
     def _treat_feature_data(self):
-        self.dataset_features = normalize_dataset(self.dataset_features)
+        if(self.normalize_features):
+            self.dataset_features = normalize_dataset(self.dataset_features)
 
     def _treat_label_data(self):
         self.dataset_labels = np.ravel(self.dataset_labels)
