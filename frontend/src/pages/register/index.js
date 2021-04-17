@@ -22,11 +22,11 @@ export default function Register() {
   const authContext = useAuthContext();
   const defaultRoleId = 2;
   const history = useHistory();
-  const [confirmPassword, setConfirmPassword] = useState(undefined);
-  const [email, setEmail] = useState(undefined);
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [formErrors, setFormErrors] = useState({});
-  const [fullName, setFullName] = useState(undefined);
-  const [password, setPassword] = useState(undefined);
+  const [fullName, setFullName] = useState("");
+  const [password, setPassword] = useState("");
 
   // Functions.
   async function handleRegister(e) {
