@@ -1,4 +1,4 @@
-// Job collections imports.
+// Job collection imports.
 const PredictionJobs = require("./prediction_jobs");
 
 // List of active jobs.

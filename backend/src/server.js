@@ -7,7 +7,7 @@ const jobs = require("./jobs");
 
 // Schedule server jobs.
 jobs.forEach(job => {
-  schedule.scheduleJob(job.recurrenceRule, job.function);
+  schedule.scheduleJob(job.recurrenceRule, job.executedFunction);
 });
 
 // Server configuration.

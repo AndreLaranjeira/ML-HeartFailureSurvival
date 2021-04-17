@@ -9,7 +9,7 @@ module.exports = {
   processBacklog: {
     recurrenceRule: {minute: 0},
 
-    function: async function processBacklog() {
+    executedFunction: async function processBacklog() {
 
       console.log("[Job - Process prediction backlog] Status: Running...");
 
@@ -75,5 +75,6 @@ module.exports = {
       console.log("[Job - Process prediction backlog] Status: Finished!");
 
     }
+    
   }
 };

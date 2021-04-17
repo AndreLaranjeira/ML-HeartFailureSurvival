@@ -23,8 +23,8 @@ export function AuthProvider({children}) {
   async function reloadContext() {
     setLoading(true);
 
-    const authorizedReceived = await userLoggedIn();
-    await setAuthorized(authorizedReceived);
+    const authorizationReceived = await userLoggedIn();
+    await setAuthorized(authorizationReceived);
 
     const userPatientsIdsReceived = await getUserPatientsIds();
     await setUserPatientsIds(userPatientsIdsReceived);
