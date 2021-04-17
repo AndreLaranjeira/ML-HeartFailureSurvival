@@ -5,18 +5,19 @@ const {celebrate, Joi, Segments} = require("celebrate");
 module.exports = {
   create: celebrate({
     [Segments.BODY]: Joi.object().keys({
-      age: Joi.number().positive().integer().required(),
-      anemia: Joi.boolean().required(),
+      age: Joi.number().integer().min(0).required(),
       creatinine_phosphokinase: Joi.number().positive().integer().required(),
       diabetes: Joi.boolean().required(),
       ejection_fraction: Joi.number().positive().integer().required(),
-      high_blood_pressure: Joi.boolean().required(),
       platelets: Joi.number().positive().integer().required(),
       serum_creatinine: Joi.number().positive().precision(2).required(),
       serum_sodium: Joi.number().positive().integer().required(),
       sex: Joi.number().valid(0, 1).required(),
-      smoking: Joi.boolean().required(),
       time: Joi.number().positive().integer().required()
+        .label("Days in treatment"),
+      anemia: Joi.boolean().required(),
+      high_blood_pressure: Joi.boolean().required(),
+      smoking: Joi.boolean().required()
     }),
     [Segments.PARAMS]: Joi.object().keys({
       patient_id: Joi.number().positive().integer().required()

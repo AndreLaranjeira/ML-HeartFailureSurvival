@@ -5,6 +5,7 @@ import {useHistory, useParams} from "react-router-dom";
 
 // Context imports.
 import {useAuthContext} from "../../contexts/auth";
+import {useNotificationsContext} from "../../contexts/notifications";
 
 // Module imports.
 import api from "../../services/api";
@@ -20,6 +21,7 @@ export default function PatientDetails() {
   // Variables.
   const authContext = useAuthContext();
   const history = useHistory();
+  const notificationsContext = useNotificationsContext();
   const patientId = useParams().id;
   const userAuthorization = localStorage.getItem("authorization");
   const [birthDate, setBirthDate] = useState(null);
@@ -49,7 +51,13 @@ export default function PatientDetails() {
           Authorization: userAuthorization
         }
       });
-      alert("Patient creation successfull! Taking you to the home page.");
+
+      // Update patient ids authorized for user access.
+      authContext.reloadContext();
+      notificationsContext.createNotification(
+        "success",
+        "Patient created successfully!"
+      );
       history.push("/home");
     } catch(err) {
       if(isCelebrateError(err)) {
@@ -61,11 +69,14 @@ export default function PatientDetails() {
       }
       else if(err.response.data.message != null) {
         setFormErrors({});
-        alert(err.response.data.message);
+        notificationsContext.createNotification(
+          "warning",
+          err.response.data.message
+        );
       }
       else {
         setFormErrors({});
-        alert("Internal server error! Please contact an administrator.");
+        notificationsContext.internalServerErrorNotification();
       }
     }
   }
@@ -96,8 +107,11 @@ export default function PatientDetails() {
           Authorization: userAuthorization
         }
       });
-      alert("Patient updated successfull! Taking you to the home page.");
-      history.push("/home");
+      notificationsContext.createNotification(
+        "success",
+        "Patient updated successfully!"
+      );
+      returnToHome();
     } catch(err) {
       if(isCelebrateError(err)) {
         const errorContent = celebrateErrorContent(err);
@@ -108,11 +122,14 @@ export default function PatientDetails() {
       }
       else if(err.response.data.message != null) {
         setFormErrors({});
-        alert(err.response.data.message);
+        notificationsContext.createNotification(
+          "warning",
+          err.response.data.message
+        );
       }
       else {
         setFormErrors({});
-        alert("Internal server error! Please contact an administrator.");
+        notificationsContext.internalServerErrorNotification();
       }
     }
   }
@@ -141,16 +158,15 @@ export default function PatientDetails() {
         setHasDiabetes(patient["HAS_DIABETES"] === 1);
       }).catch(err => {
         if(err.response?.data?.statusCode === 401) {
-          alert("Session timed out! returning to login page!");
           authContext.logout();
+          notificationsContext.sessionTimeoutNotification();
           history.push("/login");
         }
 
         else {
-          alert(
-            `There was an error loading the patient #${patientId}'s data!\n`
-            + "Returning to landing page.\n\n"
-            + "Error details: " + err + "."
+          notificationsContext.createNotification(
+            "error",
+            "Could not load patient data!"
           );
           history.push("/");
         }
@@ -166,13 +182,13 @@ export default function PatientDetails() {
   // JSX returned.
   return(
     <div className="patient-details-container">
-      <div className="patient-details-title">
+      <div className="form-title">
         <h1>{pageTitle}</h1>
       </div>
       <div className="patient-details-form">
         <form onSubmit={handleFormSubmit}>
           <div className="form-input-with-title">
-            <p className="input-title">Patient name</p>
+            <p className="input-title">Patient full name</p>
             <input
               className="form-input"
               value={fullName}
@@ -257,12 +273,12 @@ export default function PatientDetails() {
           </button>
         </form>
       </div>
-      <div className="return-to-home">
-        <div className="button-wrapper">
-          <button className="danger-button" onClick={returnToHome}>
+      <div className="cancel-row">
+        <button className="danger-button" onClick={returnToHome}>
+          <div className="button-row">
             Cancel
-          </button>
-        </div>
+          </div>
+        </button>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import {useHistory} from "react-router-dom";
 
 // Context imports.
 import {useAuthContext} from "../../contexts/auth";
+import {useNotificationsContext} from "../../contexts/notifications";
 
 // Module imports.
 import api from "../../services/api";
@@ -24,6 +25,7 @@ export default function Home() {
   // Variables.
   const authContext = useAuthContext();
   const history = useHistory();
+  const notificationsContext = useNotificationsContext();
   const userAuthorization = localStorage.getItem("authorization");
   const userFullName = localStorage.getItem("userFullName");
   const [patientPage, setPatientPage] = useState(1);
@@ -48,8 +50,16 @@ export default function Home() {
       else
         updateUserPatients();
 
+      notificationsContext.createNotification(
+        "success",
+        "Patient deleted successfully."
+      );
+
     } catch (err) {
-      alert("Error on patient deletion! Please try again.");
+      notificationsContext.createNotification(
+        "error",
+        "Could not delete patient! Please try again."
+      );
     }
   }
 
@@ -161,15 +171,15 @@ export default function Home() {
       setTotalPages(response.headers["x-total-pages"]);
     }).catch(err => {
       if(err.response?.data?.statusCode === 401) {
-        alert("Session timed out! returning to login page!");
         authContext.logout();
+        notificationsContext.sessionTimeoutNotification();
+        history.push("/login");
       }
 
       else {
-        alert(
-          "There was an error loading the patients' data!\n"
-          + "Please, try again later.\n\n"
-          + "Error details: " + err + "."
+        notificationsContext.createNotification(
+          "error",
+          "Could not load the user's patients! Please try again."
         );
       }
     });
@@ -198,7 +208,7 @@ export default function Home() {
           <button onClick={goToCreatePatient} className="success-button" type="button">
             <div className="button-row">
               Add patient
-              <IconContext.Provider value={{ className: "button-icon" }}>
+              <IconContext.Provider value={{ className: "right-button-icon" }}>
                 <FaUserPlus/>
               </IconContext.Provider>
             </div>

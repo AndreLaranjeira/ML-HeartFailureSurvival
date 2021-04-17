@@ -5,6 +5,7 @@
 class DefaultFilenames:
 
     # Constants.
+    MODEL_FILENAME = 'prediction_model'
     PLOT_FALLBACK = 'fallback_plot_output'
     PLOT_FILENAME = 'plot_output'
     RESULTS_DIRECTORY = 'results/'

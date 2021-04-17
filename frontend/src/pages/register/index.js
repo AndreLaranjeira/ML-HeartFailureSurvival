@@ -6,6 +6,7 @@ import {useHistory} from "react-router-dom";
 
 // Context imports.
 import {useAuthContext} from "../../contexts/auth";
+import {useNotificationsContext} from "../../contexts/notifications";
 
 // Module imports.
 import api from "../../services/api";
@@ -22,6 +23,7 @@ export default function Register() {
   const authContext = useAuthContext();
   const defaultRoleId = 2;
   const history = useHistory();
+  const notificationsContext = useNotificationsContext();
   const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [formErrors, setFormErrors] = useState({});
@@ -45,8 +47,10 @@ export default function Register() {
 
       const response = await api.post("auth/register", data);
       authContext.login(response);
-
-      alert("Registration successfull! Taking you to the home page.");
+      notificationsContext.createNotification(
+        "success",
+        "Registration successfull! You are now logged in."
+      );
       history.push("/home");
     } catch(err) {
       if(isCelebrateError(err)) {
@@ -58,11 +62,14 @@ export default function Register() {
       }
       else if(err.response.data.message != null) {
         setFormErrors({});
-        alert(err.response.data.message);
+        notificationsContext.createNotification(
+          "warning",
+          err.response.data.message
+        );
       }
       else {
         setFormErrors({});
-        alert("Internal server error! Please contact an administrator.");
+        notificationsContext.internalServerErrorNotification();
       }
     }
   }
@@ -74,7 +81,7 @@ export default function Register() {
   // JSX returned.
   return(
     <div className="register-container">
-      <div className="register-title">
+      <div className="form-title">
         <h1>Registration page</h1>
       </div>
       <div className="register-form">
@@ -126,14 +133,14 @@ export default function Register() {
           </button>
         </form>
       </div>
-      <div className="return-to-login">
-        <div className="button-wrapper">
-          <button className="submit-button info-button" onClick={returnToLogin}>
-            <IconContext.Provider value={{ className: "react-icons" }}>
+      <div className="cancel-row">
+        <button className="submit-button info-button" onClick={returnToLogin}>
+          <div className="button-row">
+            <IconContext.Provider value={{ className: "left-button-icon" }}>
               <FaArrowLeft/> Login page
             </IconContext.Provider>
-          </button>
-        </div>
+          </div>
+        </button>
       </div>
     </div>
   );

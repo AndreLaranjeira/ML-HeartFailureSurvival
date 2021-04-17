@@ -11,6 +11,7 @@ import {useHistory, useParams} from "react-router-dom";
 
 // Context imports.
 import {useAuthContext} from "../../contexts/auth";
+import {useNotificationsContext} from "../../contexts/notifications";
 
 // Module imports.
 import api from "../../services/api";
@@ -24,6 +25,7 @@ export default function PatientPredictions() {
   // Variables.
   const authContext = useAuthContext();
   const history = useHistory();
+  const notificationsContext = useNotificationsContext();
   const patientId = useParams().id;
   const userAuthorization = localStorage.getItem("authorization");
   const [patientBirthDate, setPatientBirthDate] = useState(null);
@@ -51,8 +53,17 @@ export default function PatientPredictions() {
 
       else
         updatePatientPredictions();
+
+      notificationsContext.createNotification(
+        "success",
+        "Prediction deleted successfully."
+      );
+
     } catch (err) {
-      alert("Error on prediction deletion! Please try again.");
+      notificationsContext.createNotification(
+        "error",
+        "Could not delete prediction! Please try again."
+      );
     }
   }
 
@@ -239,15 +250,15 @@ export default function PatientPredictions() {
       setTotalPages(response.headers["x-total-pages"]);
     }).catch(err => {
       if(err.response?.data?.statusCode === 401) {
-        alert("Session timed out! returning to login page!");
         authContext.logout();
+        notificationsContext.sessionTimeoutNotification();
+        history.push("/login");
       }
 
       else {
-        alert(
-          "There was an error loading the patients' predictions!\n"
-          + "Please, try again later.\n\n"
-          + "Error details: " + err + "."
+        notificationsContext.createNotification(
+          "error",
+          "Could not load the patients's predictions! Please try again."
         );
       }
     });
@@ -271,16 +282,15 @@ export default function PatientPredictions() {
 
     }).catch(err => {
       if(err.response?.data?.statusCode === 401) {
-        alert("Session timed out! returning to login page!");
         authContext.logout();
+        notificationsContext.sessionTimeoutNotification();
         history.push("/login");
       }
 
       else {
-        alert(
-          `There was an error loading patient #${patientId}'s data!\n`
-          + "Returning to landing page.\n\n"
-          + "Error details: " + err + "."
+        notificationsContext.createNotification(
+          "error",
+          "Could not load patient data!"
         );
         history.push("/");
       }
@@ -302,10 +312,10 @@ export default function PatientPredictions() {
         </button>
       </div>
       <div className="content-container">
-        <div className="return-to-home-page-row">
+        <div className="return-to-last-page-row">
           <button onClick={goToHomePage} className="info-button" type="button">
             <div className="button-row">
-              <IconContext.Provider value={{ className: "back-button-icon" }}>
+              <IconContext.Provider value={{ className: "left-button-icon" }}>
                 <FaArrowLeft />
               </IconContext.Provider>
               Home page
@@ -341,7 +351,7 @@ export default function PatientPredictions() {
             <div className="button-row">
               Create prediction
               <IconContext.Provider
-                value={{ className: "medical-file-button-icon" }}
+                value={{ className: "right-button-icon" }}
               >
                 <FaFileMedical/>
               </IconContext.Provider>

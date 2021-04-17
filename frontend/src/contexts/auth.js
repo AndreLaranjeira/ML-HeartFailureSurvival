@@ -17,35 +17,43 @@ export function AuthProvider({children}) {
   // Variables.
   const [authorized, setAuthorized] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [reloadContext, setReloadContext] = useState("");
   const [userPatientsIds, setUserPatientsIds] = useState([]);
 
   // Functions.
-  function login(response) {
-    localStorage.setItem("authorization", `Bearer ${response.data.token}`);
-    localStorage.setItem("userFullName", response.data.user["FULL_NAME"]);
-
-    setReloadContext("login");
-  }
-
-  function logout() {
-    localStorage.clear();
-
-    setReloadContext("logout");
-  }
-
-  // Page effects.
-  useEffect(async() => {
+  async function reloadContext() {
     setLoading(true);
 
-    const authorizedReceived = await userLoggedIn();
-    await setAuthorized(authorizedReceived);
+    const authorizationReceived = await userLoggedIn();
+    await setAuthorized(authorizationReceived);
 
     const userPatientsIdsReceived = await getUserPatientsIds();
     await setUserPatientsIds(userPatientsIdsReceived);
 
     setLoading(false);
-  }, [reloadContext]);
+  }
+
+  function login(response) {
+    localStorage.setItem("authorization", `Bearer ${response.data.token}`);
+    localStorage.setItem("userFullName", response.data.user["FULL_NAME"]);
+    reloadContext();
+  }
+
+  function logout() {
+    localStorage.clear();
+    reloadContext();
+  }
+
+  // Page effects.
+  useEffect(() => {
+    let mounted = true;
+
+    if(mounted)
+      reloadContext();
+
+    return function cleanUp() {
+      mounted = false;
+    };
+  }, []);
 
   // JSX returned.
   return (
@@ -53,7 +61,8 @@ export function AuthProvider({children}) {
       authorized: authorized,
       userPatientsIds: userPatientsIds,
       login,
-      logout
+      logout,
+      reloadContext
     }}>
       {
         loading ?

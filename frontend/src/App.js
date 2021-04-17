@@ -6,6 +6,7 @@ import "./global.scss";
 
 // Context imports.
 import {AuthProvider} from "./contexts/auth";
+import {NotificationsProvider} from "./contexts/notifications";
 
 // Component imports.
 import Routes from "./routes";
@@ -14,8 +15,10 @@ import Routes from "./routes";
 export default function App() {
 
   return (
-    <AuthProvider>
-      <Routes />
-    </AuthProvider>
+    <NotificationsProvider>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </NotificationsProvider>
   );
 }

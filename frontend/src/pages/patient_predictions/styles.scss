@@ -10,37 +10,10 @@
   justify-content: flex-start;
 
   // Size properties.
-  height: 100vh;
+  height: 96vh;
   margin: auto;
   max-width: 1280px;
   width: 100%;
-
-  .button-row {
-
-    // Display properties.
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-
-    .back-button-icon {
-      height: 16px;
-      padding-right: 5px;
-      width: auto;
-    }
-
-    .medical-file-button-icon {
-      height: 16px;
-      padding-left: 10px;
-      width: auto;
-    }
-
-  }
-
-  .content-container {
-    margin: 0px 20px;
-    padding-bottom: 20px;
-  }
 
   .patient-info {
 
@@ -151,15 +124,6 @@
     max-width: 1150px;
     padding: 0;
     width: 100%;
-  }
-
-  .return-to-home-page-row {
-    // Display properties.
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    margin: 0px 10px 30px;
   }
 
 }
