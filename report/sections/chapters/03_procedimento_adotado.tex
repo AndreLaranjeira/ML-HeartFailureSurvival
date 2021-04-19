@@ -48,9 +48,9 @@ Por meio deste método de avaliação, espera-se que as falhas inerentes ao conj
 
 \section{Programação da avaliação do treinamento}
 
-Com os tipos de modelos a serem avaliados e o método de avaliação determinados, o próximo passo foi criar um programa na linguagem de programação \textit{Python} para se automatizar a aplicação do método de avaliação em diferentes modelos de treinamento e salvar os resultados obtidos. Além disso, um segundo programa foi feito com o intuito de permitir que os resultados de avaliação obtidos fossem mais facilmente visualizados em formatos gráficos.
+Com os tipos de modelos a serem avaliados e o método de avaliação determinados, o próximo passo foi criar um programa na linguagem de programação \textit{Python} para se automatizar a aplicação do método de avaliação em diferentes modelos de treinamento e salvar os resultados obtidos. Além disso, também foram criados 2 programas adicionais: um com o intuito de permitir que os resultados de avaliação obtidos fossem mais facilmente visualizados em formatos gráficos e o outro com o intuito de permitir que um modelo de treinamento pronto para realizar previsões de insuficiência cardíaca fosse salvo em um arquivo.
 
-Ambos os programas foram construídos de maneira modularizada e buscando capturar a intenção do autor ao programá-los pela utilização de nomes significativos para variáveis e funções e pela utilização de funções com um único propósito sempre que possível. Dessa forma, essa seção não tem o intuito de descrever todos os detalhes de implementação dos programas, mas sim fazer uma descrição geral da forma como os programas funcionam, apresentando ao leitor imagens e trechos de código explicativos.
+Todos os programas foram construídos de maneira modularizada e buscando capturar a intenção do autor ao programá-los pela utilização de nomes significativos para variáveis e funções e pela utilização de funções com um único propósito sempre que possível. Dessa forma, essa seção não tem o intuito de descrever todos os detalhes de implementação dos programas, mas sim fazer uma descrição geral da forma como os programas funcionam, apresentando ao leitor imagens e trechos de código explicativos.
 
 \subsection{Programa para automatizar a avaliação}
 
@@ -128,61 +128,22 @@ Para exemplificar o funcionamento do programa, fornecemos a imagem \ref{fig:exam
 	\label{fig:example_results_plot}
 \end{figure}
 
+\subsection{Programa para salvar um modelo pronto para realizar previsões}
+
+O programa para salvar um modelo pronto para realizar previsões de insuficiência cardíaca foi escrito no arquivo \textit{train\_model.py} e permite que o usuário defina um modelo de treinamento para ser treinado sobre todo o conjunto de dados\footnote{\cite{larxel_dataset}} e, posteriormente, exportado para um arquivo. O usuário pode passar como argumento na chamada do programa o nome do arquivo que receberá o modelo de treinamento. Além disso, o programa possui um argumento de ajuda para explicar o uso dos demais argumentos e um argumento de versão.
+
+Este programa possui configurações a serem alteradas no corpo do programa como o tipo de modelo de treinamento utilizado, os hiperparâmetros do modelo de treinamento, o conjunto de dados utilizado para treinamento e as variáveis utilizadas do conjunto de dados.
+
+Caso o usuário não especifique o nome do arquivo a ser utilizado para salvar o modelo, o nome de arquivo \textit{prediction\_model} é utilizado. Caso o programa não consiga salvar o modelo gerado com o nome de arquivo fornecido, o programa ainda tenta realizar uma segunda gravação, no diretório de onde o programa foi chamado, em um arquivo de \textit{fallback} de nome \textit{fallback\_prediction\_model}.
+
+A extensão de arquivo utilizada para os arquivos que recebem os modelo de treinamento varia conforme o tipo de modelo, sendo \textit{.rf.sav} para modelos do tipo florestas randômicas e \textit{.h5} para modelos do tipo perceptron multicamada.
+
 \section{Implementação do website auxiliar}
 
 Após a avaliação dos modelos de treinamento e a análise dos resultados das avaliações, foi implementado um website auxiliar para permitir que usuários realizassem previsões de insuficiência cardíaca com o melhor modelo de treinamento obtido nas avaliações realizadas. Esse website tem como \textit{backend} uma Interface de Programação de Aplicações (\textit{API})\nomenclature{API}{Interface de Programação de Aplicações} escrita em NodeJS e como \textit{frontend} uma interface de usuário escrita com React.
 
 A utilização de uma \textit{API} como \textit{backend} do website faz com que tenhamos que utilizar um servidor para o \textit{backend} do website e outro para o \textit{frontend} do website, os quais se comunicam por meio de requisições do Protocolo de Transferência de Hipertexto (HTTP)\nomenclature{HTTP}{Protocolo de Transferência de Hipertexto}. Embora essa arquitetura gere mais trabalho na programação da lógica do website, ela abre um número maior de possibilidades para o programador ao permitir que diversos \textit{frontends} no formato de interfaces web, aplicativos ou clientes de protocolo HTTP utilizem, simultaneamente, o banco de dados e a API de \textit{backend} criados. Além disso, essa arquitetura facilita a realização de testes com o website ao permitir que a separação dos testes de \textit{backend} e de \textit{frontend} seja feita com mais facilidade.
 
-Para utilizar o website, o usuário precisará se cadastrar, fornecendo seu nome completo, um endereço válido de e-mail e uma senha para a sua conta. Após se cadastrar, o usuário poderá entrar em sua conta no website por meio do endereço de e-mail e pela senha utilizados no cadastro.
+Para utilizar o website, o usuário precisará se cadastrar, fornecendo seu nome completo, um endereço válido de e-mail e uma senha para a sua conta. Após se cadastrar, o usuário poderá entrar em sua conta no website por meio do endereço de e-mail e pela senha utilizados no cadastro. Um usuário poderá cadastrar pacientes, requisitar previsões de insuficiência cardíaca para um paciente cadastrado, modificar as informações dos pacientes cadastrados e excluir pacientes ou previsões realizadas.
 
-
-%label cria um rótulo para o objeto, para permitir que ele seja referenciado com o comando \ref{nome-do-rotulo}
-
-
-% Neste capítulo é apresentada uma arquitetura para provimento de comércio eletrônico
-% para o Sistema Brasileiro de TV Digital (SBTVD) \nomenclature{SBTVD}{Sistema Brasileiro de TV Digital}. A mesma é uma arquitetura distribuída, baseada em componentes
-% reutilizáveis, os \textit{Web Services}, conhecida como Arquitetura Orientada a Serviços.
-%
-% Segundo \cite{soares2007ginga}:
-%
-% \begin{quote}
-% 	Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vesti- bulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer id, vulputate a, magna.
-% \end{quote}
-%
-% Desta forma, a arquitetura proposta foi definida, incluindo a implementação de um \textit{framework} de comunicação (baseado nos protocolos HTTP e SOAP) que é apresentado sucintamente neste capítulo, e em mais detalhes no Capítulo \ref{capitulo2}. Mais detalhes podem ser consultados em \cite{soares2007ginga}. Veja um exemplo na Listagem \ref{list:server}, que foi adaptada de \url{http://manoelcampos.com}.
-%
-% Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauris. Nam arcu libero, no- nummy eget, consectetuer id, vulputate a, magna. Donec vehicula augue eu neque. Pel- lentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris ut leo. Cras viverra metus rhoncus sem. Nulla et lectus vestibulum urna fringilla ultrices. Phasellus eu tellus sit amet tortor gravida placerat. Integer sapien est, iaculis in, pretium quis, viverra ac, nunc. Praesent eget sem vel leo ultrices bibendum. Aenean fauci- bus. Morbi dolor nulla, malesuada eu, pulvinar at, mollis ac, nulla. Curabitur auctor semper nulla. Donec varius orci eget risus. Duis nibh mi, congue eu, accumsan eleifend, sagittis quis, diam. Duis eget orci sit amet orci dignissim rutrum.
-%
-% Nulla malesuada porttitor diam. Donec felis erat, congue non, volutpat at, tincidunt tristi- que, libero. Vivamus viverra fermentum felis. Donec nonummy pellentesque ante. Phasellus adipiscing semper elit. Proin fermentum massa ac quam. Sed diam turpis, molestie vitae, placerat a, molestie nec, leo. Maecenas lacinia. Nam ipsum ligula, eleifend at, accumsan nec, suscipit a, ipsum. Morbi blandit ligula feugiat magna. Nunc eleifend consequat lorem. Sed lacinia nulla vitae enim. Pellentesque tincidunt purus vel magna. Integer non enim. Praesent euismod nunc eu purus. Donec bibendum quam in tellus. Nullam cursus pulvinar lectus. Donec et mi. Nam vulputate metus eu enim. Vestibulum pellentesque felis eu massa.
-%
-% \lstset{caption=Exemplo de aplicação servidora, label=list:server}
-% \begin{lstlisting}[language=C]
-% int main()
-% {
-%     FILE *fp;     int len;
-%     static const int SIZE = 1024;
-%     struct sockaddr_in me, target;
-%     int sock=socket(AF_INET,SOCK_DGRAM,0);
-%     char arquivo[SIZE];
-%     me.sin_family=AF_INET;
-%     me.sin_addr.s_addr=htonl(INADDR_ANY); // endereco IP local
-%     me.sin_port=htons(0); // porta local (0=auto assign)
-%     bind(sock,(struct sockaddr *)&me,sizeof(me));
-%     target.sin_family=AF_INET;
-%     target.sin_addr.s_addr=inet_addr("192.168.68.217"); // host local
-%     target.sin_port=htons(8450); // porta de destino
-%
-%     if ((fp = fopen("video1.mp4","rb")) == NULL){
-%         printf("Arquivo nao pode ser aberto.\n"); return -1;
-%     }
-%
-%     while(!feof(fp)) {
-%         len = fread(arquivo, 1, sizeof(arquivo), fp);
-%         sendto(sock,arquivo,sizeof(arquivo),0,(struct sockaddr *)&target,sizeof(target));
-%     }
-%     sendto(sock,"FIM",sizeof("FIM"),0,(struct sockaddr *)&target,sizeof(target));
-%     close(sock);
-%     return 0;
-% }
-% \end{lstlisting}
+Para gerar os resultados das previsões de insuficiência cardíaca requisitadas que ainda não foram processadas, o \textit{backend} do website utiliza um \textit{job}, que é uma função cuja execução ocorre periodicamente conforme uma regra de recorrência. A previsão será feita com um modelo de treinamento armazenado no próprio \textit{backend} do website e com um programa simples em \textit{Python} que exporta uma função para fornecer acesso ao modelo de previsão. Isso permitirá que o sistema não se sobrecarregue tendo que realizar todas as previsões instantaneamente e possa agendar o processamento de um grupo significativo de previsões para ocorrer simultaneamente.
