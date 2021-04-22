@@ -1,6 +1,6 @@
 // Package imports.
 import React, {useEffect, useState} from "react";
-import Moment from "moment";
+import { differenceInYears } from "date-fns";
 import {useHistory, useParams} from "react-router-dom";
 
 // Context imports.
@@ -113,7 +113,7 @@ export default function CreatePrediction() {
       const patient = response.data.patient;
 
       setAge(
-        Moment.duration(Moment().diff(patient["BIRTH_DATE"])).years()
+        differenceInYears(new Date(), new Date(patient["BIRTH_DATE"]))
       );
       setHasDiabetes(patient["HAS_DIABETES"] === 1);
       setSex(patient["SEX"] === "FEMALE" ? 0 : 1);

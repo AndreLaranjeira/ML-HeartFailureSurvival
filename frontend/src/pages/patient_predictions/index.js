@@ -1,7 +1,7 @@
 // Package imports.
 import React, {useEffect, useState} from "react";
+import { format } from "date-fns";
 import Lodash from "lodash";
-import Moment from "moment";
 import {confirmAlert} from "react-confirm-alert";
 import {IconContext} from "react-icons";
 import {FaArrowLeft, FaArrowRight, FaFileMedical} from "react-icons/fa";
@@ -122,7 +122,7 @@ export default function PatientPredictions() {
   }
 
   function formatPredictionCreationDateTime(dateTime) {
-    return Moment(dateTime).format("HH:mm:ss - MM/DD/YYYY");
+    return format(new Date(dateTime), "HH:mm:ss - MM/dd/yyyy");
   }
 
   function goToCreatePatientPrediction() {
@@ -276,7 +276,7 @@ export default function PatientPredictions() {
       const patient = response.data.patient;
 
       setPatientFullName(patient["FULL_NAME"]);
-      setPatientBirthDate(Moment(patient["BIRTH_DATE"]).format("MM/DD/YYYY"));
+      setPatientBirthDate(format(new Date(patient["BIRTH_DATE"]), "MM/dd/yyyy"));
       setPatientSex(Lodash.capitalize(patient["SEX"]));
       setPatientHasDiabetes(patient["HAS_DIABETES"] === 1 ? "Yes" : "No");
 
