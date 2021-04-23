@@ -8,7 +8,7 @@ Esta seção tem como objetivos descrever brevemente as avaliações realizadas,
 
 \subsection{Descrição das avaliações realizadas}
 
-No total, foram realizadas 30 avaliações de modelos de treinamento de aprendizado de máquinas, 18 para modelos do tipo perceptron multicamada e 12 para modelos do tipo florestas randômicas. Estas avaliações permitiram que um total de 5346 modelos de treinamento fossem avaliados segundo o método de avaliação proposto, sendo 90 destes modelos do tipo perceptron multicamada e 5256 destes modelos do tipo florestas randômicas. Por fim, podemos observar que, dentre os modelos testados, um total de 18 modelos do tipo perceptron multicamada e 1053 modelos do tipo florestas randômicas foram classificados entre os melhores 20\% de todos os modelos de sua avaliação no quesito melhor média de acurácia para os dados de validação e, assim, foram testados em todos os 100 subconjuntos de teste disponíveis.
+No total, foram realizadas 30 avaliações de modelos de treinamento de aprendizado de máquina, 18 para modelos do tipo perceptron multicamada e 12 para modelos do tipo florestas randômicas. Estas avaliações permitiram que um total de 5346 modelos de treinamento fossem avaliados segundo o método de avaliação proposto, sendo 90 destes modelos do tipo perceptron multicamada e 5256 destes modelos do tipo florestas randômicas. Por fim, podemos observar que, dentre os modelos testados, um total de 18 modelos do tipo perceptron multicamada e 1053 modelos do tipo florestas randômicas foram classificados entre os melhores 20\% de todos os modelos de sua avaliação no quesito melhor média de acurácia para os dados de validação e, assim, foram testados em todos os 100 subconjuntos de teste disponíveis.
 
 Podemos observar na tabela \ref{table:descricao_avaliacoes_perceptron_multicamada} uma breve descrição de cada avaliação realizada para modelos do tipo perceptron multicamada e na tabela \ref{table:descricao_avaliacoes_floresta_randomica} uma descrição análoga de cada avaliação realizada para modelos do tipo florestas randômicas. Estas descrições abordam os números das avaliações, o número de modelos avaliados, e as variações de hiperparâmetros empregadas. Para conveniência do leitor e concisão deste texto, as descrições de avaliações feitas para diferentes tipos de modelos de treinamento foram separadas em diferentes tabelas e algumas avaliações foram agrupadas na mesma descrição devido à sua semelhança nas variações de hiperparâmetros. As avaliações realizadas foram estruturadas de modo a testar uma grande quantidade de variações de hiperparâmetros para cada tipo de modelo com o intuito de determinar o conjunto de hiperparâmetros mais apto para uso em uma aplicação prática no website auxiliar. Em certos casos, os resultados de uma avaliação influenciaram diretamente as variações de hiperparâmetros das avaliações subsequentes.
 
@@ -107,9 +107,9 @@ Dentre os 18 modelos do tipo perceptron multicamada e 1053 modelos do tipo flore
   \end{center}
 \end{table}
 
-Como observado na tabela \ref{table:ranking_melhores_modelos}, podemos notar que os modelos de florestas randômicas tiveram um desempenho significativamente superior em relação aos modelos do tipo perceptron multicamada. Embora isso possa ter sido exacerbado pela discrepância entre o número de modelos avaliados do tipo floresta randômica e do tipo perceptron multicamada, esse resultado já era esperado antes da realização das avaliações. Isso porque o artigo \cite{chicco2020} que analisa o conjunto de dados em questão \cite{larxel_dataset} também havia verificado um melhor desempenho dos modelos de treinamento do tipo florestas randômicas em relação aos modelos de treinamento do tipo perceptron multicamada, corroborando os resultados obtidos neste trabalho.
+Como observado na tabela \ref{table:ranking_melhores_modelos}, podemos notar que os modelos de florestas randômicas tiveram um desempenho significativamente superior em relação aos modelos do tipo perceptron multicamada. Embora isso possa ter sido exacerbado pela discrepância entre o número de modelos avaliados do tipo floresta randômica e do tipo perceptron multicamada, esse resultado já era esperado antes da realização das avaliações. Isso porque o artigo de Chicco e Jurman\footnote{\cite{chicco2020}} que analisa o conjunto de dados em questão\footnote{\cite{larxel_dataset}} também havia verificado um melhor desempenho dos modelos de treinamento do tipo florestas randômicas em relação aos modelos de treinamento do tipo perceptron multicamada, corroborando os resultados obtidos neste trabalho.
 
-Analisando os hiperparâmetros dos modelos do tipo floresta randômica, podemos realizar algumas constatações. Primeiramente, podemos notar que o número de estimadores utilizados não foi uma característica que influenciou significativamente os resultados, pois todos os 5 valores de número de estimadores utilizados na avaliação 18 produziram um modelo no ranking de melhores modelos. Além disso, podemos também constatar que a utilização do coeficiente de gini se mostrou superior ao uso da entropia como critério de divisão. Também observamos que a ausência de um número máximo de características consideradas por divisão superou o uso de um número máximo de características consideradas por divisão sendo igual à raiz quadrada do total de características ou ao logaritmo de base 2 do total de características, o que contraria a teoria existente segundo a qual o uso da raiz quadrada do total de características como número máximo de características consideradas por divisão forneceria os melhores resultados \cite[p.319-321]{statistical_learning}. Outro aspecto que podemos observar é que a utilização de técnicas para limitar o número de divisões das árvores (mínimo de amostras para gerar uma folha, mínimo de amostras para dividir um nó interno) se mostraram úteis na obtenção dos melhores resultados, pois todos eles fizeram uso de ambas. Por fim, notamos que tanto a limitação no número de folhas como a limitação da profundidade máxima das árvores produziram bons resultados (embora esta última não tenha sido utilizada por nenhum dos melhores resultados, seu uso levou a um aumento da acurácia em relação a árvores que não a utilizaram). As duas últimas observações estão de acordo com a teoria por trás do modelo de árvores de decisão segundo a qual árvores complexas levam a \textit{overfitting} dos dados de treino, de forma que recursos para limitar a complexidade de uma árvore ou para extrair uma sub-árvore da árvore final podem diminuir o erro obtido sobre o subconjunto de dados de teste \cite[p.307-311]{statistical_learning}.
+Analisando os hiperparâmetros dos modelos do tipo floresta randômica, podemos realizar algumas constatações. Primeiramente, podemos notar que o número de estimadores utilizados não foi uma característica que influenciou significativamente os resultados, pois todos os 5 valores de número de estimadores utilizados na avaliação 18 produziram um modelo no ranking de melhores modelos. Além disso, podemos também constatar que a utilização do coeficiente de gini se mostrou superior ao uso da entropia como critério de divisão. Também observamos que a ausência de um número máximo de características consideradas por divisão superou o uso de um número máximo de características consideradas por divisão sendo igual à raiz quadrada do total de características ou ao logaritmo de base 2 do total de características, o que contraria a teoria existente segundo a qual o uso da raiz quadrada do total de características como número máximo de características consideradas por divisão forneceria os melhores resultados\footnote{\cite[p.319-321]{statistical_learning}}. Outro aspecto que podemos observar é que a utilização de técnicas para limitar o número de divisões das árvores (mínimo de amostras para gerar uma folha, mínimo de amostras para dividir um nó interno) se mostraram úteis na obtenção dos melhores resultados, pois todos eles fizeram uso de ambas. Por fim, notamos que tanto a limitação no número de folhas como a limitação da profundidade máxima das árvores produziram bons resultados (embora esta última não tenha sido utilizada por nenhum dos melhores resultados, seu uso levou a um aumento da acurácia em relação a árvores que não a utilizaram). As duas últimas observações estão de acordo com a teoria por trás do modelo de árvores de decisão segundo a qual árvores complexas levam a \textit{overfitting} dos dados de treino, de forma que recursos para limitar a complexidade de uma árvore ou para extrair uma sub-árvore da árvore final podem diminuir o erro obtido sobre o subconjunto de dados de teste\footnote{\cite[p.307-311]{statistical_learning}}.
 
 Analisando os hiperparâmetros dos modelos do tipo perceptron multicamada, também podemos realizar algumas constatações. Em primeiro lugar, notamos que todos os modelos de perceptrons multicamada presentes no ranking apresentam duas camadas densas, indicando que os modelos com duas camadas densas obtiveram melhor desempenho do que os modelos com apenas uma camada densa. Também é possível observar que os modelos com maior número de unidades nas camadas densas forneceram um melhor desempenho, em especial se combinados com um maior número de épocas de treinamento e uma camada de \textit{dropout} ou um \textit{kernel} de regularização aplicado aos pesos das camadas densas, tendo-se em vista que os 2 últimos modelos do tipo perceptron multicamada presentes no ranking possuem a maior quantidade de unidades para ambas as camadas densas dentre todos os modelos avaliados. O fato de o melhor modelo do tipo perceptron multicamada ter sido um modelo com camadas densas de tamanho 400 e 20, que não utiliza \textit{dropout} ou um \textit{kernel} de regularização aplicado aos pesos das camadas densas e que teve um limite máximo de 15 mil épocas de treinamento é um pouco surpreendente, em especial se considerarmos a média de acurácia para os dados de validação obtida por esse modelo. Com os resultados obtidos até aqui, creio que essa última constatação não possa ser explicada de maneira satisfatória, sendo necessária a realização de mais avaliações para se chegar a um resultado conclusivo.
 
@@ -136,60 +136,31 @@ Por último, os gráficos de resultados para os subconjuntos de validação e te
 	\label{fig:best_results_plot}
 \end{figure}
 
+\section{Website}
 
-% \section{Uma associação}
-%
-% % Gera 3 parágrafos com texto aleatório, apenas para exemplo. Apague o comando para remover tal texto.
-% \lipsum[1-3]
-%
-%
-% \subsection{Motivos para abortar uma associação}
-%
-% %lista não numerada
-% \begin{itemize}
-% 	\item primeiro item;
-% 	\item segundo item;
-% 	\item terceiro item;
-% 	\item quarto item.
-% \end{itemize}
-%
-% \begin{figure}[h]
-% 	\centering
-% 	\includegraphics[scale=0.8]{images/red.png}
-% 	\caption{Exemplo de imagem}
-% 	\label{imagem1}
-% \end{figure}
-%
-%
-% Se durante o processo de configuração de uma associação for recebido como payload um hostname e esse hostname não puder ser resolvido em um tempo hábil deve se enviar um abort com a causa de erro de endereço não resolvido. Veja exemplo na Figura \ref{imagem1}.
-%
-%
-% % Gera 4 parágrafos com texto aleatório, apenas para exemplo. Apague o comando para remover tal texto.
-% \lipsum[1-4]
-%
-% A Tabela \ref{tabela1} a seguir apresenta os tipos de \textit{chunk} de um pacote do protocolo.
-%
-% \begin{table}[ht!]
-%   \begin{center}
-%   \setlength{\belowcaptionskip}{10pt} % espao entre caption e tabela
-%   \footnotesize {
-%       \begin{tabular}{|p{4cm}|p{9cm}|}
-% 	  \hline
-% 	  \textbf{Nome} & \textbf{Função} \\
-% 	  \hline
-% 	  Iniciar & Usado para iniciar uma associação \\
-% 	  \hline
-% 	  Confirmacao & Segunda mensagem de uma configuração de uma associação\\
-% 	  \hline
-% 	  Mensagem & Terceira mensagem de uma configuração de uma associação\\
-% 	  \hline
-% 	  Cookie & Quarta mensagem de uma configuração de uma associação\\
-% 	  \hline
-% 	  Dados & Dados da aplicação\\
-% 	  \hline
-%       \end{tabular}
-%   }
-%   \caption{Tipos de \textit{chunk} de um pacote SCTP}
-%   \label{tabela1}
-%   \end{center}
-% \end{table}
+O resultado a ser apresentado relativo ao website seria o website em si, o qual funcionou adequadamente, permitindo que um usuário criasse pacientes e requisitasse previsões de insuficiência cardíaca para estes, as quais foram processadas pelo \textit{backend} e tiveram seus resultados fornecidos. Porém, como não é possível apresentar todo o website e seu funcionamento neste documento, algumas páginas do website foram fornecidas com o intuito de ilustar a aplicação desenvolvida.
+
+Na imagem \ref{fig:website_login_page} temos a página de login, que descreve o website ao usuário e permite que este realize login no website ou seja direcionado para a página de cadastro. Na imagem \ref{fig:website_home_page} temos a página principal do usuário, na qual os pacientes deste podem ser visualizados e gerenciados. Por fim, na imagem \ref{fig:website_patient_predictions_page} temos a página de previsões de um paciente, onde podemos visualizar as informações de um paciente e suas previsões realizadas e excluir previsões indesejadas.
+
+\begin{figure}[ht!]
+	\centering
+  \includegraphics[scale=0.26]{images/website_pagina_login.png}
+  \caption{Página de login do website}
+  \label{fig:website_login_page}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[scale=0.26]{images/website_pagina_home.png}
+  \caption{Página principal do usuário do website}
+  \label{fig:website_home_page}
+\end{figure}
+
+\begin{figure}[ht!]
+  \centering
+  \includegraphics[scale=0.26]{images/website_pagina_previsoes_paciente.png}
+  \caption{Página de previsões de um paciente do website}
+  \label{fig:website_patient_predictions_page}
+\end{figure}
+
+Caso o leitor deseje explorar o funcionamento do website mais a fundo ou entender detalhes de sua implementação, o código fonte tanto do \textit{backend} como do \textit{frontend} pode ser encontrado no repositório do \textit{GitHub} deste trabalho\footnote{\url{https://github.com/AndreLaranjeira/ML-HeartFailure}}.

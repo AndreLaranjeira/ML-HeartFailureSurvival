@@ -1,7 +1,7 @@
 // Package imports.
 import React, {useEffect, useState} from "react";
+import { format } from "date-fns";
 import Lodash from "lodash";
-import Moment from "moment";
 import {confirmAlert} from "react-confirm-alert";
 import {IconContext} from "react-icons";
 import {FaArrowLeft, FaArrowRight, FaEdit} from "react-icons/fa";
@@ -112,7 +112,7 @@ export default function Home() {
       <li key={patient.ID} className="patient">
         <h3>{patient.FULL_NAME}</h3>
         <p>Birth date: {
-          Moment(patient.BIRTH_DATE).format("MM/DD/YYYY")
+          format(new Date(patient.BIRTH_DATE), "MM/dd/yyyy")
         }
         </p>
         <p>Sex: {

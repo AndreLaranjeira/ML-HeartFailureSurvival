@@ -16,10 +16,8 @@ def make_prediction(
     high_blood_pressure,
     platelets,
     serum_creatinine,
-    serum_sodium,
     sex,
-    smoking,
-    time
+    smoking
 ):
 
     # Prediction data.
@@ -32,10 +30,8 @@ def make_prediction(
         'high_blood_pressure': high_blood_pressure,
         'platelets': platelets,
         'serum_creatinine': serum_creatinine,
-        'serum_sodium': serum_sodium,
         'sex': sex,
-        'smoking': smoking,
-        'time': time
+        'smoking': smoking
     }, index=[0])
 
     # Machine learning model.

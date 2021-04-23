@@ -1,6 +1,6 @@
 // Package imports.
 import React, {useEffect, useState} from "react";
-import Moment from "moment";
+import { differenceInYears } from "date-fns";
 import {useHistory, useParams} from "react-router-dom";
 
 // Context imports.
@@ -33,10 +33,8 @@ export default function CreatePrediction() {
   const [hasHighBloodPressure, setHasHighBloodPressure] = useState(undefined);
   const [platelets, setPlatelets] = useState("");
   const [serumCreatinine, setSerumCreatinine] = useState("");
-  const [serumSodium, setSerumSodium] = useState("");
   const [sex, setSex] = useState(undefined);
   const [smoking, setSmoking] = useState(undefined);
-  const [time, setTime] = useState("");
 
   // JSX returned.
   async function handleCreatePrediction(e) {
@@ -54,10 +52,8 @@ export default function CreatePrediction() {
         "high_blood_pressure": hasHighBloodPressure,
         "platelets": platelets,
         "serum_creatinine": serumCreatinine,
-        "serum_sodium": serumSodium,
         "sex": sex,
-        "smoking": smoking,
-        "time": time
+        "smoking": smoking
       };
 
       await api.post(
@@ -113,7 +109,7 @@ export default function CreatePrediction() {
       const patient = response.data.patient;
 
       setAge(
-        Moment.duration(Moment().diff(patient["BIRTH_DATE"])).years()
+        differenceInYears(new Date(), new Date(patient["BIRTH_DATE"]))
       );
       setHasDiabetes(patient["HAS_DIABETES"] === 1);
       setSex(patient["SEX"] === "FEMALE" ? 0 : 1);
@@ -195,32 +191,6 @@ export default function CreatePrediction() {
               />
               <p className="form-error">
                 {formErrors.serumCreatinine}
-              </p>
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="form-input-with-title short-width">
-              <p className="input-title">Serum Sodium</p>
-              <input
-                className="number-input"
-                type="number"
-                value={serumSodium}
-                onChange={e => setSerumSodium(e.target.value)}
-              />
-              <p className="form-error">
-                {formErrors.serumSodium}
-              </p>
-            </div>
-            <div className="form-input-with-title short-width">
-              <p className="input-title">Days in treatment</p>
-              <input
-                className="number-input"
-                type="number"
-                value={time}
-                onChange={e => setTime(e.target.value)}
-              />
-              <p className="form-error">
-                {formErrors.time}
               </p>
             </div>
           </div>

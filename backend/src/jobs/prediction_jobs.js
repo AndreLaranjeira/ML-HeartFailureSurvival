@@ -43,10 +43,8 @@ module.exports = {
             high_blood_pressure=${prediction["HIGH_BLOOD_PRESSURE"]},
             platelets=${prediction["PLATELETS"]},
             serum_creatinine=${prediction["SERUM_CREATININE"]},
-            serum_sodium=${prediction["SERUM_SODIUM"]},
             sex=${prediction["SEX"]},
-            smoking=${prediction["SMOKING"]},
-            time=${prediction["TIME"]}
+            smoking=${prediction["SMOKING"]}
           )`;
           const predictionResult = await python`int(result)`;
 
@@ -75,6 +73,6 @@ module.exports = {
       console.log("[Job - Process prediction backlog] Status: Finished!");
 
     }
-    
+
   }
 };
