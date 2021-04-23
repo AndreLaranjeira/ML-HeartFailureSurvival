@@ -32,10 +32,8 @@ dataset_extractor = DatasetExtractor(
         'high_blood_pressure',
         'platelets',
         'serum_creatinine',
-        'serum_sodium',
         'sex',
-        'smoking',
-        'time'
+        'smoking'
     ],
     label_columns_list=['DEATH_EVENT'],
     train_size=1,

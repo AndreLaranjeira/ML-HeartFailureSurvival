@@ -15,10 +15,8 @@ module.exports = {
       high_blood_pressure,
       platelets,
       serum_creatinine,
-      serum_sodium,
       sex,
-      smoking,
-      time,
+      smoking
     } = request.body;
 
     // Find the requested patient's user id.
@@ -55,10 +53,8 @@ module.exports = {
         HIGH_BLOOD_PRESSURE: high_blood_pressure,
         PLATELETS: platelets,
         SERUM_CREATININE: serum_creatinine,
-        SERUM_SODIUM: serum_sodium,
         SEX: sex,
         SMOKING: smoking,
-        TIME: time,
         DEATH_PREDICTION: null,
         PREDICTION_PROCESSING_STATUS: "WAITING",
         PATIENT_ID: patient_id,

@@ -218,11 +218,7 @@ export default function PatientPredictions() {
         </div>
         <div className="prediction-info-row">
           <p>Serum creatinine: {prediction.SERUM_CREATININE}</p>
-          <p>Serum sodium: {prediction.SERUM_SODIUM}</p>
           <p>Smoking: {prediction.SMOKING === 1 ? "Yes" : "No"}</p>
-        </div>
-        <div className="prediction-info-row">
-          <p>Days in treatment: {prediction.TIME}</p>
         </div>
         <div className="prediction-result-row">
           {renderPredictionStatus(prediction.PREDICTION_PROCESSING_STATUS)}
