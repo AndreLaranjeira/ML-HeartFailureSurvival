@@ -14,7 +14,7 @@ Qualquer problema de aprendizado de máquina deve possuir uma tarefa a ser reali
 
 Para um programa de aprendizado de máquina realizar a tarefa proposta, este deve aprender a função $T$. Entretanto, na grande maioria dos problemas de aprendizado de máquina, a função $T$ não é conhecida e o problema proposto se resume a aproximar uma \textit{descrição operacional} de $T$\cite[p.8]{machine_learning}. Dessa forma, o programa de aprendizado de máquina deve então utilizar o processo de aprendizado com base na fonte de experiência para adquirir uma função $\hat{T}$ que seja uma boa aproximação da função $T$.
 
-Neste trabalho, o problema de previsão de insuficiência cardíaca pode ser descrito como sendo um problema de \textit{classificação binária}, em que a tarefa proposta é representada pela função $P : V_{p} \rightarrow \{0, 1\}$, onde $V_{p}$ são as variáveis fornecidas que descrevem o paciente e o conjunto imagem $\{0, 1\}$ representa uma previsão se o paciente irá sofrer complicações devido à insuficiência cardíaca (1) ou não (0).
+Neste trabalho, o problema de previsão de sobrevivência à insuficiência cardíaca pode ser descrito como sendo um problema de \textit{classificação binária}, em que a tarefa proposta é representada pela função $P : V_{p} \rightarrow \{0, 1\}$, onde $V_{p}$ são as variáveis fornecidas que descrevem o paciente e o conjunto imagem $\{0, 1\}$ representa uma previsão se o paciente irá sobreviver à insuficiência cardíaca (0) ou não (1).
 
 \subsection{Fonte de experiência}
 
@@ -24,7 +24,7 @@ O tipo mais comum de fonte de experiência utilizada é um conjunto de dados com
 
 Para que a função de aproximação $\hat{T}$ aprendida pelo programa de aprendizado de máquina com base na fonte de experiência utilizada seja uma boa aproximação da função $T$, é necessário que a fonte de experiência utilizada seja uma boa aproximação dos exemplos que o programa de aprendizado de máquina encontrará ao longo de sua avaliação e uso, uma suposição que é apenas parcialmente verdadeira\cite[p.6]{machine_learning}. Isso pode levar a ocorrência de um fenômeno denominado sobreajuste (ou \textit{overfitting}) no processo de aprendizado do programa computacional. O sobreajuste ocorre quando o uso de uma fonte de experiência pequena ou com ruídos estatísticos resulta em uma aproximação $\hat{T}$ aprendida pelo programa computacional que se adequa melhor do que $T$ aos dados da fonte de experiência utilizada mas que não generaliza corretamente os dados englobados em todo o domínio da função $T$\cite[p.79-80]{machine_learning}.
 
-Neste trabalho, o programa de previsão de insuficiência cardíaca utilizou como fonte de experiência para seu treinamento um conjunto de dados\cite{larxel_dataset} composto de exemplos com variáveis e o resultado da aplicação dessas variáveis à função $T$, tomando parte, assim, na categoria de problemas de aprendizado supervisionado. O capítulo \ref{chap:procedimento_adotado} aborda alguns cuidados utilizados para evitar a ocorrência de sobreajuste no processo de aprendizado.
+Neste trabalho, o programa de previsão de sobrevivência à insuficiência cardíaca utilizou como fonte de experiência para seu treinamento um conjunto de dados\cite{larxel_dataset} composto de exemplos com variáveis e o resultado da aplicação dessas variáveis à função $T$, tomando parte, assim, na categoria de problemas de aprendizado supervisionado. O capítulo \ref{chap:procedimento_adotado} aborda alguns cuidados utilizados para evitar a ocorrência de sobreajuste no processo de aprendizado.
 
 \subsection{Modelos de aprendizado}
 
@@ -32,7 +32,7 @@ Com a definição da tarefa a ser realizada e da fonte de experiência, devemos 
 
 A escolha do modelo de aprendizado apresenta um \textit{trade-off} importante na representação escolhida para a função $\hat{T}$: quanto maior a representatividade do modelo, maior é o número de dados necessários para treiná-lo\cite[p.8]{machine_learning} e menor é a interpretabilidade do modelo\cite[p.25]{statistical_learning}. Essa é uma consideração importante a ser feita dependendo do tamanho da fonte de experiência utilizada e do próposito para o qual o aprendizado de máquina está sendo empregado.
 
-Neste trabalho, o programa de previsão de insuficiência cardíaca avaliou dois tipos de modelos de aprendizado distintos para aprendizado de máquina: perceptron multicamada e floresta aleatória. Ambos estes modelos são utilizados para problemas de aprendizado da categoria de aprendizado supervisionado e possuem um grande conjunto de combinações possíveis de hiper-parâmetros.
+Neste trabalho, o programa de previsão de sobrevivência à insuficiência cardíaca avaliou dois tipos de modelos de aprendizado distintos para aprendizado de máquina: perceptron multicamada e floresta aleatória. Ambos estes modelos são utilizados para problemas de aprendizado da categoria de aprendizado supervisionado e possuem um grande conjunto de combinações possíveis de hiper-parâmetros.
 
 \subsubsection{Perceptron multicamada}
 
