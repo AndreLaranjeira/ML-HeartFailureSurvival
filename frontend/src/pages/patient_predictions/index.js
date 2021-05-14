@@ -145,14 +145,14 @@ export default function PatientPredictions() {
         if(predictionResult)
           return(
             <p className="prediction-result danger-color">
-              Heart disease prediction: Positive
+              Heart failure survival prediction: Negative
             </p>
           );
 
         else
           return(
             <p className="prediction-result success-color">
-              Heart disease prediction: Negative
+              Heart failure survival prediction: Positive
             </p>
           );
       }

@@ -1,6 +1,6 @@
 # Machine learning - Heart failure - AI
 
-Programa de aprendizado de máquina escrito em Python com o intuito de prever insuficiência cardíaca.
+Programa de aprendizado de máquina escrito em Python com o intuito de prever sobrevivência à insuficiência cardíaca.
 
 ## Pacotes utilizados
 

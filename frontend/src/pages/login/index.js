@@ -74,8 +74,8 @@ export default function Login() {
         <p>
           Heart failure prediction is a prototype created for a graduation
           thesis with the goal of accurately predicting the possibility of heart
-          failure by using machine learning and some health measurements from
-          the pacient.
+          failure survival by using machine learning and some health
+          measurements from the pacient.
         </p>
         <p>
           This is a working prototype intended only for demonstrations, so be
