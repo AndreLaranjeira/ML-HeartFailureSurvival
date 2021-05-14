@@ -10,7 +10,7 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema.alterTable("PREDICTIONS", function(table) {
-    // Recreates the dropped feature columns.
+    // Recreate the dropped feature columns.
     table.integer("SERUM_SODIUM").notNullable();
     table.integer("TIME").notNullable();
   });

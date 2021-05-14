@@ -6,13 +6,15 @@ import time
 
 # Classes and methods imports.
 from keras import Input, regularizers
-from keras.layers.core import Dense, Dropout
+from keras.layers.core import Dense
+# from keras.layers.core import Dropout
 
 # User module imports.
 from argument_parser import ArgumentParserModule
 from data_extractors import DatasetExtractor, SeedExtractor
 from model_evaluator import ModelEvaluator
-from training_models import KerasSequential, RandomForest
+from training_models import KerasSequential
+# from training_models import RandomForest
 
 # Program metadata.
 PROGRAM_NAME = 'src/main.py'

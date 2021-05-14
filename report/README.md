@@ -29,8 +29,4 @@ O _modelo não oficial de Latex da Faculdade de tecnologia da Universidade de Br
 ### Esclarecimentos
 
 * Embora o modelo de Latex tenha sido utilizado para redigir esta monografia, **o conteúdo da monografia em si é de minha autoria ou tem uma devida referência para seu autor, não tendo sido fornecido pelo modelo utilizado.**
-* Embora o _material licenciado_ \(o modelo de Latex\) tenha sido distribuído livremente com a licença _CC BY-NC 4.0_, esta monografia possui uma **licença própria**, a qual **não permite sua livre distribuição** \(conforme detalhado na próxima seção\).
-
-## Aviso de direitos autorais
-
-O conteúdo desta monografia em construção é minha propriedade intelectual. É concedida à Universidade de Brasília permissão para reproduzir cópias desta monografia de Bacharelado e para emprestar ou vender tais cópias somente para propósitos acadêmicos e científicos. **O autor se reserva a outros direitos de publicação e nenhuma parte desta monografia de Bacharelado pode ser reproduzida sem a autorização por escrito do autor.**
+* Embora o _material licenciado_ \(o modelo de Latex\) tenha sido distribuído livremente com a licença _CC BY-NC 4.0_, esta monografia possui uma **licença própria** diferente da licença do material licenciado.
