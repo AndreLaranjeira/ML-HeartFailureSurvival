@@ -13,4 +13,8 @@ O projeto foi dividido em pastas com o intuito de facilitar a navegação. Cada 
 ## Integrantes
 
 * Aluno orientando: André Filipe Caldas Laranjeira
-* Professor orientador: Alexandre Ricardo Soares Romariz  
+* Professor orientador: Prof. Dr. Alexandre Ricardo Soares Romariz  
+* Membros da banca de defesa do TCC:
+  * Prof. Dr. Alexandre Ricardo Soares Romariz
+  * Prof. Dr. Adson Ferreira da Rocha
+  * Prof. Dr. Li Weigang
