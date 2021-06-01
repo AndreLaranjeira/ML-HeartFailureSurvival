@@ -6,7 +6,7 @@ Neste capítulo, o procedimento adotado ao longo do trabalho é detalhado com o 
 
 Como primeiro passo no processo de aprendizado de máquina, foi necessária a escolha de um conjunto de dados que possibilitasse o treinamento de modelos de aprendizado de máquina para uso em uma aplicação completa em tempo útil para a realização deste trabalho. Tendo isso em mente, a decisão recaiu sobre um conjunto de dados \cite{larxel_dataset} disponibilizado em um artigo científico de 2017 \cite{dataset_article} e utilizado em um artigo científico escrito por Chicco e Jurman \cite{chicco2020} voltado para o estudo de aprendizado de máquina para a previsão de sobrevivência à insuficiência cardíaca.
 
-O conjunto de dados escolhido contém 299 registros de pacientes, cada um consistindo em 11 variáveis relacionadas à saúde geral e cardíaca do paciente, 1 variável indicando o tempo de acompanhamento médico do paciente e 1 variável indicando se o paciente veio a óbito durante o acompanhamento médico realizado. Dessa forma, trata-se de um conjunto de dados pequeno, de fácil compreensão, que pudesse ser explorado com um certo grau de profundidade em um curto espaço de tempo, e com uma clara utilidade prática de auxiliar a prevenção de óbitos causados por insuficiência cardíaca em pacientes com base em uma previsão realizada por meio de aprendizado de máquina.
+O conjunto de dados escolhido contém 299 registros de pacientes, cada um consistindo em 11 variáveis relacionadas à saúde geral e cardíaca do paciente, 1 variável indicando o tempo de acompanhamento médico do paciente e 1 variável indicando se o paciente veio a óbito antes do fim do acompanhamento médico realizado. Dessa forma, trata-se de um conjunto de dados pequeno, de fácil compreensão, que pudesse ser explorado com um certo grau de profundidade em um curto espaço de tempo, e com uma clara utilidade prática de auxiliar a prevenção de óbitos causados por insuficiência cardíaca em pacientes com base em uma previsão realizada por meio de aprendizado de máquina.
 
 As variáveis contidas no conjunto de dados são descritas em maiores detalhes na tabela \ref{table:descricao_conjunto_de_dados}. Neste trabalho, todas as variáveis fornecidas pelo conjunto de dados exceto sódio sérico, tempo e evento de morte foram utilizadas como características para o treinamento de modelos de aprendizado de máquina. A variável de evento de morte foi utilizada como resultado a ser previsto pelo aprendizado de máquina.
 
@@ -42,7 +42,7 @@ As variáveis contidas no conjunto de dados são descritas em maiores detalhes n
     \hline
     \textit{time} (tempo) & Número inteiro & Número de dias em que o paciente recebeu acompanhamento médico após a ocorrência de insuficiência cardíaca. \\
     \hline
-    \textit{DEATH\_EVENT} \newline (evento de morte) & Booleano (0 ou 1) & Se o paciente veio a óbito durante o período de acompanhamento médico (1) ou não (0). O período de acompanhamento médico tem duração média de 130 dias. \\
+    \textit{DEATH\_EVENT} \newline (evento de morte) & Booleano (0 ou 1) & Se o paciente veio a óbito antes do fim do período de acompanhamento médico (1) ou não (0). O período de acompanhamento médico tem duração média de 130 dias. \\
     \hline
     \end{tabular}
   }
