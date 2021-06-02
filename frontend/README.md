@@ -1,6 +1,6 @@
 # Machine learning - Heart failure - Frontend
 
-Frontend do website auxiliar para prever insuficiência cardíaca. Feito com a framework React.
+Frontend do website auxiliar para prever sobrevivência à insuficiência cardíaca. Feito com a framework React.
 
 ## Atribuições
 

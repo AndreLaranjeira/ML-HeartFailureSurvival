@@ -1,7 +1,10 @@
 {
-  "name": "heart-failure-frontend",
-  "version": "0.1.0",
+  "name": "heart-failure-survival-frontend",
+  "version": "1.0.0",
   "private": true,
+  "author": "André Filipe Caldas Laranjeira",
+  "license": "MIT",
+  "description": "Website frontend of ML-HeartFailureSurvival project. This project seeks to use machine learning to predict heart failure survival for heart failure patients and to create an accompanying website to allow medical staff to register the patients' data and make queries.",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@testing-library/jest-dom": "^5.11.4",

@@ -1,7 +1,7 @@
 {
-  "name": "heart-failure-backend",
+  "name": "heart-failure-survival-backend",
   "version": "1.0.0",
-  "description": "Backend API of ML-HeartFailure project. This project seeks to use machine learning to predict the likehood of heart failure in a pacient and to create an accompanying website to allow medical staff to register the pacient's data and make queries.",
+  "description": "Backend API of ML-HeartFailureSurvival project. This project seeks to use machine learning to predict heart failure survival for heart failure patients and to create an accompanying website to allow medical staff to register the patients' data and make queries.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/server.js",
