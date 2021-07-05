@@ -1,4 +1,4 @@
-# Machine learning - Heart failure - AI
+# Machine learning - Heart failure survival - AI
 
 Programa de aprendizado de máquina escrito em Python com o intuito de prever sobrevivência à insuficiência cardíaca.
 

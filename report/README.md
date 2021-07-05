@@ -1,4 +1,4 @@
-# Machine learning - Heart failure - Report
+# Machine learning - Heart failure survival - Report
 
 Monografia de André Filipe Caldas Laranjeira para seu Trabalho de conclusão de curso \(TCC\) do curso de bacharelado em Engenharia da computação pela Universidade de Brasília \(UnB\).
 

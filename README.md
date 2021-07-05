@@ -1,4 +1,4 @@
-# Machine learning - Heart failure
+# Machine learning - Heart failure survival
 
 ## Descrição
 
